@@ -98,6 +98,13 @@ class PlayerCharacter:
 
 hero_pc = PlayerCharacter(name, gender, race)
 
+to_hit_dice = random.randint(1, 20)
+damage_dice = random.randint(1, 8)
+# Testing random number generator
+for i in range(0, 10):
+    damage_dice = random.randint(1, 8)
+    print(f"Random damage die rolls: {damage_dice} + 1 = " + str((damage_dice + 1)))
+
 # This section is just for testing to make sure that the fields are being properly set.
 print(hero_pc.name)
 print(hero_pc.race)
@@ -113,7 +120,7 @@ print(hero_pc.experience)
 # "Weapon name": Damage value
 dict_weapons = {"Rusty Kitchen Knife": 5, "Shortsword": 10, "Longsword": 15, "Greatsword": 20}
 # "Armor name": [Defence value, cost]
-dict_armors = {"Rags": [1, 0], "Cloth Armor": [5, 10], "Leather Armor": [10, 25], "Chainmail": [20, 70], "Platemail": [50, 200]}
+dict_armors = {"Rags": [0, 0], "Cloth Armor": [1, 10], "Leather Armor": [3, 25], "Chainmail": [6, 70], "Platemail": [ 8, 200]}
 # "Healing potion name": [Healing value, cost].
 dict_potions = {"Potion of healing": [30, 15], "Elixir of healing": [60, 40], "Infustion of healing": [120, 100], "Tincture of healing": [300, 250]}
 # {"Monster Name": [hitpoints, attack_rating, damage, armor_rating, experience_value, gold multiplier, alive]}
