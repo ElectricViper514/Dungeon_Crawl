@@ -30,3 +30,16 @@ Synopsys: You were traveling and sought shelter in a nearby appearently abandond
 You are greeted by the grounds keeper who offers you a meal.
 You awaken in dungeon with only one option. To fight your way out in an attempt to
 escape your prison.'''
+
+# Example of simplifying a class.
+# https://stackoverflow.com/questions/1639174/creating-class-instance-properties-from-a-dictionary
+class MyClass:
+    def __init__(self, data_dict):
+        for key, value in data_dict.items():
+            setattr(self, key, value)
+
+# Example usage:
+data = {"name": "Alice", "age": 30}
+my_instance = MyClass(data)
+print(my_instance.name)  # Output: "Alice"
+print(my_instance.age)   # Output: 30

@@ -55,7 +55,7 @@ input("Remember to just breathe. When you have collected your thoughs, press 'En
 name = input("What is your name, brave soul?\nIf you don't answer, I will pick one for you:   ")
 if not name:
     name = "Soandso"
-gender = input("What gender do you identify as?\nIf you don't pick one, I'll set you as 'neutral':   ")
+gender = input("What gender do you identify as?\nIf you don't pick one, I'll set you as 'Neutral':   ")
 if not gender:
     gender = "Neutral"
 race = "Human"
@@ -96,26 +96,6 @@ class PlayerCharacter:
         pass
 
 
-hero_pc = PlayerCharacter(name, gender, race)
-
-to_hit_dice = random.randint(1, 20)
-damage_dice = random.randint(1, 8)
-# Testing random number generator
-for i in range(0, 10):
-    damage_dice = random.randint(1, 8)
-    print(f"Random damage die rolls: {damage_dice} + 1 = " + str((damage_dice + 1)))
-
-# This section is just for testing to make sure that the fields are being properly set.
-print(hero_pc.name)
-print(hero_pc.race)
-print(hero_pc.gender)
-print(hero_pc.strength)
-print(hero_pc.dexterity)
-print(hero_pc.constitution)
-print(hero_pc.level)
-print(hero_pc.experience)
-# This is the end of the testing section for the entries for the PlayerCharacter class.
-
 #This is the dictionary of weapons, armor, potions and monsters.
 # "Weapon name": Damage value
 dict_weapons = {"Rusty Kitchen Knife": 5, "Shortsword": 10, "Longsword": 15, "Greatsword": 20}
@@ -141,6 +121,26 @@ class Monster:
         self.gold_multiplier = gold_multiplier
         self.alive = True
 
+# Main code below here.
 
+hero_pc = PlayerCharacter(name, gender, race)
+
+to_hit_dice = random.randint(1, 20)
+damage_dice = random.randint(1, 8)
+# Testing random number generator
+for i in range(0, 10):
+    damage_dice = random.randint(1, 8)
+    print(f"Random damage die rolls: {damage_dice} + 1 = " + str((damage_dice + 1)))
+
+# This section is just for testing to make sure that the fields are being properly set.
+print(hero_pc.name)
+print(hero_pc.race)
+print(hero_pc.gender)
+print(hero_pc.strength)
+print(hero_pc.dexterity)
+print(hero_pc.constitution)
+print(hero_pc.level)
+print(hero_pc.experience)
+# This is the end of the testing section for the entries for the PlayerCharacter class.
 
 goodbye = input("Press enter to exit.")
