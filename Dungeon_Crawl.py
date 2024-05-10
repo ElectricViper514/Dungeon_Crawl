@@ -52,15 +52,49 @@ print("""\n
 
 input("Remember to just breathe. When you have collected your thoughs, press 'Enter' to continue.\n\n")
 
-name = input("What is your name, brave soul?\nIf you don't answer, I will pick one for you:   ")
-if not name:
-    name = "Soandso"
-gender = input("What gender do you identify as?\nIf you don't pick one, I'll set you as 'Neutral':   ")
-if not gender:
-    gender = "Neutral"
-race = "Human"
+# Starting basic player stats.
+player_stats = {"name": "Soandso", "gender": "Intersex", "race": "Human", "strength": 10, "dexterity": 10, "constitution": 10, "level": 1, "experience": 0, "alive": True}
 
-class PlayerCharacter:
+'''name = input("What is your name, brave soul?\nIf you don't answer, I will pick one for you:   ")
+if not name:
+    name = "Soandso"'''
+
+# Testing if Player Name and Gender are left blank. If they are then the default vaulue is used. If they enter something, then the player's entered value will be used in place of the default.
+player_name = input("What is your name, brave soul?\nIf you don't answer, I will pick one for you:   ")
+if len(player_name) == 0:
+    print("\nYour name shall be set as 'Soandso'\nLet's move on from the name question.")        
+else:
+    player_stats.update({"name": player_name})
+    print(f"\n\nHello {player_name}.")
+
+player_gender = input("\nWhat gender do you identify as?\n\nIf you don't pick one, I'll set you as 'Intersex':   ")
+if len(player_gender) == 0:
+    print("\nYour gender shall be set as 'Intersex'\nLet's move on from this question.\n")
+else:
+    player_stats.update({"gender": player_gender})
+
+# Testing an alternative was of establishing a player. If this works then I can expand a different dictionary to create multiple types of monsters with the same class instead of having to create a new class for every monster type.
+
+class Player:
+    def __init__(self, player_stats):
+        for key, value in player_stats.items():
+            setattr(self, key, value)
+
+player_equipment = {"weapon": "Rusty Kitchen Knife", "armor": "rags", "gold": 0}
+
+test_player = Player(player_stats)
+# This section is just for testing to make sure that the fields are being properly set.
+print(f"Player's Name: {test_player.name}")
+print(f"Player's Gender: {test_player.gender}")
+print(f"Player's Race: {test_player.race}")
+print(f"Player's Strength: {test_player.strength}")
+print(f"Player's Desterity: {test_player.dexterity}")
+print(f"Player's Constitution: {test_player.constitution}")
+print(f"Player's Level: {test_player.level}")
+print(f"Player's Experience: {test_player.experience}")
+print(f"Player's Living Status: {test_player.alive}")
+
+'''class PlayerCharacter:
 
     def __init__(self, name, gender, race, strength = 10, dexterity = 10, constitution = 10, alive = True):
         self.name = name 
@@ -73,8 +107,7 @@ class PlayerCharacter:
         self.experience = 0
         self.alive = alive
         self.weapon = "Rusty Kitchen Knife"
-        self.armor_upper_body = "Rags"
-        self.armor_lower_body = "Rags"
+        self.armor = "Rags"
 
     def __repr__(self):
         return f'PlayerCharacter("All you know is that you are a {self.gender} {self.race} and you think that your name is "{self.name}"\nYou think that is your name at least.)'
@@ -94,18 +127,22 @@ class PlayerCharacter:
 
     def open():
         pass
-
+'''
 
 #This is the dictionary of weapons, armor, potions and monsters.
-# "Weapon name": Damage value
-dict_weapons = {"Rusty Kitchen Knife": 5, "Shortsword": 10, "Longsword": 15, "Greatsword": 20}
+# Stats and their bonuses
+dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 0, 11: 0, 12: 1, 13: 1, 14: 2, 15: 2, 16: 3, 17: 3, 18: 4, 19: 4, 20: 5, 21: 5, 22: 6, 23: 6, 24: 7, 25: 7, 26: 8, 27: 8, 28: 9, 29: 9, 30: 10}
+# "Weapon name": Min Damage, Max Damage, Cost
+dict_weapons = {"Rusty Kitchen Knife": [1, 4, 1], "Shortsword": [1, 6, 10], "Longsword": [1, 8, 20], "Greatsword": [2, 12, 50]}
+# "Bonus Damage: -5 through +5"
+dict_damage_modifier = {"Crippling": -5, "Debilitating": -4, "Weakening": -3, "Hampering": -2, "Slight Impairment": -1, "Normal": 0, "Slight Enhancement": 1, "Boosting": 2, "Strengthening": 3, "Empowering": 4, "Potent": 5}
 # "Armor name": [Defence value, cost]
 dict_armors = {"Rags": [0, 0], "Cloth Armor": [1, 10], "Leather Armor": [3, 25], "Chainmail": [6, 70], "Platemail": [ 8, 200]}
 # "Healing potion name": [Healing value, cost].
 dict_potions = {"Potion of healing": [30, 15], "Elixir of healing": [60, 40], "Infustion of healing": [120, 100], "Tincture of healing": [300, 250]}
-# {"Monster Name": [hitpoints, attack_rating, damage, armor_rating, experience_value, gold multiplier, alive]}
+# {"Monster Name": [hitpoints = 0, to hit modifier = 1, max damage = 3, defence bonus = 4, experience_value = 5, max gold = 6, alive = 7]}
 # The gold multiplier is to reduce or increase the value earned based on the creatures difficutly.
-dict_monsters = {"ROUS": [5, 4, 3, 4, 7, 0.7, True]}
+dict_monsters = {"ROUS": [5, 1, 3, 4, 7, 3, True]}
 
 
 class Monster:
@@ -123,24 +160,20 @@ class Monster:
 
 # Main code below here.
 
-hero_pc = PlayerCharacter(name, gender, race)
+#hero_pc = Player(name, gender, race)
+# Random Dice Rollers
 
-to_hit_dice = random.randint(1, 20)
-damage_dice = random.randint(1, 8)
+#to_hit_dice = random.randint(1, 20)
+#damage_dice = random.randint(1, 8)
 # Testing random number generator
-for i in range(0, 10):
-    damage_dice = random.randint(1, 8)
-    print(f"Random damage die rolls: {damage_dice} + 1 = " + str((damage_dice + 1)))
+#for i in range(0, 10):
+    #damage_dice = random.randint(1, 8)
+    #
+    # print(f"Random damage die rolls: {damage_dice} + 1 = " + str((damage_dice + 1)))
 
-# This section is just for testing to make sure that the fields are being properly set.
-print(hero_pc.name)
-print(hero_pc.race)
-print(hero_pc.gender)
-print(hero_pc.strength)
-print(hero_pc.dexterity)
-print(hero_pc.constitution)
-print(hero_pc.level)
-print(hero_pc.experience)
+
+
 # This is the end of the testing section for the entries for the PlayerCharacter class.
 
-goodbye = input("Press enter to exit.")
+#
+# goodbye = input("Press enter to exit.")
