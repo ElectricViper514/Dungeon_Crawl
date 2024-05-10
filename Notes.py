@@ -43,3 +43,4 @@ data = {"name": "Alice", "age": 30}
 my_instance = MyClass(data)
 print(my_instance.name)  # Output: "Alice"
 print(my_instance.age)   # Output: 30
+# End of Notes.py
