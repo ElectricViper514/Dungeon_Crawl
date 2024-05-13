@@ -29,7 +29,9 @@ Gold = Who doesn't like some pocket change.
 Synopsys: You were traveling and sought shelter in a nearby appearently abandonded castle.
 You are greeted by the grounds keeper who offers you a meal.
 You awaken in dungeon with only one option. To fight your way out in an attempt to
-escape your prison.'''
+escape your prison.
+
+The only way out is forward, never and I never go back the way you came.'''
 
 # Example of simplifying a class.
 # https://stackoverflow.com/questions/1639174/creating-class-instance-properties-from-a-dictionary
