@@ -172,7 +172,7 @@ dict_potions = {"Potion of healing": [30, 15], "Elixir of healing": [60, 40], "I
 dict_monsters = {1: "Giant Rat", 2: "Goblin", 3: "Kobold"}
 dict_giant_rat = {"name": "Giant Rat", "hit_points": 5, "to_hit": 1, "damage": 3, "defense_rating": 4, "experience_value": 7, "gold": 3, "is_alive": True}
 dict_goblin = {"name": "Goblin", "hit_points": 7, "to_hit": 2, "damage": 6, "defense_rating": 2, "experience_value": 10, "gold": 5, "is_alive": True}
-dict_kobold = {"name": "Giant Rat", "hit_points": 5, "to_hit": 1, "damage": 3, "defense_rating": 4, "experience_value": 7, "gold": 3, "is_alive": True}
+dict_kobold = {"name": "Kobold", "hit_points": 6, "to_hit": 2, "damage": 4, "defense_rating": 3, "experience_value": 6, "gold": 4, "is_alive": True}
 
 class Monster:
     def __init__(self, mob):
@@ -180,7 +180,7 @@ class Monster:
             setattr(self, key, value)
 
 mob = {}
-mob = dict_giant_rat
+mob = dict_kobold
 
 bob = Monster(mob)
 
