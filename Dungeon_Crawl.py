@@ -15,14 +15,30 @@ __maintainer__  = "John W. Davis"
 __email__       = "ElectricViper@VipersByteSolutions.com"
 __status__      = "Prototype" #"Development" | "Production"
 
-from asyncio.windows_events import NULL
 import os
 import random
 import time
+from turtle import clear
 
 os.system('cls' if os.name == 'nt' else 'clear')
+clear
 
-print("""
+os.system('color')
+
+text_bold = '\033[1m'
+text_underline = '\033[4m'
+text_invert = '\33[7m'
+text_color_purple = '\033[95m'
+text_color_blue = '\033[94m'
+text_color_cyan = '\033[96m'
+text_color_green = '\033[92m'
+text_color_orange = '\033[93m'
+text_color_red = '\033[91m'
+text_end = '\033[0m'
+
+
+
+print(text_color_blue + """
 Welcome adventurer! Welcome to your final days. You have become the latest test subject of
 the mad wizard Professor Bon Von Jovian  
       
@@ -31,52 +47,44 @@ The only sound is that of the dripping of water in the distance.
 As your vision clears and you shake the cobwebs from your head, you begin
 to recall the events leading up to this point. You were at an office party when 
 you started to feel ill. You remember someone claiming to be a doctor had offered
-to help you. Your world faded to black after accepting her help.
+to help you. Your world faded to black after accepting her help.""" + text_end)
 
-You snap out of your thoughts as a very large rat scurries across the floor and over
-your leg eliciting a small yelp from you.
-""")
+input("Press " + text_invert + "'Enter'" + text_end + " when you are ready to move on.")
 
-input("Press 'Enter' when you are ready to move on.")
-
-os.system('cls' if os.name == 'nt' else 'clear')
-
-print("""\n
+print(text_color_green + """\n
 As you look around the room you see that you are in a small rectangular room
 made with rough stone walls and at one time it looks to have been a pantry. As you
-investigate the pantry, you realize that you are only wearing some very basic
-garments. No, make that more like dirty rags. What'ev, as you look around the room
-you find and old chef's knife. No sooner have you picked up the knife that you hear
-the squeeking of an ROUS or Rodents of Unusual Size. In laymen's terms ... a giant rat!
+investigate the supposed pantry, you realize that you are only wearing some very basic garments. No, make that more like dirty rags. What'ev ... as you look around the room you find an old chef's knife. While lost in thought wondering who would have left such a rusted piece of junk here you snap out of your thoughts as an 'R' 'O' 'U' 'S' or Rodent of Unusual Size scurries across the floor and up your leg eliciting a not so small yelping scream from you. You hear the juxting of the small teeth as the, 'R' 'O' 'U' ... in laymen's terms ... a giant rat prepares to make a meal out of your leg. You grab the rusty chef's knife and ...
       
 Prepare to fight, because one of you two is on the menu for supper tonight.
-And I don't think that you want it to be you that's on the dinner menu.
-      """)
+And I don't think that you want it to be you that's on the menu tonight / today, you know you can't tell what time of day it is here while trapped in this area as there are no windows or any indicators as to whether it is day or night outside of this place.\n""" + text_end)
 
-input("Remember to just breathe. When you have collected your thoughs,\npress 'Enter' to continue.\n\n")
+input("Just before the giant rat can attack you. A feeling washes over you and you are transported to your inner soul space where time from the outside world seems to have slowed to a stop.\n\nThe Guiding Force whispers in your mind 'Remember to just breathe.' When you have collected your thoughs,\nPress " + text_invert + "'Enter'" + text_end + " to continue:\n\n")
 
 print("One more thing ...\n")
 time.sleep(2)
-print("The only way out is forward. You can go forward. You can go left. You can go even go right.\n\n")
-time.sleep(2)
-print("But you can never.")
+print("The only way out is forward.\nYou can go forward.\nYou can go left.\nYou can go right.\n\n")
+time.sleep(5)
+print("But you can never.\n\n")
 time.sleep(2)
 print("And I mean NEVER go back the way you came!\n\n")
-nod_in_agreement = input("Let that sink into your little noodle.\nYou can nod your head in agreement by pressing enter\n\n")
+nod_in_agreement = input("Let that sink into your little noodle.\nYou can nod your head in agreement by pressing " + text_invert + "'Enter'" + text_end + " to continue:")
 time.sleep(2)
-print("Take a breath, don't stress and remember ...")
+print("\n\nTake a breath, don't stress and remember ...\n")
 time.sleep(2)
 print("...\n\n")
 time.sleep(2)
-print("Do not say that ...\n\n")
+print("Do not say that ...\n")
 time.sleep(2)
-print("Yooouuuuu ...")
+print("Yooouuuuu ...\n")
 time.sleep(2)
-print("Were ...\n\n")
-time.sleep(1)
-print("NOT ...\n\n")
+print("Have ...\n")
 time.sleep(2)
-print("WARNED!!!\n\n")
+print("NOT ...\n")
+time.sleep(2)
+print("BEEN ...\n")
+time.sleep(2)
+print(text_color_red + "WARNED!!!\n" + text_end)
 time.sleep(2)
 print("\n\n")
 
@@ -85,11 +93,6 @@ player_stats = {"name": "Soandso", "gender": "Gender Nil", "race": "Human", "str
 
 
 
-'''name = input("What is your name, brave soul?\nIf you don't answer, I will pick one for you:   ")
-if not name:
-    name = "Soandso"'''
-
-# Testing if Player Name and Gender are left blank. If they are then the default vaulue is used. If they enter something, then the player's entered value will be used in place of the default.
 player_name = input("What is your name, brave soul?\nIf you don't answer, I will pick one for you:   ")
 if len(player_name) == 0:
     print("\nYour name shall be set as 'Soandso'\nLet's move on the next question.")        
@@ -97,11 +100,80 @@ else:
     player_stats.update({"name": player_name})
     print(f"\n\nHello {player_name}.")
 
-player_gender = input("\nWhat gender do you identify as?\n\nIf you don't pick one, I'll set you as 'Gender Nil':   ")
+player_gender = input("\n\nWhat gender do you identify as?\n\nIf you don't pick one, I'll set you as 'Gender Nil':   ")
 if len(player_gender) == 0:
     print("\nYour gender shall be set as 'Gender Nil'\nMoving on from the questions.\n")
 else:
     player_stats.update({"gender": player_gender})
+    print(f"Well, you seem to resemble a {player_gender}.\n\nAnyways, moving on.")
+
+print(f"Now, {player_name}, all of your base stats start off as 10 each. You have 10 points to add to your stats. The stats that you are concerned with are as follows:")
+print("\nStrength: This determines how hard you can hit and how easily you hit with melee weapons.")
+move_on = input("Press " + text_invert + "'Enter'" + text_end + " to continue:")
+print("\nDexterity: This determines how well you can avoid attacks while also determining how well you can hit with ranged weapons.")
+move_on = input("Press " + text_invert + "'Enter'" + text_end + " to continue:")
+print("\nConstitution: This determines how healthy you are and how well you can shrug off the effects of diseases, illnesses, and poisons.")
+move_on = input("Press " + text_invert + "'Enter'" + text_end + " to continue:")
+
+player_remaining_stat_points = 10
+player_stat_points_added = 0
+player_stat_choice = ""
+stat_update = 0
+
+print("\nWhich one of the stats would you like to add points to first?\n")
+print("1. Strength, 2. Dexterity, or 3. Constitution\nThese all start with a base of 10 which gives you a +0 to your modifiers. You gain +1 to your modifiers every 2 points over 10 that you allocate to your stats.\n\nMake your choices.\n")
+print(f"Your current stats are as follows:\nStrength: {player_stats['strength']}\nDexterity: {player_stats['dexterity']}\nConstitution: {player_stats['constitution']}\n")
+
+time.sleep(3)
+
+while player_remaining_stat_points > 0:
+    print(f"You have {player_remaining_stat_points} stat points remaining to be distributed.\nPlease select from the following choices:\n")
+    time.sleep(2)
+    player_stat_choice = input("1. Strength, 2. Dexterity, or 3. Constitution\n")
+    player_stat_choice = int(player_stat_choice)
+    if player_stat_choice == 1:
+        player_stat_points_added = input(f"How many points of your remaining {player_remaining_stat_points} would you like to add to your Strength?\n:")
+        player_stat_points_added = int(player_stat_points_added)
+        if player_stat_points_added == 0:
+            print("\nYou have opted to add 0 points to Strength.\nChange your mind did we?\n\nMake another selection.")
+        elif player_stat_points_added > player_remaining_stat_points:
+            print(f"\nYou have selected more points than what you have available.\nPlease select a number of points to add to your 'Strength' that is equal to or lower than your remaining {player_remaining_stat_points} point(s).\n")             
+        else:
+            stat_update = player_stats["strength"] + player_stat_points_added
+            print(f"You have opted to add {player_stat_points_added} to your current strength score of {player_stats['strength']}. This will make your new Strength score {stat_update}.\n")
+            player_stats.update({"strength": stat_update})
+            player_remaining_stat_points -= player_stat_points_added
+
+    elif player_stat_choice == 2:
+        player_stat_points_added = input(f"How many points of your remaining {player_remaining_stat_points} would you like to add to your Dexterity?\n:")
+        player_stat_points_added = int(player_stat_points_added)
+        if player_stat_points_added == 0:
+            print("\nYou have opted to add 0 points to Dexterity.\nChange your mind did we?\n\nMake another selection.")
+        elif player_stat_points_added > player_remaining_stat_points:
+            print(f"\nYou have selected more points than what you have available.\nPlease select a number of points to add to your 'Dexterity' that is equal to or lower than your remaining {player_remaining_stat_points} point(s).\n")             
+        else:
+            stat_update = player_stats["dexterity"] + player_stat_points_added
+            print(f"You have opted to add {player_stat_points_added} to your current Dexterity score of {player_stats['dexterity']}. This will make your new Dexterity score {stat_update}.\n")
+            player_stats.update({"dexterity": stat_update})
+            player_remaining_stat_points -= player_stat_points_added
+
+    elif player_stat_choice == 3:
+        player_stat_points_added = input(f"How many points of your remaining {player_remaining_stat_points} would you like to add to your Constitution?\n:")
+        player_stat_points_added = int(player_stat_points_added)
+        if player_stat_points_added == 0:
+            print("\nYou have opted to add 0 point to Constitution.\nChange your mind did we?\n\nMake another selection.")
+        elif player_stat_points_added > player_remaining_stat_points:
+            print(f"\nYou have selected more points than what you have available.\nPlease select a number of points to add to your 'Constitution' that is equal to or lower than your remaining {player_remaining_stat_points} point(s).\n")             
+        else:
+            stat_update = player_stats["constitution"] + player_stat_points_added
+            print(f"You have opted to add {player_stat_points_added} to your current Constitution score of {player_stats['constitution']}. This will make your new Constitution score {stat_update}.\n")
+            player_stats.update({"constitution": stat_update})
+            player_remaining_stat_points -= player_stat_points_added
+    else:
+        print("\nYou did not select Strength, Dexterity, or Constitution.")
+        print("Please choose one of the stats above.\n")
+
+
 
 # Testing an alternative was of establishing a player. If this works then I can expand a different dictionary to create multiple types of monsters with the same class instead of having to create a new class for every monster type.
 
@@ -109,6 +181,9 @@ class Player:
     def __init__(self, player_stats):
         for key, value in player_stats.items():
             setattr(self, key, value)
+    
+    def __repr__(self):
+        return f'PlayerCharacter("All you know is that you are a {self.gender} {self.race} and you think that your name is "{self.name}"\nYou think that is your name at least.'
 
 player_equipment = {"weapon": "Rusty Kitchen Knife", "armor": "rags", "gold": 0}
 
@@ -118,29 +193,13 @@ print(f"Player's Name: {test_player.name}")
 print(f"Player's Gender: {test_player.gender}")
 print(f"Player's Race: {test_player.race}")
 print(f"Player's Strength: {test_player.strength}")
-print(f"Player's Desterity: {test_player.dexterity}")
+print(f"Player's Dexterity: {test_player.dexterity}")
 print(f"Player's Constitution: {test_player.constitution}")
 print(f"Player's Level: {test_player.level}")
 print(f"Player's Experience: {test_player.experience}")
 print(f"Player's Living Status: {test_player.alive}")
 
-'''class PlayerCharacter:
-
-    def __init__(self, name, gender, race, strength = 10, dexterity = 10, constitution = 10, alive = True):
-        self.name = name 
-        self.gender = gender
-        self.race = race
-        self.strength = strength
-        self.dexterity = dexterity
-        self.constitution = constitution
-        self.level = 1
-        self.experience = 0
-        self.alive = alive
-        self.weapon = "Rusty Kitchen Knife"
-        self.armor = "Rags"
-
-    def __repr__(self):
-        return f'PlayerCharacter("All you know is that you are a {self.gender} {self.race} and you think that your name is "{self.name}"\nYou think that is your name at least.)'
+'''
     
     def attack(self, attack_rating, damage):
         self.attack_rating = attack_rating
@@ -191,16 +250,7 @@ mob = dict_kobold
 
 bob = Monster(mob)
 
-#mob = {key: value for key, value in dict_monsters.items() if key.startswith("ROUS")}
-#giant_rat = {}
-#giant_rat = Monster(mob)
-
-# filtered_dict = {key: value for key, value in my_dict.items() if key.startswith("ROUS")}
-
-#print(f"Monster's Name: {giant_rat.startswith("ROUS")}")
-#
-# print(f"Monster's Race: {giant_rat.race}")
-
+#This is just to test is the monsters are pulling all of the right info from the dictionary
 print("\n\nThis is the monster's stats\n\n")
 print(f"Monster's Name: {(bob.name)}")
 print(f"Monster's Hit Points: {bob.hit_points}")
@@ -211,25 +261,8 @@ print(f"Monster's Experience: {bob.experience_value}")
 print(f"Monster's Gold: {bob.gold}")
 print(f"Monster's Living Status: {bob.is_alive}")
 
-# {"Monster Name": [0 hitpoints = 5, 1 to hit modifier = 1, 2 max damage = 3, 3 defence bonus = 4, 4 experience_value = 7, 5 max gold = 3, 6 alive = True]}
-#dict_monsters = {"ROUS": [5, 1, 3, 4, 7, 3, True]}
-
-'''class Monster:
-    # The goal here is to have a single monster class and it can be populated with various monsters
-    # from the dictionary to provide unique monsters.
-    def __init__(self, name, hitpoints, attack_rating, damage, armor_rating, experience_value, gold_multiplier, alive):
-        self.name = name
-        self.hitpoints = hitpoints
-        self.attack_rating = attack_rating
-        self.damage = damage
-        self.armor_rating = armor_rating
-        self.experience_value = experience_value
-        self.gold_multiplier = gold_multiplier
-        self.alive = True'''
-
 # Main code below here.
 
-#hero_pc = Player(name, gender, race)
 # Random Dice Rollers
 
 #to_hit_dice = random.randint(1, 20)
@@ -241,8 +274,5 @@ print(f"Monster's Living Status: {bob.is_alive}")
     # print(f"Random damage die rolls: {damage_dice} + 1 = " + str((damage_dice + 1)))
 
 
-
-# This is the end of the testing section for the entries for the PlayerCharacter class.
-
-#
-# goodbye = input("Press enter to exit.")
+goodbye = input("Press " + text_invert + "'Enter'" + text_end + " to exit.")
+os.system('cls' if os.name == 'nt' else 'clear')
