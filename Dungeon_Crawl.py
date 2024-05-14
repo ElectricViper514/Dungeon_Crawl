@@ -60,11 +60,18 @@ time.sleep(2)
 print("The only way out is forward. You can go forward. You can go left. You can go even go right.\n\n")
 time.sleep(2)
 print("But you can never.")
-time.sleep(1)
-print("And I mean NEVER go back the way you came!\n\n")
 time.sleep(2)
-print("Do not say that you ...\n\n")
-time.sleep(1)
+print("And I mean NEVER go back the way you came!\n\n")
+nod_in_agreement = input("Let that sink into your little noodle.\nYou can nod your head in agreement by pressing enter\n\n")
+time.sleep(2)
+print("Take a breath, don't stress and remember ...")
+time.sleep(2)
+print("...\n\n")
+time.sleep(2)
+print("Do not say that ...\n\n")
+time.sleep(2)
+print("Yooouuuuu ...")
+time.sleep(2)
 print("Were ...\n\n")
 time.sleep(1)
 print("NOT ...\n\n")
@@ -85,14 +92,14 @@ if not name:
 # Testing if Player Name and Gender are left blank. If they are then the default vaulue is used. If they enter something, then the player's entered value will be used in place of the default.
 player_name = input("What is your name, brave soul?\nIf you don't answer, I will pick one for you:   ")
 if len(player_name) == 0:
-    print("\nYour name shall be set as 'Soandso'\nLet's move on from the name question.")        
+    print("\nYour name shall be set as 'Soandso'\nLet's move on the next question.")        
 else:
     player_stats.update({"name": player_name})
     print(f"\n\nHello {player_name}.")
 
 player_gender = input("\nWhat gender do you identify as?\n\nIf you don't pick one, I'll set you as 'Gender Nil':   ")
 if len(player_gender) == 0:
-    print("\nYour gender shall be set as 'Gender Nil'\nLet's move on from this question.\n")
+    print("\nYour gender shall be set as 'Gender Nil'\nMoving on from the questions.\n")
 else:
     player_stats.update({"gender": player_gender})
 
@@ -170,9 +177,9 @@ dict_potions = {"Potion of healing": [30, 15], "Elixir of healing": [60, 40], "I
 
 # {"Monster Name": [hitpoints = 5, to hit modifier = 1, max damage = 3, defence bonus = 4, experience_value = 7, max gold = 3, alive = True]}
 dict_monsters = {1: "Giant Rat", 2: "Goblin", 3: "Kobold"}
-dict_giant_rat = {"name": "Giant Rat", "hit_points": 5, "to_hit": 1, "damage": 3, "defense_rating": 4, "experience_value": 7, "gold": 3, "is_alive": True}
-dict_goblin = {"name": "Goblin", "hit_points": 7, "to_hit": 2, "damage": 6, "defense_rating": 2, "experience_value": 10, "gold": 5, "is_alive": True}
-dict_kobold = {"name": "Giant Rat", "hit_points": 5, "to_hit": 1, "damage": 3, "defense_rating": 4, "experience_value": 7, "gold": 3, "is_alive": True}
+dict_giant_rat = {"name": "Giant Rat", "hit_points": 7, "to_hit": 4, "damage": 3, "defense_rating": 2, "experience_value": 25, "gold": 3, "is_alive": True} # CR .125, HP = (2d6), Damage = ( 1d4 + 2)
+dict_goblin = {"name": "Goblin", "hit_points": 7, "to_hit": 4, "damage": 5, "defense_rating": 2, "experience_value": 10, "gold": 5, "is_alive": True} # CR = .25, HP = (2d6), Damage = (2d6 + 2)
+dict_kobold = {"name": "Kobold", "hit_points": 5, "to_hit": 4, "damage": 3, "defense_rating": 2, "experience_value": 25, "gold": 7, "is_alive": True} # CR = .125, HP = (2d6 - 2), Damage = (1d4 + 2)
 
 class Monster:
     def __init__(self, mob):
