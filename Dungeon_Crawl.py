@@ -63,12 +63,13 @@ input("Just before the giant rat can attack you. A feeling washes over you and y
 
 print("One more thing ...\n")
 time.sleep(2)
-print("The only way out is forward.\nYou can go forward.\nYou can go left.\nYou can go right.\n\n")
+print("The only way out is forward.\n\nYou can go forward.\nYou can go left.\nYou can go right.\n\n")
 time.sleep(5)
-print("But you can never.\n\n")
+print(text_color_red + "But you can never.\n\n")
 time.sleep(2)
-print("And I mean NEVER go back the way you came!\n\n")
-nod_in_agreement = input("Let that sink into your little noodle.\n\nYou can nod your pretty little head in agreement once your new reality has sunken in by pressing " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n")
+print("And I mean " + text_invert + "NEVER" + text_end + text_color_red + " go back the way you came!\n\n" + text_end)
+time.sleep(3)
+nod_in_agreement = input("Let that sink into your pretty little noggin for a moment.\n\nYou can nod your pretty little head in agreement once your new reality has sunken in by pressing " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n")
 time.sleep(2)
 print("\n\nTake a breath, don't stress and remember ...\n")
 time.sleep(2)
@@ -88,17 +89,16 @@ print("\n\n")
 
 # These are the initializing variables.
 strength_bonus = 0
+dexterity_bonus = 0
+constitution_bonus = 0
 
 # These are the dictionaries, lists, and variables of weapons, armor, potions, monsters, etc...
 
 # Starting basic player stats.
-player_stats_dict = {"name": "Soandso", "gender": "Gender Nil", "race": "Human", "strength": 10,"strength_bonus": strength_bonus, "dexterity": 10, "constitution": 10, "level": 1, "experience": 0, "alive": True}
+dict_player_stats = {"name": "Soandso", "gender": "Gender Nil", "race": "Human", "strength": 10,"strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "level": 1, "experience": 0, "alive": True}
 
 # Stats and their bonuses
 dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 0, 11: 0, 12: 1, 13: 1, 14: 2, 15: 2, 16: 3, 17: 3, 18: 4, 19: 4, 20: 5, 21: 5, 22: 6, 23: 6, 24: 7, 25: 7, 26: 8, 27: 8, 28: 9, 29: 9, 30: 10}
-
-strength_bonus = dict_stat_bonues[player_stats_dict["strength"]]
-
 
 # "Weapon name": Min Damage, Max Damage, Cost
 dict_weapons = {"Rusty Kitchen Knife": [1, 4, 1], "Shortsword": [1, 6, 10], "Longsword": [1, 8, 20], "Greatsword": [2, 12, 50]}
@@ -124,14 +124,14 @@ player_name = input("What is your name, brave soul?\nIf you don't answer, I will
 if len(player_name) == 0:
     print("\nYour name shall be set as 'Soandso'\nLet's move on the next question.")        
 else:
-    player_stats_dict.update({"name": player_name})
+    dict_player_stats.update({"name": player_name})
     print(f"\n\nHello {player_name}.")
 
 player_gender = input("\n\nWhat gender do you identify as?\n\nIf you don't pick one, I'll set you as 'Gender Nil':   ")
 if len(player_gender) == 0:
     print("\nYour gender shall be set as 'Gender Nil'\nMoving on from the questions.\n")
 else:
-    player_stats_dict.update({"gender": player_gender})
+    dict_player_stats.update({"gender": player_gender})
     print(f"Well, you seem to resemble a {player_gender}.\n\nAnyways, moving on.")
 
 print(f"Now, {player_name}, all of your base stats start off as 10 each. You have 10 points to add to your stats. The stats that you are concerned with are as follows:")
@@ -149,7 +149,7 @@ stat_update = 0
 
 print("\nWhich one of the stats would you like to add points to first?\n")
 print("1. Strength, 2. Dexterity, or 3. Constitution\nThese all start with a base of 10 which gives you a +0 to your modifiers. You gain +1 to your modifiers every 2 points over 10 that you allocate to your stats.\n\nMake your choices.\n")
-print(f"Your current stats are as follows:\nStrength: {player_stats_dict['strength']}\nDexterity: {player_stats_dict['dexterity']}\nConstitution: {player_stats_dict['constitution']}\n")
+print(f"Your current stats are as follows:\nStrength: {dict_player_stats['strength']}\nDexterity: {dict_player_stats['dexterity']}\nConstitution: {dict_player_stats['constitution']}\n")
 
 time.sleep(3)
 
@@ -166,9 +166,9 @@ while player_remaining_stat_points > 0:
         elif player_stat_points_added > player_remaining_stat_points:
             print(f"\nYou have selected more points than what you have available.\nPlease select a number of points to add to your 'Strength' that is equal to or lower than your remaining {player_remaining_stat_points} point(s).\n")             
         else:
-            stat_update = player_stats_dict["strength"] + player_stat_points_added
-            print(f"You have opted to add {player_stat_points_added} to your current strength score of {player_stats_dict['strength']}. This will make your new Strength score {stat_update}.\n")
-            player_stats_dict.update({"strength": stat_update})
+            stat_update = dict_player_stats["strength"] + player_stat_points_added
+            print(f"You have opted to add {player_stat_points_added} to your current strength score of {dict_player_stats['strength']}. This will make your new Strength score {stat_update}.\n")
+            dict_player_stats.update({"strength": stat_update})
             player_remaining_stat_points -= player_stat_points_added
 
     elif player_stat_choice == 2:
@@ -179,9 +179,9 @@ while player_remaining_stat_points > 0:
         elif player_stat_points_added > player_remaining_stat_points:
             print(f"\nYou have selected more points than what you have available.\nPlease select a number of points to add to your 'Dexterity' that is equal to or lower than your remaining {player_remaining_stat_points} point(s).\n")             
         else:
-            stat_update = player_stats_dict["dexterity"] + player_stat_points_added
-            print(f"You have opted to add {player_stat_points_added} to your current Dexterity score of {player_stats_dict['dexterity']}. This will make your new Dexterity score {stat_update}.\n")
-            player_stats_dict.update({"dexterity": stat_update})
+            stat_update = dict_player_stats["dexterity"] + player_stat_points_added
+            print(f"You have opted to add {player_stat_points_added} to your current Dexterity score of {dict_player_stats['dexterity']}. This will make your new Dexterity score {stat_update}.\n")
+            dict_player_stats.update({"dexterity": stat_update})
             player_remaining_stat_points -= player_stat_points_added
 
     elif player_stat_choice == 3:
@@ -192,37 +192,86 @@ while player_remaining_stat_points > 0:
         elif player_stat_points_added > player_remaining_stat_points:
             print(f"\nYou have selected more points than what you have available.\nPlease select a number of points to add to your 'Constitution' that is equal to or lower than your remaining {player_remaining_stat_points} point(s).\n")             
         else:
-            stat_update = player_stats_dict["constitution"] + player_stat_points_added
-            print(f"You have opted to add {player_stat_points_added} to your current Constitution score of {player_stats_dict['constitution']}. This will make your new Constitution score {stat_update}.\n")
-            player_stats_dict.update({"constitution": stat_update})
+            stat_update = dict_player_stats["constitution"] + player_stat_points_added
+            print(f"You have opted to add {player_stat_points_added} to your current Constitution score of {dict_player_stats['constitution']}. This will make your new Constitution score {stat_update}.\n")
+            dict_player_stats.update({"constitution": stat_update})
             player_remaining_stat_points -= player_stat_points_added
     else:
         print("\nYou did not select Strength, Dexterity, or Constitution.")
         print("Please choose one of the stats above.\n")
 
+player_score_strength = dict_player_stats["strength"]
+strength_bonus = dict_stat_bonues[player_score_strength]
+dict_player_stats.update({"strength_bonus": strength_bonus})
+
+player_score_dexterity = dict_player_stats["dexterity"]
+dexterity_bonus = dict_stat_bonues[player_score_dexterity]
+dict_player_stats.update({"dexterity_bonus": dexterity_bonus})
+
+player_score_constitution = dict_player_stats["constitution"]
+constitution_bonus = dict_stat_bonues[player_score_constitution]
+dict_player_stats.update({"constitution_bonus": constitution_bonus})
+
+# Dice Roller
+def Roll_Dice(dice_number, dice_type):
+    dice_roll_total = 0
+    die_number = 1
+    print(f"You are rolling '{dice_number}d{dice_type}'.")
+    
+    if dice_number == 1:
+        die_roll = random.randint(1, dice_type)
+        print(f"Your die roll is: {die_roll}")
+        dice_roll_total += die_roll
+    
+    else:
+        die_number = 1
+        for _ in range(dice_number):
+            die_roll = random.randint(1, dice_type)
+            print(f"Die number {die_number} roll is: {die_roll}")
+            die_number += 1
+            dice_roll_total += die_roll
+    
+    return f"Your roll total was {dice_roll_total}"
+
+# Testing Dice Roller
+print("Dice roll 1d6:")
+Roll_Dice(1, 6)
+print("Dice roll 3d8:")
+Roll_Dice(3, 8)
+print("Rolling a d20:")
+Roll_Dice(1, 20)
 
 
 # Testing an alternative was of establishing a player. If this works then I can expand a different dictionary to create multiple types of monsters with the same class instead of having to create a new class for every monster type.
 
 class Player:
-    def __init__(self, player_stats_dict):
-        for key, value in player_stats_dict.items():
+    def __init__(self, dict_player_stats):
+        for key, value in dict_player_stats.items():
             setattr(self, key, value)
     
     def __repr__(self):
         return f'PlayerCharacter("All you know is that you are a {self.gender} {self.race} and you think that your name is \'{self.name}\'\nYou think that is your name at least.")'
+    
+    def check_inventory(self):
+        print("You have the following items in your inventory")
+        list_of_inventory_items = list(player_equipment.values())
+        for item in list_of_inventory_items:
+            print(item)
 
 player_equipment = {"weapon": "Rusty Kitchen Knife", "armor": "rags", "gold": 0}
 
-test_player = Player(player_stats_dict)
+test_player = Player(dict_player_stats)
 # This section is just for testing to make sure that the fields are being properly set.
+print("\n\n")
 print(f"Player's Name: {test_player.name}")
 print(f"Player's Gender: {test_player.gender}")
 print(f"Player's Race: {test_player.race}")
 print(f"Player's Strength: {test_player.strength}")
-print(f"Player's Strength Bonus{strength_bonus}")
+print(f"Player's Strength Bonus: {test_player.strength_bonus}")
 print(f"Player's Dexterity: {test_player.dexterity}")
+print(f"Player's Dexterity Bonus: {test_player.dexterity_bonus}")
 print(f"Player's Constitution: {test_player.constitution}")
+print(f"Player's Constitution Bonus: {test_player.constitution_bonus}")
 print(f"Player's Level: {test_player.level}")
 print(f"Player's Experience: {test_player.experience}")
 print(f"Player's Living Status: {test_player.alive}")
@@ -271,6 +320,9 @@ print(f"Monster's Defence Rating: {bob.defense_rating}")
 print(f"Monster's Experience: {bob.experience_value}")
 print(f"Monster's Gold: {bob.gold}")
 print(f"Monster's Living Status: {bob.is_alive}")
+
+inventory_check = bob.check_inventory()
+print(inventory_check)
 
 # Main code below here.
 
