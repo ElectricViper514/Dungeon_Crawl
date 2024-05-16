@@ -213,23 +213,31 @@ constitution_bonus = dict_stat_bonues[player_score_constitution]
 dict_player_stats.update({"constitution_bonus": constitution_bonus})
 
 # Dice Roller
-def Roll_Dice(dice_number, dice_type):
+def Roll_Dice(dice_number, dice_type, silent):
     dice_roll_total = 0
     die_number = 1
+    silent = false
     print(f"You are rolling '{dice_number}d{dice_type}'.")
     
     if dice_number == 1:
         die_roll = random.randint(1, dice_type)
-        print(f"Your die roll is: {die_roll}")
-        dice_roll_total += die_roll
-    
+        if silent == False:
+             print(f"Your die roll is: {die_roll}")
+             dice_roll_total += die_roll
+        else:
+             dice_roll_total += die_roll
+
     else:
         die_number = 1
         for _ in range(dice_number):
             die_roll = random.randint(1, dice_type)
-            print(f"Die number {die_number} roll is: {die_roll}")
-            die_number += 1
-            dice_roll_total += die_roll
+            if silent == False:
+                 print(f"Die number {die_number} roll is: {die_roll}")
+                 die_number += 1
+                 dice_roll_total += die_roll
+            else:
+                 die_number ÷= 1
+                 dice_roll_total ÷= die_roll
     
     return f"Your roll total was {dice_roll_total}"
 
