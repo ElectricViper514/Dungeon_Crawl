@@ -64,27 +64,27 @@ input("Just before the giant rat can attack you. A feeling washes over you and y
 print("One more thing ...\n")
 time.sleep(2)
 print("The only way out is forward.\n\nYou can go forward.\nYou can go left.\nYou can go right.\n\n")
-time.sleep(5)
+#time.sleep(5)
 print(text_color_red + "But you can never.\n\n")
-time.sleep(2)
+#time.sleep(2)
 print("And I mean " + text_invert + "NEVER" + text_end + text_color_red + " go back the way you came!\n\n" + text_end)
-time.sleep(3)
-nod_in_agreement = input("Let that sink into your pretty little noggin for a moment.\n\nYou can nod your pretty little head in agreement once your new reality has sunken in by pressing " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n")
-time.sleep(2)
-print("\n\nTake a breath, don't stress and remember ...\n")
-time.sleep(2)
+#time.sleep(3)
+nod_in_agreement = input("Let that sink into your pretty little noggin for a moment.\n\nYou can nod your pretty little head in agreement once your new reality has sunken in by: \npressing " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n")
+#time.sleep(2)
+print("\n\nTake a breath, don't stress, and remember ...\n")
+#time.sleep(2)
 print("...\n\n")
-time.sleep(2)
+#time.sleep(2)
 print("Do not say that ...\n")
-time.sleep(2)
+#time.sleep(2)
 print("Yooouuuuu ...\n")
-time.sleep(2)
+#time.sleep(2)
 print("Were ...\n")
-time.sleep(2)
+#time.sleep(2)
 print("NOT ...\n")
-time.sleep(2)
+#time.sleep(2)
 print(text_color_red + "WARNED!!!\n" + text_end)
-time.sleep(2)
+#time.sleep(2)
 print("\n\n")
 
 # These are the initializing variables.
@@ -95,10 +95,16 @@ constitution_bonus = 0
 # These are the dictionaries, lists, and variables of weapons, armor, potions, monsters, etc...
 
 # Starting basic player stats.
-dict_player_stats = {"name": "Soandso", "gender": "Gender Nil", "race": "Human", "strength": 10,"strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "level": 1, "experience": 0, "alive": True}
+dict_player_stats = {"name": "Soandso", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "level": 1, "experience": 0, "alive": True}
 
 # Stats and their bonuses
 dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 0, 11: 0, 12: 1, 13: 1, 14: 2, 15: 2, 16: 3, 17: 3, 18: 4, 19: 4, 20: 5, 21: 5, 22: 6, 23: 6, 24: 7, 25: 7, 26: 8, 27: 8, 28: 9, 29: 9, 30: 10}
+
+# Players Menu
+dict_menu_list = {"c": "Character sheet", "i": "Inventory", "w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right"}
+
+# Player Monster Encounter 
+dict_mob_menu = {"a": "Attack", "f": "Flee"}
 
 # "Weapon name": Min Damage, Max Damage, Cost
 dict_weapons = {"Rusty Kitchen Knife": [1, 4, 1], "Shortsword": [1, 6, 10], "Longsword": [1, 8, 20], "Greatsword": [2, 12, 50]}
@@ -151,11 +157,12 @@ print("\nWhich one of the stats would you like to add points to first?\n")
 print("1. Strength, 2. Dexterity, or 3. Constitution\nThese all start with a base of 10 which gives you a +0 to your modifiers. You gain +1 to your modifiers every 2 points over 10 that you allocate to your stats.\n\nMake your choices.\n")
 print(f"Your current stats are as follows:\nStrength: {dict_player_stats['strength']}\nDexterity: {dict_player_stats['dexterity']}\nConstitution: {dict_player_stats['constitution']}\n")
 
-time.sleep(3)
+#time.sleep(3)
 
+# Turn this into a method.
 while player_remaining_stat_points > 0:
     print(f"You have {player_remaining_stat_points} stat points remaining to be distributed.\nPlease select from the following choices:\n")
-    time.sleep(2)
+    #time.sleep(2)
     player_stat_choice = input("1. Strength, 2. Dexterity, or 3. Constitution\n")
     player_stat_choice = int(player_stat_choice)
     if player_stat_choice == 1:
@@ -213,15 +220,14 @@ constitution_bonus = dict_stat_bonues[player_score_constitution]
 dict_player_stats.update({"constitution_bonus": constitution_bonus})
 
 # Dice Roller
-def Roll_Dice(dice_number, dice_type, silent):
+def Roll_Dice(dice_number, dice_type, silent = False):
     dice_roll_total = 0
     die_number = 1
-    silent = false
     print(f"You are rolling '{dice_number}d{dice_type}'.")
     
     if dice_number == 1:
         die_roll = random.randint(1, dice_type)
-        if silent == False:
+        if not silent:
              print(f"Your die roll is: {die_roll}")
              dice_roll_total += die_roll
         else:
@@ -231,58 +237,65 @@ def Roll_Dice(dice_number, dice_type, silent):
         die_number = 1
         for _ in range(dice_number):
             die_roll = random.randint(1, dice_type)
-            if silent == False:
-                 print(f"Die number {die_number} roll is: {die_roll}")
+            if not silent:
+                 print(f"Die number {die_number}'s roll is: {die_roll}")
                  die_number += 1
                  dice_roll_total += die_roll
             else:
-                 die_number ÷= 1
-                 dice_roll_total ÷= die_roll
+                 die_number += 1
+                 dice_roll_total += die_roll
     
-    return f"Your roll total was {dice_roll_total}"
+    print(f"Your roll total was {dice_roll_total}")
 
 # Testing Dice Roller
 print("Dice roll 1d6:")
 Roll_Dice(1, 6)
+print("")
+print("Dice roll 1d6 silent:")
+Roll_Dice(1, 6, True)
+print("")
 print("Dice roll 3d8:")
 Roll_Dice(3, 8)
+print("")
+print("Dice roll 3d8 silent:")
+Roll_Dice(3, 8, True)
+print("")
 print("Rolling a d20:")
 Roll_Dice(1, 20)
+print("")
+print("Rolling a d20 silent:")
+Roll_Dice(1, 20, True)
 
 
 # Testing an alternative was of establishing a player. If this works then I can expand a different dictionary to create multiple types of monsters with the same class instead of having to create a new class for every monster type.
 
 class Player:
+
     def __init__(self, dict_player_stats):
         for key, value in dict_player_stats.items():
             setattr(self, key, value)
     
     def __repr__(self):
-        return f'PlayerCharacter("All you know is that you are a {self.gender} {self.race} and you think that your name is \'{self.name}\'\nYou think that is your name at least.")'
+        return f'PlayerCharacter("All you know is that you are a {self.race} {self.gender} and you think that your name is \'{self.name}\'\nAt least you think that it is.")'
     
     def check_inventory(self):
         print("You have the following items in your inventory")
-        list_of_inventory_items = list(player_equipment.values())
-        for item in list_of_inventory_items:
-            print(item)
+        for key, value in player_equipment.items():
+            print(f"{key}: {value}")
 
-player_equipment = {"weapon": "Rusty Kitchen Knife", "armor": "rags", "gold": 0}
+    def player_menu(self):
+        print("Select from the options below:")
+        for key, value in dict_menu_list.items():
+            print(f"{key}: {value}", end="  ")
 
-test_player = Player(dict_player_stats)
+player_equipment = {"weapon": "Rusty Kitchen Knife", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale"]}
+
+player_character = Player(dict_player_stats)
 # This section is just for testing to make sure that the fields are being properly set.
-print("\n\n")
-print(f"Player's Name: {test_player.name}")
-print(f"Player's Gender: {test_player.gender}")
-print(f"Player's Race: {test_player.race}")
-print(f"Player's Strength: {test_player.strength}")
-print(f"Player's Strength Bonus: {test_player.strength_bonus}")
-print(f"Player's Dexterity: {test_player.dexterity}")
-print(f"Player's Dexterity Bonus: {test_player.dexterity_bonus}")
-print(f"Player's Constitution: {test_player.constitution}")
-print(f"Player's Constitution Bonus: {test_player.constitution_bonus}")
-print(f"Player's Level: {test_player.level}")
-print(f"Player's Experience: {test_player.experience}")
-print(f"Player's Living Status: {test_player.alive}")
+
+player_character.player_menu
+print(" ")
+player_character.check_inventory
 
 '''
     
@@ -302,17 +315,12 @@ print(f"Player's Living Status: {test_player.alive}")
     def open():
         pass
 '''
-
-
-
 class Monster:
     def __init__(self, mob):
         for key, value in mob.items():
             setattr(self, key, value)
 
-
-
-
+# Create random monster generator
 mob = {}
 mob = dict_giant_rat
 
@@ -329,20 +337,12 @@ print(f"Monster's Experience: {bob.experience_value}")
 print(f"Monster's Gold: {bob.gold}")
 print(f"Monster's Living Status: {bob.is_alive}")
 
-inventory_check = bob.check_inventory()
-print(inventory_check)
+
+        
 
 # Main code below here.
 
-# Random Dice Rollers
 
-#to_hit_dice = random.randint(1, 20)
-#damage_dice = random.randint(1, 8)
-# Testing random number generator
-#for i in range(0, 10):
-    #damage_dice = random.randint(1, 8)
-    #
-    # print(f"Random damage die rolls: {damage_dice} + 1 = " + str((damage_dice + 1)))
 
 
 goodbye = input("Press " + text_invert + "'Enter'" + text_end + " to exit.")
