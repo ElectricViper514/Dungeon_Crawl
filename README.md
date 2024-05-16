@@ -43,9 +43,9 @@ The only way out is forward, never and I never go back the way you came.'''
 # https://stackoverflow.com/questions/1639174/creating-class-instance-properties-from-a-dictionary
 
 #class MyClass:
-    #def __init__(self, data_dict):
-        #for key, value in data_dict.items():
-            #setattr(self, key, value)
+#def __init__(self, data_dict):
+#for key, value in data_dict.items():
+#setattr(self, key, value)
 
 # Example usage:
 
