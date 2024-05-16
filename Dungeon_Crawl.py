@@ -101,10 +101,10 @@ dict_player_stats = {"name": "Soandso", "gender": "Gender Nil", "race": "Human",
 dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 0, 11: 0, 12: 1, 13: 1, 14: 2, 15: 2, 16: 3, 17: 3, 18: 4, 19: 4, 20: 5, 21: 5, 22: 6, 23: 6, 24: 7, 25: 7, 26: 8, 27: 8, 28: 9, 29: 9, 30: 10}
 
 # Players Menu
-dict_menu_list = {"c": "Character sheet", "i": "Inventory", "w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right"}
+dict_menu_list = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right", "c": "Character sheet", "i": "Inventory", "q": "Quaff a Potion", "l": "Look Around"}
 
 # Player Monster Encounter 
-dict_mob_menu = {"a": "Attack", "f": "Flee"}
+dict_mob_menu = {"a": "Attack - Melee", "b": "Attack - Ranged", "f": "Flee"}
 
 # "Weapon name": Min Damage, Max Damage, Cost
 dict_weapons = {"Rusty Kitchen Knife": [1, 4, 1], "Shortsword": [1, 6, 10], "Longsword": [1, 8, 20], "Greatsword": [2, 12, 50]}
@@ -277,6 +277,9 @@ print(" ")
 print("Testing the check inventory function.")
 player_character.check_inventory()
 
+
+print(f"Player's Strength is: {player_character.strength}")
+print(player_character.strength_bonus)
 '''
     
     def attack(self, attack_rating, damage):
