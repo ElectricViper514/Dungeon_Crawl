@@ -1,0 +1,3 @@
+This is my first portfolio project from Codecademy.com from their Computer Science course. I have completed their intro to programming using the Python language. Now I am attempting to put together everything that I have learned up to this point. I have been working on this bit by bit and slowly expanding each section until I am satisfied with the base functionality.
+
+This project is called "Dungeon Crawl". It is a simple text adventure game where you are thrust into a damp and dark cellar where you must find and fight your way out to freedom. But be warned. You can never go back the way that you came from in this adventure. Or you can try to go back and see how it works out for you. <you hear the sounds of maniacal laughter fading into the distance>
