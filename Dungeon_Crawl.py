@@ -63,11 +63,11 @@ input("Just before the giant rat can attack you. A feeling washes over you and y
 
 print("One more thing ...\n")
 time.sleep(2)
-print("The only way out is forward.\n\nYou can go forward.\nYou can go left.\nYou can go right.\n\n")
+print("The only way out is forward.\n\nYou can go forward.\nYou can go left.\nYou can go right.\nHeck, you can even go turn around and go back the way you came.\n\n")
 #time.sleep(5)
-print(text_color_red + "But you can never.\n\n")
+print(text_color_red + "But you should never.\n\n")
 #time.sleep(2)
-print("And I mean " + text_invert + "NEVER" + text_end + text_color_red + " go back the way you came!\n\n" + text_end)
+print("And I mean " + text_invert + "NEVER" + text_end + text_color_red + " go back the way you came!\nYou never know if a Grue might eat you alive.\n\n" + text_end)
 #time.sleep(3)
 nod_in_agreement = input("Let that sink into your pretty little noggin for a moment.\n\nYou can nod your pretty little head in agreement once your new reality has sunken in by: \npressing " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n")
 #time.sleep(2)
@@ -159,7 +159,7 @@ print(f"Your current stats are as follows:\nStrength: {dict_player_stats['streng
 
 #time.sleep(3)
 
-# Turn this into a method.
+# Turn this into a method. Build in way to add stat points with levelups.
 while player_remaining_stat_points > 0:
     print(f"You have {player_remaining_stat_points} stat points remaining to be distributed.\nPlease select from the following choices:\n")
     #time.sleep(2)
@@ -219,7 +219,7 @@ player_score_constitution = dict_player_stats["constitution"]
 constitution_bonus = dict_stat_bonues[player_score_constitution]
 dict_player_stats.update({"constitution_bonus": constitution_bonus})
 
-# Dice Roller
+# Dice Roller Function
 def Roll_Dice(dice_number, dice_type, silent = False):
     dice_roll_total = 0
     die_number = 1
@@ -247,28 +247,7 @@ def Roll_Dice(dice_number, dice_type, silent = False):
     
     print(f"Your roll total was {dice_roll_total}")
 
-# Testing Dice Roller
-print("Dice roll 1d6:")
-Roll_Dice(1, 6)
-print("")
-print("Dice roll 1d6 silent:")
-Roll_Dice(1, 6, True)
-print("")
-print("Dice roll 3d8:")
-Roll_Dice(3, 8)
-print("")
-print("Dice roll 3d8 silent:")
-Roll_Dice(3, 8, True)
-print("")
-print("Rolling a d20:")
-Roll_Dice(1, 20)
-print("")
-print("Rolling a d20 silent:")
-Roll_Dice(1, 20, True)
-
-
-# Testing an alternative was of establishing a player. If this works then I can expand a different dictionary to create multiple types of monsters with the same class instead of having to create a new class for every monster type.
-
+# Establishing the class object for the player.
 class Player:
 
     def __init__(self, dict_player_stats):
@@ -292,19 +271,17 @@ player_equipment = {"weapon": "Rusty Kitchen Knife", "armor": "rags", "gold": 0,
 
 player_character = Player(dict_player_stats)
 # This section is just for testing to make sure that the fields are being properly set.
-
-player_character.player_menu
+print("Testing the menu display options")
+player_character.player_menu()
 print(" ")
-player_character.check_inventory
+print("Testing the check inventory function.")
+player_character.check_inventory()
 
 '''
     
     def attack(self, attack_rating, damage):
         self.attack_rating = attack_rating
         self.damage = damage
-
-    def check_inventory():
-        pass
 
     def quaff_potion():
         pass
@@ -325,19 +302,6 @@ mob = {}
 mob = dict_giant_rat
 
 bob = Monster(mob)
-
-#This is just to test is the monsters are pulling all of the right info from the dictionary
-print("\n\nThis is the monster's stats\n\n")
-print(f"Monster's Name: {(bob.name)}")
-print(f"Monster's Hit Points: {bob.hit_points}")
-print(f"Monster's To Hit Modifier: {bob.to_hit}")
-print(f"Monster's Damage: {bob.damage}")
-print(f"Monster's Defence Rating: {bob.defense_rating}")
-print(f"Monster's Experience: {bob.experience_value}")
-print(f"Monster's Gold: {bob.gold}")
-print(f"Monster's Living Status: {bob.is_alive}")
-
-
         
 
 # Main code below here.
