@@ -15,6 +15,7 @@ __maintainer__  = "John W. Davis"
 __email__       = "ElectricViper@VipersByteSolutions.com"
 __status__      = "Prototype" #"Development" | "Production"
 
+from email import message_from_file
 import os
 import random
 import time
@@ -91,14 +92,18 @@ print("\n\n")
 strength_bonus = 0
 dexterity_bonus = 0
 constitution_bonus = 0
+player_attack_bonus = 1
 
 # These are the dictionaries, lists, and variables of weapons, armor, potions, monsters, etc...
 
 # Starting basic player stats.
-dict_player_stats = {"name": "Soandso", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "level": 1, "experience": 0, "alive": True}
+dict_player_stats = {"name": "Soandso", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "alive": True}
 
 # Stats and their bonuses
 dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 0, 11: 0, 12: 1, 13: 1, 14: 2, 15: 2, 16: 3, 17: 3, 18: 4, 19: 4, 20: 5, 21: 5, 22: 6, 23: 6, 24: 7, 25: 7, 26: 8, 27: 8, 28: 9, 29: 9, 30: 10}
+
+# Player Attack Bonus "Level": "attack_bonus"
+dict_player_attack_bonus = {1: 1, 2: 1, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 5, 10: 5}
 
 # Players Menu
 dict_menu_list = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right", "c": "Character sheet", "i": "Inventory", "q": "Quaff a Potion", "l": "Look Around"}
@@ -207,6 +212,7 @@ while player_remaining_stat_points > 0:
         print("\nYou did not select Strength, Dexterity, or Constitution.")
         print("Please choose one of the stats above.\n")
 
+# Set this up to update after every time the player gains stat points.
 player_score_strength = dict_player_stats["strength"]
 strength_bonus = dict_stat_bonues[player_score_strength]
 dict_player_stats.update({"strength_bonus": strength_bonus})
@@ -218,6 +224,8 @@ dict_player_stats.update({"dexterity_bonus": dexterity_bonus})
 player_score_constitution = dict_player_stats["constitution"]
 constitution_bonus = dict_stat_bonues[player_score_constitution]
 dict_player_stats.update({"constitution_bonus": constitution_bonus})
+
+
 
 # Dice Roller Function
 def Roll_Dice(dice_number, dice_type, silent = False):
@@ -266,6 +274,21 @@ class Player:
         print("Select from the options below:")
         for key, value in dict_menu_list.items():
             print(f"{key}: {value}", end="  ")
+    
+    # Attack Code roll 1d20 + attack bonus + attack stat bonus >= Defenders Defence/AC rating.
+    def attack(attack_type):
+        if attack_type == "melee":
+            die_roll = Roll_Dice(1, 20)
+            attack_bonus = player_character.player_attack_bonus + player_character.strength_bonus
+            to_hit = die_roll + attack_bonus
+        
+        else:
+            die_roll = Roll_Dice(1, 20)
+            attack_bonus = player_character.player_attack_bonus + player_character.dexterity_bonus
+            to_hit = die_roll + attack_bonus
+        
+        return to_hit
+
 
 player_equipment = {"weapon": "Rusty Kitchen Knife", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale"]}
 
@@ -305,7 +328,11 @@ mob = {}
 mob = dict_giant_rat
 
 bob = Monster(mob)
-        
+
+print("\n\nPC melee attack:")        
+player_character.attack('melee')
+print("\n\nPC ranged attack:")
+player_character.attack("ranged")
 
 # Main code below here.
 
