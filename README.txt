@@ -41,16 +41,13 @@ The only way out is forward, never and I never go back the way you came.'''
 
 # Example of simplifying a class.
 # https://stackoverflow.com/questions/1639174/creating-class-instance-properties-from-a-dictionary
-
-#class MyClass:
-#def __init__(self, data_dict):
-#for key, value in data_dict.items():
-#setattr(self, key, value)
+class MyClass:
+    def __init__(self, data_dict):
+        for key, value in data_dict.items():
+            setattr(self, key, value)
 
 # Example usage:
-
-#data = {"name": "Alice", "age": 30}
-#my_instance = MyClass(data)
-#print(my_instance.name)  # Output: "Alice"
-#print(my_instance.age)   # Output: 30
-# End of Notes.py
+data = {"name": "Alice", "age": 30}
+my_instance = MyClass(data)
+print(my_instance.name)  # Output: "Alice"
+print(my_instance.age)   # Output: 30
