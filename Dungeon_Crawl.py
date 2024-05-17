@@ -63,7 +63,7 @@ And I don't think that you want it to be you that's on the menu tonight / today,
 input("Just before the giant rat can attack you. A feeling washes over you and you are transported to your inner soul space where time from the outside world seems to have slowed to a stop.\n\nThe Guiding Force whispers in your mind 'Remember to just breathe.' When you have collected your thoughs,\nPress " + text_invert + "'Enter'" + text_end + " to continue:\n\n")
 
 print("One more thing ...\n")
-time.sleep(2)
+#time.sleep(2)
 print("The only way out is forward.\n\nYou can go forward.\nYou can go left.\nYou can go right.\nHeck, you can even go turn around and go back the way you came.\n\n")
 #time.sleep(5)
 print(text_color_red + "But you should never.\n\n")
@@ -94,15 +94,17 @@ dexterity_bonus = 0
 constitution_bonus = 0
 player_attack_bonus = 1
 
+
+
 # These are the dictionaries, lists, and variables of weapons, armor, potions, monsters, etc...
 
 # Starting basic player stats.
-dict_player_stats = {"name": "Soandso", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "alive": True}
+dict_player_stats = {"name": "Soandso", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "player_attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "alive": True}
 
 # Stats and their bonuses
 dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 0, 11: 0, 12: 1, 13: 1, 14: 2, 15: 2, 16: 3, 17: 3, 18: 4, 19: 4, 20: 5, 21: 5, 22: 6, 23: 6, 24: 7, 25: 7, 26: 8, 27: 8, 28: 9, 29: 9, 30: 10}
 
-# Player Attack Bonus "Level": "attack_bonus"
+# Player Attack Bonus "Level": "player_attack_bonus"
 dict_player_attack_bonus = {1: 1, 2: 1, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 5, 10: 5}
 
 # Players Menu
@@ -111,8 +113,11 @@ dict_menu_list = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "G
 # Player Monster Encounter 
 dict_mob_menu = {"a": "Attack - Melee", "b": "Attack - Ranged", "f": "Flee"}
 
-# "Weapon name": Min Damage, Max Damage, Cost
-dict_weapons = {"Rusty Kitchen Knife": [1, 4, 1], "Shortsword": [1, 6, 10], "Longsword": [1, 8, 20], "Greatsword": [2, 12, 50]}
+# "Weapon name": Number of Damage, Value of Damage Damage, Cost, type of attack "melee" or "ranged"
+dict_weapons_melee = {"rusty kitchen knife": [1, 4, 1, "melee"], "shortsword": [1, 6, 10, "melee"], "longsword": [1, 8, 20, "melee"], "greatsword": [2, 6, 50, "melee"]}
+
+# "Weapon name": Number of Damage, Value of Damage Damage, Cost, type of attack "melee" or "ranged"
+dict_weapons_ranged = {"Rusty Kitchen Knife": [1, 4, 1, "ranged"], "Shortsword": [1, 6, 10, "melee"], "Longsword": [1, 8, 20, "melee"], "Greatsword": [2, 6, 50, "melee"]}
 
 # "Bonus Damage: -5 through +5"
 dict_damage_modifier = {"Crippling": -5, "Debilitating": -4, "Weakening": -3, "Hampering": -2, "Slight Impairment": -1, "Normal": 0, "Slight Enhancement": 1, "Boosting": 2, "Strengthening": 3, "Empowering": 4, "Potent": 5}
@@ -124,11 +129,11 @@ dict_armors = {"Rags": [0, 0], "Cloth Armor": [1, 10], "Leather Armor": [3, 25],
 dict_potions = {"Potion of healing": [30, 15], "Elixir of healing": [60, 40], "Infustion of healing": [120, 100], "Tincture of healing": [300, 250]}
 
 # {"Monster Name": [hitpoints = 5, to hit modifier = 1, max damage = 3, defence bonus = 4, experience_value = 7, max gold = 3, alive = True]}
-dict_monsters = {1: "Giant Rat", 2: "Goblin", 3: "Kobold"}
+dict_monsters = {1: 'dict_giant_rat', 2: 'dict_goblin', 3: 'dict_kobold'}
 
-dict_giant_rat = {"name": "Giant Rat", "hit_points": 7, "to_hit": 4, "damage": 3, "defense_rating": 2, "experience_value": 25, "gold": 3, "is_alive": True} # CR .125, HP = (2d6), Damage = ( 1d4 + 2)
-dict_goblin = {"name": "Goblin", "hit_points": 7, "to_hit": 4, "damage": 5, "defense_rating": 2, "experience_value": 10, "gold": 5, "is_alive": True} # CR = .25, HP = (2d6), Damage = (2d6 + 2)
-dict_kobold = {"name": "Kobold", "hit_points": 5, "to_hit": 4, "damage": 3, "defense_rating": 2, "experience_value": 25, "gold": 7, "is_alive": True} # CR = .125, HP = (2d6 - 2), Damage = (1d4 + 2)
+dict_giant_rat = {"name": "giant rat", "hit_points": 7, "to_hit": 4, "damage": 3, "defense_rating": 2, "experience_value": 25, "gold": 3, "is_alive": True} # CR .125, HP = (2d6), Damage = ( 1d4 + 2)
+dict_goblin = {"name": "goblin", "hit_points": 7, "to_hit": 4, "damage": 5, "defense_rating": 2, "experience_value": 10, "gold": 5, "is_alive": True} # CR = .25, HP = (2d6), Damage = (2d6 + 2)
+dict_kobold = {"name": "kobold", "hit_points": 5, "to_hit": 4, "damage": 3, "defense_rating": 2, "experience_value": 25, "gold": 7, "is_alive": True} # CR = .125, HP = (2d6 - 2), Damage = (1d4 + 2)
 
 
 player_name = input("What is your name, brave soul?\nIf you don't answer, I will pick one for you:   ")
@@ -254,6 +259,7 @@ def Roll_Dice(dice_number, dice_type, silent = False):
                  dice_roll_total += die_roll
     
     print(f"Your roll total was {dice_roll_total}")
+    return dice_roll_total
 
 # Establishing the class object for the player.
 class Player:
@@ -265,32 +271,45 @@ class Player:
     def __repr__(self):
         return f'PlayerCharacter("All you know is that you are a {self.race} {self.gender} and you think that your name is \'{self.name}\'\nAt least you think that it is.")'
     
+    # Display the players currently held inventory
     def check_inventory(self):
         print("You have the following items in your inventory")
         for key, value in player_equipment.items():
             print(f"{key}: {value}")
 
+    # Display the list of options a player can do.
     def player_menu(self):
         print("Select from the options below:")
         for key, value in dict_menu_list.items():
             print(f"{key}: {value}", end="  ")
     
-    # Attack Code roll 1d20 + attack bonus + attack stat bonus >= Defenders Defence/AC rating.
-    def attack(attack_type):
+    # Attack Code using the standard D20 system. Roll 1d20 + attack bonus + attack stat bonus >= Defenders Defence/AC rating.
+    def attack(self, attack_type):
+        self.attack_type = attack_type
         if attack_type == "melee":
-            die_roll = Roll_Dice(1, 20)
-            attack_bonus = player_character.player_attack_bonus + player_character.strength_bonus
-            to_hit = die_roll + attack_bonus
-        
+            if player_equipment["weapon_melee"] == "none":
+                print("You are not currently holding a melee weapon")
+                to_hit_monster = 0
+            else:
+                print(f"You attack a {enemy.name} with your {player_equipment["weapon_melee"]}")
+                die_roll = Roll_Dice(1, 20)
+                attack_bonus = player_character.player_attack_bonus + player_character.strength_bonus
+                to_hit_monster = die_roll + attack_bonus
+                print(f"Total Attack Roll: {to_hit_monster}")
         else:
-            die_roll = Roll_Dice(1, 20)
-            attack_bonus = player_character.player_attack_bonus + player_character.dexterity_bonus
-            to_hit = die_roll + attack_bonus
-        
-        return to_hit
+            if player_equipment["weapon_ranged"] == "none":
+                print("You are not currently holding a ranged weapon.")
+                to_hit_monster = 0
+            else:
+                print(f"You attack a {enemy.name} with your {player_equipment["weapon_ranged"]}")
+                die_roll = Roll_Dice(1, 20)
+                attack_bonus = player_character.player_attack_bonus + player_character.dexterity_bonus
+                to_hit_monster = die_roll + attack_bonus
+                print(f"Total Attack Roll: {to_hit_monster}")
+        return to_hit_monster
 
 
-player_equipment = {"weapon": "Rusty Kitchen Knife", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale"]}
+player_equipment = {"weapon_melee": "rusty kitchen knife","weapon_ranged": "none", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale"]}
 
 player_character = Player(dict_player_stats)
 # This section is just for testing to make sure that the fields are being properly set.
@@ -318,21 +337,43 @@ print(player_character.strength_bonus)
     def open():
         pass
 '''
+# Random monster generator. This is to randomly select one of the mobs in the dict_monsters dictionary.
+
+def Random_Monster():
+    mob = dict_monsters[Roll_Dice(1, len(dict_monsters), True)]
+    print(mob)
+    mob = globals()[mob]
+    return mob
+    
+
+
 class Monster:
     def __init__(self, mob):
         for key, value in mob.items():
             setattr(self, key, value)
+    
+    def attack(self):
+        print(f"A {enemy.name} attacks you:")
+        die_roll = Roll_Dice(1, 20, True)
+        to_hit_player = die_roll + enemy.to_hit
+        print(f"Total Attack Roll: {to_hit_player}")
+        
+        return to_hit_player
 
-# Create random monster generator
-mob = {}
-mob = dict_giant_rat
+# Test mobs
+mob = Random_Monster()
 
-bob = Monster(mob)
+enemy = Monster(mob)
+#print(mob.__init__)
 
 print("\n\nPC melee attack:")        
 player_character.attack('melee')
-print("\n\nPC ranged attack:")
-player_character.attack("ranged")
+print()
+print("\n\nMonster attack:")
+enemy.attack()
+
+
+
 
 # Main code below here.
 
