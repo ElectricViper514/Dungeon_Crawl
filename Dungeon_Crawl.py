@@ -174,6 +174,10 @@ while player_remaining_stat_points > 0:
     print(f"You have {player_remaining_stat_points} stat points remaining to be distributed.\nPlease select from the following choices:\n")
     #time.sleep(2)
     player_stat_choice = input("1. Strength, 2. Dexterity, or 3. Constitution\n")
+    if not player_stat_choice:
+        print("\nYou did not select Strength, Dexterity, or Constitution.")
+        print("Please choose one of the stats above.\n")
+        continue
     player_stat_choice = int(player_stat_choice)
     if player_stat_choice == 1:
         player_stat_points_added = input(f"How many points of your remaining {player_remaining_stat_points} would you like to add to your Strength?\n:")
@@ -236,12 +240,12 @@ dict_player_stats.update({"constitution_bonus": constitution_bonus})
 def Roll_Dice(dice_number, dice_type, silent = False):
     dice_roll_total = 0
     die_number = 1
-    print(f"You are rolling '{dice_number}d{dice_type}'.")
+    print(f"Rolling '{dice_number}d{dice_type}'.")
     
     if dice_number == 1:
         die_roll = random.randint(1, dice_type)
         if not silent:
-             print(f"Your die roll is: {die_roll}")
+             print(f"The die roll is: {die_roll}")
              dice_roll_total += die_roll
         else:
              dice_roll_total += die_roll
@@ -257,8 +261,8 @@ def Roll_Dice(dice_number, dice_type, silent = False):
             else:
                  die_number += 1
                  dice_roll_total += die_roll
-    
-    print(f"Your roll total was {dice_roll_total}")
+    if not silent:
+        print(f"The roll total was {dice_roll_total}")
     return dice_roll_total
 
 # Establishing the class object for the player.
@@ -371,6 +375,8 @@ player_character.attack('melee')
 print()
 print("\n\nMonster attack:")
 enemy.attack()
+
+# FIGHT!
 
 
 
