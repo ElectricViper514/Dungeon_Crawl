@@ -383,6 +383,7 @@ def current_stats_and_inventory():
 
 
 # Main code below here.
+##### Main #####
 
 # The story thus far ...
 print(text_color_blue + """
