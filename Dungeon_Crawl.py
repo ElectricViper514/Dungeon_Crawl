@@ -4,7 +4,7 @@
 dungeon crawl where the player will be able to select their name. They will start with a small back
 story and then they will be able to explore, encounter enemies, fight, flee, heal, and shop. There
 will be a simple inventory management system.
-A more detailed outline can be found within Notes.py'''
+A more detailed outline can be found within README.py'''
 
 __author__      = "John W. Davis"
 __copyright__   = "2024 - The Codecademy Project"
@@ -49,7 +49,21 @@ player_remaining_stat_points = 10
 player_stat_points_added = 0
 player_stat_choice = ""
 stat_update = 0
+continue_to_next_section = ""
+dict_level_experience = {}
 
+level = 1
+level_max = 30
+xp_to_level = 0
+
+#print("The exp needed for level 1 is 0.")
+# I am currently using a sliding scale of 1.15
+while level < (level_max + 1):
+    xp_to_level = (100 * level) ** 1.15
+    exp = round(xp_to_level)
+    #print(f"Level {level}: XP needed to the next level is '{exp}'.")
+    dict_level_experience[level] = exp
+    level += 1 
 
 # These are the dictionaries, lists, and variables of weapons, armor, potions, monsters, etc...
 
@@ -63,6 +77,7 @@ dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 
 dict_player_attack_bonus = {1: 1, 2: 1, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 5, 10: 5}
 
 # Player Level 
+dict_level_experience = {}
 
 # Players Menu
 dict_menu_list = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right", "c": "Character sheet", "i": "Inventory", "q": "Quaff a Potion", "l": "Look Around"}
@@ -88,9 +103,9 @@ dict_potions = {"potion of healing": [30, 15], "elixir of healing": [60, 40], "i
 # {0 - name: xyz, 1 - hit_points = 5, 2 - to_hit = 1, 3 - damage = 3, 4 - defence_rating = 4, 5 - experience_value = 7, 6 - gold = 3, 7 - is_alive = True}
 dict_monsters = {1: 'dict_giant_rat', 2: 'dict_goblin', 3: 'dict_kobold'}
 
-dict_giant_rat = {"name": "giant rat", "hit_points": 7, "to_hit": 4, "damage": [1, 2], "defense_rating": 11, "experience_value": 25, "gold": 3, "is_alive": True} 
-dict_goblin = {"name": "goblin", "hit_points": 7, "to_hit": 4, "damage": [1, 5], "defense_rating": 13, "experience_value": 10, "gold": 5, "is_alive": True} 
-dict_kobold = {"name": "kobold", "hit_points": 5, "to_hit": 4, "damage": [1, 3], "defense_rating": 12, "experience_value": 25, "gold": 7, "is_alive": True}
+dict_giant_rat = {"name": "giant rat", "hit_points": 7, "to_hit": 4, "damage": [1, 2], "defense_rating": 11, "experience_value": 5, "gold": 3, "is_alive": True} 
+dict_goblin = {"name": "goblin", "hit_points": 7, "to_hit": 4, "damage": [1, 5], "defense_rating": 13, "experience_value": 20, "gold": 5, "is_alive": True} 
+dict_kobold = {"name": "kobold", "hit_points": 5, "to_hit": 4, "damage": [1, 3], "defense_rating": 12, "experience_value": 10, "gold": 7, "is_alive": True}
 
 #This is assigning the starting name, gender, and attribute points. 
 def character_creation():
@@ -108,18 +123,18 @@ def character_creation():
         print(f"Well, you seem to resemble a {player_gender}.\n\nAnyways, moving on.")
 
         print(f"Now, {dict_player_stats["name"]}, all of your base stats start off as 10 each. You have 10 points to add to your stats. The stats that you are concerned with are as follows:")
-        print("\nStrength: This determines how hard you can hit and how easily you hit with melee weapons.")
-        move_on = input("Press " + text_invert + "'Enter'" + text_end + " to continue:")
-        print("\nDexterity: This determines how well you can avoid attacks while also determining how well you can hit with ranged weapons.")
-        move_on = input("Press " + text_invert + "'Enter'" + text_end + " to continue:")
-        print("\nConstitution: This determines how healthy you are and how well you can shrug off the effects of diseases, illnesses, and poisons.")
-        move_on = input("Press " + text_invert + "'Enter'" + text_end + " to continue:")
+        print(text_color_red + "\nStrength: This determines how hard you can hit and how easily you hit with melee weapons.")
+        input("Press " + text_invert + "'Enter'" + text_end + text_color_red + " to continue:" + text_end)
+        print(text_color_blue + "\nDexterity: This determines how well you can avoid attacks while also determining how well you can hit with ranged weapons.")
+        input("Press " + text_invert + "'Enter'" + text_end + text_color_blue + " to continue:" + text_end)
+        print(text_color_green + "\nConstitution: This determines how healthy you are and how well you can shrug off the effects of diseases, illnesses, and poisons.")
+        input("Press " + text_invert + "'Enter'" + text_end + text_color_green + " to continue:" + text_end)
 
         print("\nWhich one of the stats would you like to add points to first?\n")
-        print("1. Strength, 2. Dexterity, or 3. Constitution\nThese all start with a base of 10 which gives you a +0 to your modifiers. You gain +1 to your modifiers every 2 points over 10 that you allocate to your stats.\n\nMake your choices.\n")
-        print(f"Your current stats are as follows:\nStrength: {dict_player_stats['strength']}\nDexterity: {dict_player_stats['dexterity']}\nConstitution: {dict_player_stats['constitution']}\n")
+        print(text_color_red + "1. Strength, " + text_end + text_color_blue + "2. Dexterity, " + text_end + "or " + text_color_green + "3. Constitution" + text_end + "\nThese all start with a base of 10 which gives you a +0 to your modifiers. You gain +1 to your modifiers every 2 points over 10 that you allocate to your stats.\n\nMake your choices.\n")
+        print(f"Your current stats are as follows:\n{text_color_red}Strength: {dict_player_stats['strength']}{text_end}\n{text_color_blue}Dexterity: {dict_player_stats['dexterity']}{text_end}\n{text_color_green}Constitution: {dict_player_stats['constitution']}{text_end}\n")
 
-        #time.sleep(3)
+        time.sleep(2)
 
 
 # Turn this into a method. Build in way to add stat points with levelups.
@@ -128,7 +143,7 @@ def increase_stats(player_remaining_stat_points):
         print(f"You have {player_remaining_stat_points} stat points remaining to be distributed.")
         print(f"Your current stats are as follows:\nStrength: {dict_player_stats['strength']}\nDexterity: {dict_player_stats['dexterity']}\nConstitution: {dict_player_stats['constitution']}\n")
         print("Please select from the following choices:\n")
-        #time.sleep(2)
+        time.sleep(1)
         player_stat_choice = input("1. Strength, 2. Dexterity, or 3. Constitution\n")
         if not player_stat_choice:
             print("\nYou did not select Strength, Dexterity, or Constitution.")
@@ -318,8 +333,8 @@ class Monster:
 # Test mobs
 
 
-mob = Random_Monster()
-enemy = Monster(mob)
+#mob = Random_Monster()
+#enemy = Monster(mob)
 
 # FIGHT CLUB! reference dictionaries below.
 # Monster Dict {0 - name: goblin, 1 - hit_points = 5, 2 - to_hit = 1, 3 - damage = 3, 4 - defence_rating = 4, 5 - experience_value = 7, 6 - gold = 3, 7 - is_alive = True}
@@ -383,6 +398,11 @@ def current_stats_and_inventory():
     print(f"Your current stats are as follows:\nStrength:\t{dict_player_stats['strength']}\nDexterity:\t{dict_player_stats['dexterity']}\nConstitution:\t{dict_player_stats['constitution']}\n")
     player_character.check_inventory()
 
+def centerify(text, width=-1):
+  lines = text.split('\n')
+  width = max(map(len, lines)) if width == -1 else width
+  return '\n'.join(line.center(width) for line in lines)
+
 
 # Main code below here.
 ##### Main #####
@@ -390,9 +410,12 @@ def current_stats_and_inventory():
 os.system('cls' if os.name == 'nt' else 'clear')
 
 # The story thus far ...
+
+
+print(centerify(text_color_cyan + "Welcome adventurer!\n\nWelcome to your final days.\n\nYou have become the latest test subject of the mad wizard Professor Bon Von Jovian" + text_end, 80))
+
 print(text_color_blue + """
-Welcome adventurer! Welcome to your final days. You have become the latest test subject of
-the mad wizard Professor Bon Von Jovian  
+  
       
 You have awoken in a cold, dark room.
 The only sound is that of the dripping of water in the distance.
@@ -403,40 +426,42 @@ to help you. Your world faded to black after accepting her help.""" + text_end)
 
 input("Press " + text_color_blue + text_invert + "'Enter'" + text_end + " when you are ready to move on.")
 
-print(text_color_green + """\n
+print(text_color_blue + """\n
 As you look around the room you see that you are in a small rectangular room
 made with rough stone walls and at one time it looks to have been a pantry. As you
-investigate the supposed pantry, you realize that you are only wearing some very basic garments. No, make that more like dirty rags. What'ev ... as you look around the room you find an old chef's knife. While lost in thought wondering who would have left such a rusted piece of junk here you snap out of your thoughts as an 'R' 'O' 'U' 'S' or Rodent of Unusual Size scurries across the floor and up your leg eliciting a not so small yelping scream from you. You hear the juxting of the small teeth as the, 'R' 'O' 'U' ... in laymen's terms ... a giant rat prepares to make a meal out of your leg. You grab the rusty chef's knife and ...
+investigate the supposed pantry, you realize that you are only wearing some very basic garments. No, make that more like dirty rags. What'ev ... as you look around the room you find an old chef's knife. While lost in thought wondering who would have left such a rusted piece of junk here you snap out of your thoughts as an 'R' 'O' 'U' 'S' or Rodent of Unusual Size scurries across the floor and glares at you hungrily eliciting a not so small yelping from you. You hear the juxting of the rather large, and sharp looking teeth as the, 'R' 'O' 'U' 'S' or ... in laymen's terms ... a giant rat prepares to make a meal out of your leg. You grab the rusty chef's knife and ...
       
-Prepare to fight, because one of you two is on the menu for supper tonight.
-And I don't think that you want it to be you that's on the menu tonight / today, you know you can't tell what time of day it is here while trapped in this area as there are no windows or any indicators as to whether it is day or night outside of this place.\n""" + text_end)
+You prepare to fight, because one of you two is on the menu for supper tonight.
+And I don't think that you want it to be you that's on the menu tonight \ today, you know you can't tell what time of day it is here while trapped in this area as there are no windows or any indicators as to whether it is day or night outside of this place.\n""" + text_end)
 
-input("Just before the giant rat can attack you. A feeling washes over you and you are transported to your inner soul space where time from the outside world seems to have slowed to a stop.\n\nThe Guiding Force whispers in your mind 'Remember to just breathe.' When you have collected your thoughs,\nPress " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n\n")
+input(f"Just before the giant rat can attack you. A feeling washes over you and you are transported to your inner soul space where time from the outside world seems to have slowed to a stop.\n\nThe {text_color_purple}'Guiding Force'{text_end} whispers in your mind {text_color_purple}'Remember to just breathe.'{text_end} When you have collected your thoughs,\nPress " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n\n")
 
 print("One more thing ...\n")
-#time.sleep(2)
-print("The only way out is forward.\n\nYou can go forward.\nYou can go left.\nYou can go right.\nHeck, you can even go turn around and go back the way you came.\n\n")
-#time.sleep(5)
+time.sleep(1)
+print(f"The only way out is ahead of you.\n\n{time.sleep(2)}You can go forward.\n{time.sleep(2)}You can go left.\n{time.sleep(2)}You can go right.\n{time.sleep(2)}Heck, you can even go turn around and go back the way you came.\n\n")
+time.sleep(3)
 print(text_color_red + "But you should never.\n\n")
-#time.sleep(2)
-print("And I mean " + text_invert + "NEVER" + text_end + text_color_red + " go back the way you came!\nYou never know if a Grue might eat you alive.\n\n" + text_end)
-#time.sleep(3)
-nod_in_agreement = input("Let that sink into your pretty little noggin for a moment.\n\nYou can nod your pretty little head in agreement once your new reality has sunken in by: \npressing " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n")
-#time.sleep(2)
+time.sleep(2)
+print("And I mean " + text_invert + "NEVER" + text_end + text_color_red + " go back the way you came!\nYou never know if a grue might eat you.\n\n" + text_end)
+time.sleep(3)
+print("Let that sink into your pretty little noggin for a moment.\n\nYou can nod your pretty little head in agreement once your new reality has sunken in by:")
+time.sleep(1)
+input(centerify("\npressing " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n"))
+time.sleep(1)
 print("\n\nTake a breath, don't stress, and remember ...\n")
-#time.sleep(2)
+time.sleep(1)
 print("...\n\n")
-#time.sleep(2)
+time.sleep(1)
 print("Do not say that ...\n")
-#time.sleep(2)
+time.sleep(1)
 print("Yooouuuuu ...\n")
-#time.sleep(2)
+time.sleep(1)
 print("Were ...\n")
-#time.sleep(2)
+time.sleep(1)
 print("NOT ...\n")
-#time.sleep(2)
+time.sleep(1)
 print(text_color_red + "WARNED!!!\n" + text_end)
-#time.sleep(2)
+time.sleep(1)
 print("\n\n")
 
 character_creation()
@@ -445,8 +470,11 @@ increase_stats(player_remaining_stat_points)
 update_stats_and_bonuses()
 current_stats_and_inventory()
 
-print("This is where the adventure begins.")
+print(centerify("\n\nThis is where the adventure begins.\n\nPress 'Enter' to continue with your adventure.\n\nYou poor, poor, lost test subject ... err ...\nI meant soul, you poor, poor, lost soul.\n\n"))
+
+enemy = Monster(dict_giant_rat)
+
+fight_club(player_character, "melee")
 
 
-
-goodbye = input("Press " + text_invert + "'Enter'" + text_end + " to exit.")
+input("Press " + text_invert + "'Enter'" + text_end + " to exit.")

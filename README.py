@@ -53,3 +53,15 @@ data = {"name": "Alice", "age": 30}
 my_instance = MyClass(data)
 print(my_instance.name)  # Output: "Alice"
 print(my_instance.age)   # Output: 30
+
+
+'''
+I am trying to decide if I should use a "Linear Progress" for determining the exp threashhold for the next level.
+# Current Level + Next Level * 30 for example
+Or if I should use a "Curved Progression" approach to leveling up the player.
+# XP Required = a * (level**) + b * Level + c
+
+Maybe I'll use this ... XP_TO_LEVEL = (XP_BASE * CURRENT_LEVEL) ^ SCALE
+'''
+xp_to_level = (100 * 1) ^ 1.5
+print(xp_to_level) 
