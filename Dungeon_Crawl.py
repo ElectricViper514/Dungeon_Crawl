@@ -62,6 +62,8 @@ dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 
 # Player Attack Bonus "Level": "player_attack_bonus"
 dict_player_attack_bonus = {1: 1, 2: 1, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 5, 10: 5}
 
+# Player Level 
+
 # Players Menu
 dict_menu_list = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right", "c": "Character sheet", "i": "Inventory", "q": "Quaff a Potion", "l": "Look Around"}
 
@@ -385,6 +387,8 @@ def current_stats_and_inventory():
 # Main code below here.
 ##### Main #####
 
+os.system('cls' if os.name == 'nt' else 'clear')
+
 # The story thus far ...
 print(text_color_blue + """
 Welcome adventurer! Welcome to your final days. You have become the latest test subject of
@@ -397,7 +401,7 @@ to recall the events leading up to this point. You were at an office party when
 you started to feel ill. You remember someone claiming to be a doctor had offered
 to help you. Your world faded to black after accepting her help.""" + text_end)
 
-input("Press " + text_invert + "'Enter'" + text_end + " when you are ready to move on.")
+input("Press " + text_color_blue + text_invert + "'Enter'" + text_end + " when you are ready to move on.")
 
 print(text_color_green + """\n
 As you look around the room you see that you are in a small rectangular room
@@ -407,7 +411,7 @@ investigate the supposed pantry, you realize that you are only wearing some very
 Prepare to fight, because one of you two is on the menu for supper tonight.
 And I don't think that you want it to be you that's on the menu tonight / today, you know you can't tell what time of day it is here while trapped in this area as there are no windows or any indicators as to whether it is day or night outside of this place.\n""" + text_end)
 
-input("Just before the giant rat can attack you. A feeling washes over you and you are transported to your inner soul space where time from the outside world seems to have slowed to a stop.\n\nThe Guiding Force whispers in your mind 'Remember to just breathe.' When you have collected your thoughs,\nPress " + text_invert + "'Enter'" + text_end + " to continue:\n\n")
+input("Just before the giant rat can attack you. A feeling washes over you and you are transported to your inner soul space where time from the outside world seems to have slowed to a stop.\n\nThe Guiding Force whispers in your mind 'Remember to just breathe.' When you have collected your thoughs,\nPress " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n\n")
 
 print("One more thing ...\n")
 #time.sleep(2)
@@ -435,16 +439,6 @@ print(text_color_red + "WARNED!!!\n" + text_end)
 #time.sleep(2)
 print("\n\n")
 
-
-
-'''while player_character.is_alive is True  and enemy.is_alive is True:
-    fight_club(player_character, "melee")
-    print(f"\n\n{enemy.name} has {enemy.hit_points} health remaining.\n\n")
-    print("The Enemy's Turn!!!!\n\n")
-    fight_club(enemy)
-    print(f"\n\nYou have {player_character.hit_points} health remaining.\n\n")
-    continue_on = input("Press " + text_invert + "'Enter'" + text_end + " to Continue.")
-'''
 character_creation()
 
 increase_stats(player_remaining_stat_points)
@@ -456,4 +450,3 @@ print("This is where the adventure begins.")
 
 
 goodbye = input("Press " + text_invert + "'Enter'" + text_end + " to exit.")
-os.system('cls' if os.name == 'nt' else 'clear')
