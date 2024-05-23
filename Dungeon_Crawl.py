@@ -107,6 +107,9 @@ dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 
 # Player Attack Bonus "Level": "player_attack_bonus"
 dict_player_attack_bonus = {1: 1, 2: 1, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 5, 10: 5}
 
+# Player's equipment dictionary and list.
+dict_player_equipment = {"weapon_melee": "rusty kitchen knife","weapon_ranged": "none", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale"]}
+
 # Players Menu
 dict_menu_list = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right", "c": "Character sheet", "i": "Inventory", "q": "Quaff a Potion", "l": "Look Around"}
 
@@ -274,7 +277,7 @@ class Player:
     # Display the players currently held inventory
     def check_inventory(self):
         print("You have the following items in your inventory")
-        for key, value in player_equipment.items():
+        for key, value in dict_player_equipment.items():
             print(f"{key}: {value}")
 
     # Display the list of options a player can do.
@@ -287,21 +290,21 @@ class Player:
     def attack(self, attack_type):
         self.attack_type = attack_type
         if attack_type == "melee":
-            if player_equipment["weapon_melee"] == "none":
+            if dict_player_equipment["weapon_melee"] == "none":
                 print("You are not currently holding a melee weapon")
                 to_hit_monster = 0
             else:
-                print(f"You attack a {enemy.name} with your {player_equipment["weapon_melee"]}")
+                print(f"You attack a {enemy.name} with your {dict_player_equipment["weapon_melee"]}")
                 die_roll = Roll_Dice(1, 20)
                 attack_bonus = player_character.player_attack_bonus + player_character.strength_bonus
                 to_hit_monster = die_roll + attack_bonus
                 print(f"Total Attack Roll: {to_hit_monster}")
         else:
-            if player_equipment["weapon_ranged"] == "none":
+            if dict_player_equipment["weapon_ranged"] == "none":
                 print("You are not currently holding a ranged weapon.")
                 to_hit_monster = 0
             else:
-                print(f"You attack a {enemy.name} with your {player_equipment["weapon_ranged"]}")
+                print(f"You attack a {enemy.name} with your {dict_player_equipment["weapon_ranged"]}")
                 die_roll = Roll_Dice(1, 20)
                 attack_bonus = player_character.player_attack_bonus + player_character.dexterity_bonus
                 to_hit_monster = die_roll + attack_bonus
@@ -309,7 +312,6 @@ class Player:
         return to_hit_monster
 
 
-player_equipment = {"weapon_melee": "rusty kitchen knife","weapon_ranged": "none", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale"]}
 
 player_character = Player(dict_player_stats)
 # This section is just for testing to make sure that the fields are being properly set.
