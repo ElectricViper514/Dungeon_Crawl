@@ -408,7 +408,7 @@ def centerify(text, width=-1):
 # Main code below here.
 ##### Main #####
 
-os.system('cls' if os.name == 'nt' else 'clear')
+#os.system('cls' if os.name == 'nt' else 'clear')
 
 # The story thus far ...
 
