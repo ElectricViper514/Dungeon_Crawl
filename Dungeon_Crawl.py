@@ -51,19 +51,9 @@ player_stat_choice = ""
 stat_update = 0
 continue_to_next_section = ""
 dict_level_experience = {}
-
 level = 1
-level_max = 30
+level_max = 31 #Non inclusive always add 1 to the max level that you are wanting so that it will iterate through the proper levels and exp values in the dictionary.
 xp_to_level = 0
-
-#print("The exp needed for level 1 is 0.")
-# I am currently using a sliding scale of 1.15
-while level < (level_max + 1):
-    xp_to_level = (100 * level) ** 1.15
-    exp = round(xp_to_level)
-    #print(f"Level {level}: XP needed to the next level is '{exp}'.")
-    dict_level_experience[level] = exp
-    level += 1 
 
 # These are the dictionaries, lists, and variables of weapons, armor, potions, monsters, etc...
 
@@ -78,7 +68,18 @@ dict_player_attack_bonus = {1: 1, 2: 1, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 5
 
 # Player Level 
 dict_level_experience = {}
+# I am currently using a sliding scale of 1.15
+while level < (level_max):
+    xp_to_level = (100 * level) ** 1.15
+    exp = round(xp_to_level)
+    #print(f"Level {level}: XP needed to the next level is '{exp}'.")
+    dict_level_experience[level] = exp
+    level += 1 
 
+for key, value in dict_level_experience.items():
+    print(f"{key}: {value}")
+
+time.sleep(5)
 # Players Menu
 dict_menu_list = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right", "c": "Character sheet", "i": "Inventory", "q": "Quaff a Potion", "l": "Look Around"}
 
