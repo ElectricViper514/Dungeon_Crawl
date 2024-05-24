@@ -15,7 +15,6 @@ __maintainer__  = "John W. Davis"
 __email__       = "ElectricViper@VipersByteSolutions.com"
 __status__      = "Prototype" #"Development" | "Production"
 
-from email import message_from_file
 import os
 import random
 import time
@@ -48,12 +47,15 @@ hit_points = 10
 player_remaining_stat_points = 10
 player_stat_points_added = 0
 player_stat_choice = ""
-stat_update = 0
+update_strength = 0
+update_dexterity = 0
+update_constitution = 0
 continue_to_next_section = ""
 dict_level_experience = {}
 level = 1
 level_max = 31 #Non inclusive always add 1 to the max level that you are wanting so that it will iterate through the proper levels and exp values in the dictionary.
 xp_to_level = 0
+
 
 # These are the dictionaries, lists, and variables of weapons, armor, potions, monsters, etc...
 
@@ -67,8 +69,10 @@ dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 
 dict_player_attack_bonus = {1: 1, 2: 1, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 5, 10: 5}
 
 # Player Level 
-dict_level_experience = {}
-# I am currently using a sliding scale of 1.15
+dict_level_experience = {1: 200, 2: 443, 3: 706, 4: 983, 5: 1270, 6: 1566, 7: 1870, 8: 2180, 9: 2497, 10: 2818, 11: 3145, 12: 3476, 13: 3811, 14: 4150, 15: 4493, 16: 4839, 17: 5188, 18: 5541, 19: 5896, 20: 6254, 21: 6615, 22: 6979, 23: 7345, 24: 7713, 25: 8084, 26: 8457, 27: 8832, 28: 9209, 29: 9589, 30: 9970}
+
+# I am currently using a sliding scale of 1.15. I useed the script below to calculate how much EXP would be needed to progress from one level to the next level.
+'''
 while level < (level_max):
     xp_to_level = (100 * level) ** 1.15
     exp = round(xp_to_level)
@@ -80,6 +84,11 @@ for key, value in dict_level_experience.items():
     print(f"{key}: {value}")
 
 time.sleep(5)
+
+'''
+# Player's Equipment List
+dict_player_equipment = {"weapon_melee": "rusty kitchen knife","weapon_ranged": "none", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale", {"Healing Draught": 3}]}
+
 # Players Menu
 dict_menu_list = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right", "c": "Character sheet", "i": "Inventory", "q": "Quaff a Potion", "l": "Look Around"}
 
@@ -110,29 +119,31 @@ dict_kobold = {"name": "kobold", "hit_points": 5, "to_hit": 4, "damage": [1, 3],
 
 #This is assigning the starting name, gender, and attribute points. 
 def character_creation():
+    player_gender = ""
+
     player_name = input("What is your name, brave soul?\nIf you don't answer, I will pick one for you:   ")
     if len(player_name) == 0:
         print("\nYour name shall be set as 'Soandso'\nLet's move on the next question.")        
     else:
         dict_player_stats.update({"name": player_name})
         print(f"\n\nHello {player_name}.")
-        player_gender = input("\n\nWhat gender do you identify as?\n\nIf you don't pick one for you:   ")
+        player_gender = input("\n\nWhat gender do you identify as?\n\nIf you don't pick one, I'll decide for you:   ")
     if len(player_gender) == 0:
         print("\nYour gender shall be set as 'Genderless'\nMoving on from the questions.\n")
     else:
         dict_player_stats.update({"gender": player_gender})
-        print(f"Well, you seem to resemble a {player_gender}.\n\nAnyways, moving on.")
+        print(f"\nWell, you seem to resemble a {player_gender}.\n\nAnywho, moving on.")
 
         print(f"Now, {dict_player_stats["name"]}, all of your base stats start off as 10 each. You have 10 points to add to your stats. The stats that you are concerned with are as follows:")
         print(text_color_red + "\nStrength: This determines how hard you can hit and how easily you hit with melee weapons.")
-        input("Press " + text_invert + "'Enter'" + text_end + text_color_red + " to continue:" + text_end)
+        input("Press " + text_invert + "'Enter'" + text_end + text_color_red + " to continue:\n\n" + text_end)
         print(text_color_blue + "\nDexterity: This determines how well you can avoid attacks while also determining how well you can hit with ranged weapons.")
-        input("Press " + text_invert + "'Enter'" + text_end + text_color_blue + " to continue:" + text_end)
+        input("Press " + text_invert + "'Enter'" + text_end + text_color_blue + " to continue:\n\n" + text_end)
         print(text_color_green + "\nConstitution: This determines how healthy you are and how well you can shrug off the effects of diseases, illnesses, and poisons.")
-        input("Press " + text_invert + "'Enter'" + text_end + text_color_green + " to continue:" + text_end)
+        input("Press " + text_invert + "'Enter'" + text_end + text_color_green + " to continue:\n\n" + text_end)
 
         print("\nWhich one of the stats would you like to add points to first?\n")
-        print(text_color_red + "1. Strength, " + text_end + text_color_blue + "2. Dexterity, " + text_end + "or " + text_color_green + "3. Constitution" + text_end + "\nThese all start with a base of 10 which gives you a +0 to your modifiers. You gain +1 to your modifiers every 2 points over 10 that you allocate to your stats.\n\nMake your choices.\n")
+        print(text_color_red + "1. Strength, " + text_end + text_color_blue + "2. Dexterity, " + text_end + "or " + text_color_green + "3. Constitution" + text_end + "\n\nThese all start with a base of 10 which gives you a +0 to your modifiers.\nYou gain +1 to your modifiers every 2 points over 10 that you allocate to your stats.\n\nMake your choices.\n")
         print(f"Your current stats are as follows:\n{text_color_red}Strength: {dict_player_stats['strength']}{text_end}\n{text_color_blue}Dexterity: {dict_player_stats['dexterity']}{text_end}\n{text_color_green}Constitution: {dict_player_stats['constitution']}{text_end}\n")
 
         time.sleep(2)
@@ -141,8 +152,10 @@ def character_creation():
 # Turn this into a method. Build in way to add stat points with levelups.
 def increase_stats(player_remaining_stat_points):
     while player_remaining_stat_points > 0:
+        print(f"You enter your soul space and are greeted by the {text_color_purple}'Guiding Force'{text_end}. She softly whispers into your mind with a distinctly feminine albeit a slightly electrically distorted voice.")
         print(f"You have {player_remaining_stat_points} stat points remaining to be distributed.")
         print(f"Your current stats are as follows:\nStrength: {dict_player_stats['strength']}\nDexterity: {dict_player_stats['dexterity']}\nConstitution: {dict_player_stats['constitution']}\n")
+        print(f"Your current stats bonues are as follows:\nStrength: {dict_player_stats['strength_bonus']}\nDexterity: {dict_player_stats['dexterity_bonus']}\nConstitution: {dict_player_stats['constitution_bonus']}\n")
         print("Please select from the following choices:\n")
         time.sleep(1)
         player_stat_choice = input("1. Strength, 2. Dexterity, or 3. Constitution\n")
@@ -159,10 +172,11 @@ def increase_stats(player_remaining_stat_points):
             elif player_stat_points_added > player_remaining_stat_points:
                 print(f"\nYou have selected more points than what you have available.\nPlease select a number of points to add to your 'Strength' that is equal to or lower than your remaining {player_remaining_stat_points} point(s).\n")             
             else:
-                stat_update = dict_player_stats["strength"] + player_stat_points_added
-                print(f"You have opted to add {player_stat_points_added} to your current strength score of {dict_player_stats['strength']}. This will make your new Strength score {stat_update}.\n")
-                dict_player_stats.update({"strength": stat_update})
+                update_strength = dict_player_stats["strength"] + player_stat_points_added
+                print(f"You have opted to add {player_stat_points_added} to your current strength score of {dict_player_stats['strength']}. This will make your new Strength score {update_strength}.\n")
+                dict_player_stats.update({"strength": update_strength})
                 player_remaining_stat_points -= player_stat_points_added
+                time.sleep(3)
 
         elif player_stat_choice == 2:
             player_stat_points_added = input(f"How many points of your remaining {player_remaining_stat_points} would you like to add to your Dexterity?\n:")
@@ -172,10 +186,11 @@ def increase_stats(player_remaining_stat_points):
             elif player_stat_points_added > player_remaining_stat_points:
                 print(f"\n{dict_player_stats['name']}, you have selected more points than what you have available.\nPlease select a number of points to add to your 'Dexterity' that is equal to or lower than your remaining {player_remaining_stat_points} point(s).\n")             
             else:
-                stat_update = dict_player_stats["dexterity"] + player_stat_points_added
-                print(f"{dict_player_stats['name']}, you have opted to add {player_stat_points_added} to your current Dexterity score of {dict_player_stats['dexterity']}. This will make your new Dexterity score {stat_update}.\n")
-                dict_player_stats.update({"dexterity": stat_update})
+                update_dexterity = dict_player_stats["dexterity"] + player_stat_points_added
+                print(f"{dict_player_stats['name']}, you have opted to add {player_stat_points_added} to your current Dexterity score of {dict_player_stats['dexterity']}. This will make your new Dexterity score {update_dexterity}.\n")
+                dict_player_stats.update({"dexterity": update_dexterity})
                 player_remaining_stat_points -= player_stat_points_added
+                time.sleep(3)
 
         elif player_stat_choice == 3:
             player_stat_points_added = input(f"How many points of your remaining {player_remaining_stat_points} would you like to add to your Constitution?\n:")
@@ -185,29 +200,43 @@ def increase_stats(player_remaining_stat_points):
             elif player_stat_points_added > player_remaining_stat_points:
                 print(f"\n{dict_player_stats['name']}, you have selected more points than what you have available.\nPlease select a number of points to add to your 'Constitution' that is equal to or lower than your remaining {player_remaining_stat_points} point(s).\n")             
             else:
-                stat_update = dict_player_stats["constitution"] + player_stat_points_added
-                print(f"{dict_player_stats['name']}, you have opted to add {player_stat_points_added} to your current Constitution score of {dict_player_stats['constitution']}. This will make your new Constitution score {stat_update}.\n")
-                dict_player_stats.update({"constitution": stat_update})
+                update_constitution = dict_player_stats["constitution"] + player_stat_points_added
+                print(f"{dict_player_stats['name']}, you have opted to add {player_stat_points_added} to your current Constitution score of {dict_player_stats['constitution']}. This will make your new Constitution score {update_constitution}.\n")
+                dict_player_stats.update({"constitution": update_constitution})
                 player_remaining_stat_points -= player_stat_points_added
+                time.sleep(3)
         else:
             print(f"\n{dict_player_stats['name']}, you did not select Strength, Dexterity, or Constitution.")
             print("Please choose one of the stats above.\n")
+    
+    update_stat_bonuses()
+
+    print(f"The {text_color_purple}'Guiding Force'{text_end} smiles at you and fades away appearing as dust in the wind.\nYou blink and the plain white void of a room is once again replaced with the lovely smell of damp, rot, and musty smell of your new reality.\n\n{text_bold}The dungeon.{text_end}")
 
 # This is to update the stats and ability modifiers after every time the player gains stat points.
-def update_stats_and_bonuses():
+def update_stat_bonuses():
+    print("\n\n\nUpdating stat bonues.\n\n\n")
     player_score_strength = dict_player_stats["strength"]
     strength_bonus = dict_stat_bonues[player_score_strength]
     dict_player_stats.update({"strength_bonus": strength_bonus})
+    print(text_color_orange + f"Player Strength Bonus: {dict_player_stats["strength_bonus"]}" + text_end)
 
     player_score_dexterity = dict_player_stats["dexterity"]
     dexterity_bonus = dict_stat_bonues[player_score_dexterity]
     dict_player_stats.update({"dexterity_bonus": dexterity_bonus})
+    print(text_color_orange + f"Player Dexterity Bonus: {dict_player_stats["dexterity_bonus"]}" + text_end)
 
     player_score_constitution = dict_player_stats["constitution"]
     constitution_bonus = dict_stat_bonues[player_score_constitution]
     dict_player_stats.update({"constitution_bonus": constitution_bonus})
     updated_hitpoints = hit_points + constitution_bonus
     dict_player_stats.update({"hit_points": updated_hitpoints})
+    print(text_color_orange + f"Player Constitution Bonus: {dict_player_stats["constitution_bonus"]}" + text_end)
+
+    player_armor_defence = dict_player_equipment["armor"]
+    player_defense = 10 + dict_player_stats["dexterity_bonus"] + dict_armors[player_armor_defence][0]
+    dict_player_stats.update({"player_defense_rating": player_defense})
+    print(text_color_orange + f"Player Defence Rating: {dict_player_stats["player_defense_rating"]}" + text_end)
 
 # Dice Roller Function
 def Roll_Dice(dice_number, dice_type, silent = False):
@@ -252,7 +281,7 @@ class Player:
     # Display the players currently held inventory
     def check_inventory(self):
         print("You have the following items in your inventory")
-        for key, value in player_equipment.items():
+        for key, value in dict_player_equipment.items():
             print(f"{key}: {value}")
 
     # Display the list of options a player can do.
@@ -266,22 +295,22 @@ class Player:
     def attack(self, attack_type):
         self.attack_type = attack_type
         if attack_type == "melee":
-            if player_equipment["weapon_melee"] == "none":
+            if dict_player_equipment["weapon_melee"] == "none":
                 print("You are not currently holding a melee weapon")
                 to_hit_monster = 0
             else:
-                print(f"You attack a {enemy.name} with your {player_equipment["weapon_melee"]}")
+                print(f"You attack a {enemy.name} with your {dict_player_equipment["weapon_melee"]}")
                 die_roll = Roll_Dice(1, 20)
                 attack_bonus = player_character.player_attack_bonus + player_character.strength_bonus
                 print(f"\nPlayer Attack Bonus = {player_character.player_attack_bonus}\n\nPlayer Strength Bonus = {player_character.strength_bonus}")
                 to_hit_monster = die_roll + attack_bonus
                 print(f"Total Attack Roll: {to_hit_monster}")
         else:
-            if player_equipment["weapon_ranged"] == "none":
+            if dict_player_equipment["weapon_ranged"] == "none":
                 print("You are not currently holding a ranged weapon.")
                 to_hit_monster = 0
             else:
-                print(f"You attack a {enemy.name} with your {player_equipment["weapon_ranged"]}")
+                print(f"You attack a {enemy.name} with your {dict_player_equipment["weapon_ranged"]}")
                 die_roll = Roll_Dice(1, 20)
                 attack_bonus = player_character.player_attack_bonus + player_character.dexterity_bonus
                 to_hit_monster = die_roll + attack_bonus
@@ -289,10 +318,13 @@ class Player:
         return to_hit_monster
 
 
-player_equipment = {"weapon_melee": "rusty kitchen knife","weapon_ranged": "none", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale"]}
-player_armor_defence = player_equipment["armor"]
-player_defense = 10 + dict_player_stats["dexterity_bonus"] + dict_armors[player_armor_defence][0]
-dict_player_stats.update({"player_defense_rating": player_defense})
+    
+    player_armor_defence = dict_player_equipment["armor"]
+    player_defense = 10 + dict_player_stats["dexterity_bonus"] + dict_armors[player_armor_defence][0]
+    dict_player_stats.update({"player_defense_rating": player_defense})
+    #print(text_color_orange + f"Player Defence Rating: {dict_player_stats["player_defense_rating"]}" + text_end)
+
+
 player_character = Player(dict_player_stats)
 
 # This section is just for testing to make sure that the fields are being properly set.
@@ -300,9 +332,7 @@ player_character = Player(dict_player_stats)
 player_character.player_menu()
 print(" ")
 print("Testing the check inventory function.")
-player_character.check_inventory()'''
-
-'''
+player_character.check_inventory()
 
     def move():
         pass
@@ -326,7 +356,7 @@ class Monster:
     
     def attack(self):
         print(f"A {enemy.name} viciously attacks you.")
-        die_roll = Roll_Dice(1, 20, False)
+        die_roll = Roll_Dice(1, 20, True)
         to_hit_player = die_roll + enemy.to_hit
         print(f"Enemy's To Hit = {enemy.to_hit}")
         return to_hit_player
@@ -348,10 +378,10 @@ def fight_club(attacker, attack_type = "none"):
     if attacker == player_character:
         if player_character.is_alive is True:
             if attack_type == "melee":
-                equiped_weapon = player_equipment["weapon_melee"]
+                equiped_weapon = dict_player_equipment["weapon_melee"]
                 ability_modifier = player_character.strength_bonus
             elif attack_type == "ranged":
-                equiped_weapon = player_equipment["weapon_ranged"]
+                equiped_weapon = dict_player_equipment["weapon_ranged"]
                 ability_modifier = player_character.dexterity_bonus
             else:
                 print("You are not equiped with a melee or ranged weapon.")
@@ -397,9 +427,10 @@ def fight_club(attacker, attack_type = "none"):
 #dict_player_stats = {"name", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "player_defense_rating": player_defense, "player_attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "hit_points": hit_points, "is_alive": True}
 def current_stats_and_inventory():
     print(f"Your current stats are as follows:\nStrength:\t{dict_player_stats['strength']}\nDexterity:\t{dict_player_stats['dexterity']}\nConstitution:\t{dict_player_stats['constitution']}\n")
+    print(f"Your current stats bonuses are as follows:\nStrength:\t{dict_player_stats['strength_bonus']}\nDexterity:\t{dict_player_stats['dexterity_bonus']}\nConstitution:\t{dict_player_stats['constitution_bonus']}\n")
     player_character.check_inventory()
 
-def centerify(text, width=-1):
+def center_text(text, width=-1):
   lines = text.split('\n')
   width = max(map(len, lines)) if width == -1 else width
   return '\n'.join(line.center(width) for line in lines)
@@ -413,7 +444,7 @@ def centerify(text, width=-1):
 # The story thus far ...
 
 
-print(centerify(text_color_cyan + "Welcome adventurer!\n\nWelcome to your final days.\n\nYou have become the latest test subject of the mad wizard Professor Bon Von Jovian" + text_end, 80))
+print(center_text(text_color_cyan + "Welcome adventurer!\n\nWelcome to your final days.\n\nYou have become the latest test subject of the mad wizard Professor Bon Von Jovian" + text_end, 80))
 
 print(text_color_blue + """
   
@@ -435,25 +466,33 @@ investigate the supposed pantry, you realize that you are only wearing some very
 You prepare to fight, because one of you two is on the menu for supper tonight.
 And I don't think that you want it to be you that's on the menu tonight \ today, you know you can't tell what time of day it is here while trapped in this area as there are no windows or any indicators as to whether it is day or night outside of this place.\n""" + text_end)
 
-input(f"Just before the giant rat can attack you. A feeling washes over you and you are transported to your inner soul space where time from the outside world seems to have slowed to a stop.\n\nThe {text_color_purple}'Guiding Force'{text_end} whispers in your mind {text_color_purple}'Remember to just breathe.'{text_end} When you have collected your thoughs,\nPress " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n\n")
+input(f"Just before the giant rat lunges at you, time to have slowed to a stop and you are transported to your inner soul space where ...\n\nYou blink your eyes a couple of times as they adjust to the void white room. The room is devoid of any features to the point to where you can't tell the difference between the walls, floor, and ceiling (If there are walls and a ceiling). You are suddenly started by the sudden appearance of the {text_color_purple}'Guiding Force'{text_end}. It has an androngenous appearance although the form is slightly feminie with a soft feminine voice as the {text_color_purple}'Guiding Force'{text_end} seems to whisper directly into your mind {text_color_purple}'Remember to just breathe.'{text_end} and the {text_color_purple}'Guiding Force'{text_end} dissappears as quickly as she/it appeared. When you have collected your thoughs,\nPress " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n\n")
 
 print("One more thing ...\n")
 time.sleep(1)
-print(f"The only way out is ahead of you.\n\n{time.sleep(2)}You can go forward.\n{time.sleep(2)}You can go left.\n{time.sleep(2)}You can go right.\n{time.sleep(2)}Heck, you can even go turn around and go back the way you came.\n\n")
+print("The only way out is ahead of you.\n\n")
+time.sleep(2)
+print("You can go forward.\n")
+time.sleep(2)
+print("You can go left.\n")
+time.sleep(2)
+print("You can go right.\n")
+time.sleep(2)
+print("Heck, you can even go turn around and go back the way you came.\n\n")
 time.sleep(3)
 print(text_color_red + "But you should never.\n\n")
 time.sleep(2)
-print("And I mean " + text_invert + "NEVER" + text_end + text_color_red + " go back the way you came!\nYou never know if a grue might eat you.\n\n" + text_end)
+print("And I mean " + text_invert + "NEVER" + text_end + text_color_red + " go back the way you came!\nYou never know if something is lurking behind you.\n\n" + text_end)
 time.sleep(3)
-print("Let that sink into your pretty little noggin for a moment.\n\nYou can nod your pretty little head in agreement once your new reality has sunken in by:")
+print("Let that sink into your pretty little noggin for a moment.\n\nYou can nod your pretty little head in agreement once your new reality has sunken in...")
 time.sleep(1)
-input(centerify("\npressing " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n"))
+input(center_text("\nBy pressing " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n"))
 time.sleep(1)
 print("\n\nTake a breath, don't stress, and remember ...\n")
 time.sleep(1)
 print("...\n\n")
 time.sleep(1)
-print("Do not say that ...\n")
+print("Don't say that ...\n")
 time.sleep(1)
 print("Yooouuuuu ...\n")
 time.sleep(1)
@@ -468,14 +507,51 @@ print("\n\n")
 character_creation()
 
 increase_stats(player_remaining_stat_points)
-update_stats_and_bonuses()
+update_stat_bonuses()
 current_stats_and_inventory()
 
-print(centerify("\n\nThis is where the adventure begins.\n\nPress 'Enter' to continue with your adventure.\n\nYou poor, poor, lost test subject ... err ...\nI meant soul, you poor, poor, lost soul.\n\n"))
+input(center_text("\n\nThis is where the adventure begins.\n\nYou poor, poor, lost test subject ... err ...\nI meant soul, you poor, poor, lost soul.\n\nPress 'Enter' to continue with your adventure.\n"))
 
 enemy = Monster(dict_giant_rat)
 
-fight_club(player_character, "melee")
+#fight_club(player_character, "melee")
+
+# Random room description text and possiblity of encountering an enemy in the room. initially set at 18% of encountering an enemy.
+# dict_menu_list = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right", "c": "Character sheet", "i": "Inventory", "q": "Quaff a Potion", "l": "Look Around"}
+
+#my_test_variable = input(text_color_orange + dict_menu_list + text_end)
+#actual_input = my_test_variable.lower()
+#print(f"The character menu list is as follows:\n{actual_input}\n\n")
+player_menu_list = ""
+for key, value in dict_menu_list.items():
+    #menu_section = key + ","
+    #player_menu_list += 
+    print(key, ' : ', value)
 
 
-input("Press " + text_invert + "'Enter'" + text_end + " to exit.")
+
+def fight(player_character, enemy, attack_type = "none"):
+    fight_round = 1
+    while player_character.is_alive and enemy.is_alive:
+        if fight_round % 2 == 1:
+            fight_choice = input("'A'ttack or 'F'lee?")
+            if fight_choice == "a":
+                fight_club(player_character, attack_type)
+            else:
+                print("Those who fight and run away,\nlive to fight another day.\n\n")
+                break
+        else:
+            fight_club(enemy)
+
+        fight_round += 1
+        print(f"You fought for {fight_round}s.")
+
+print("You decide that it won't be you that's on the dinner menu for tonight.")
+print("Prepare to make your stand.")
+
+fight(player_character, enemy, "melee")
+
+
+print("\n\nThis is the end of the file.\n\n")
+
+input("Press " + text_invert + "'Enter'" + text_end + " to exit the game.")
