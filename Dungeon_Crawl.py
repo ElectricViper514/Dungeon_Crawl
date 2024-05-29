@@ -12,6 +12,7 @@ __credits__     = ["John W. Davis"]
 __license__     = ""
 __version__     = "0.0.1"
 __maintainer__  = "John W. Davis"
+__website__     = "www.VipersByteSolutions.com"
 __email__       = "ElectricViper@VipersByteSolutions.com"
 __status__      = "Prototype" #"Development" | "Production"
 
@@ -528,7 +529,7 @@ for key, value in dict_menu_list.items():
     #player_menu_list += 
     print(key, ' : ', value)
 
-
+# https://github.com/ElectricViper514/Dungeon_Crawl
 
 def fight(player_character, enemy, attack_type = "none"):
     fight_round = 1
