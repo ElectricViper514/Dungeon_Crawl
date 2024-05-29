@@ -143,9 +143,19 @@ def character_creation():
         print("\nYour gender shall be set as 'Genderless'\nMoving on from the questions.\n")
     else:
         dict_player_stats.update({"gender": player_gender})
-        print(f"\nWell, you seem to resemble a {player_gender}.\n\nAnywho, moving on.")
+# Test Start
+        print("***************Control Print*************")
+        print(dict_player_stats["gender"])
+        print("************* Test Print ***********")
+        player_character.__setattr__("strength", update_strength)
+        print(player_character["strength"])
+        print("*******************End Test********************")
+# End Test
 
-        print(f"Now, {dict_player_stats["name"]}, all of your base stats start off as 10 each. You have 10 points to add to your stats. The stats that you are concerned with are as follows:")
+
+        print(f"\nWell, you seem to resemble a {player_gender}.\n\nAnywho, moving on.\n")
+
+        print("Now, " + text_bold + f"{dict_player_stats["name"]}" + text_end + ", all of your base stats start off as 10 each. You have 10 points to add to your stats. The stats that you are concerned with are as follows:")
         print(text_color_red + "\nStrength: This determines how hard you can hit and how easily you hit with melee weapons.")
         input("Press " + text_invert + "'Enter'" + text_end + text_color_red + " to continue:\n\n" + text_end)
         print(text_color_blue + "\nDexterity: This determines how well you can avoid attacks while also determining how well you can hit with ranged weapons.")
@@ -165,11 +175,12 @@ def increase_stats(player_remaining_stat_points):
     while player_remaining_stat_points > 0:
         print(f"You enter your soul space and are greeted by the {text_color_purple}'Guiding Force'{text_end}. She softly whispers into your mind with a distinctly feminine albeit a slightly electrically distorted voice.")
         print(f"You have {player_remaining_stat_points} stat points remaining to be distributed.")
-        print(f"Your current stats are as follows:\nStrength: {dict_player_stats['strength']}\nDexterity: {dict_player_stats['dexterity']}\nConstitution: {dict_player_stats['constitution']}\n")
-        print(f"Your current stats bonues are as follows:\nStrength: {dict_player_stats['strength_bonus']}\nDexterity: {dict_player_stats['dexterity_bonus']}\nConstitution: {dict_player_stats['constitution_bonus']}\n")
+        #print(f"Your current stats are as follows:\nStrength: {dict_player_stats['strength']}\nDexterity: {dict_player_stats['dexterity']}\nConstitution: {dict_player_stats['constitution']}\n")
+        print(f"Your current stats are as follows:\n{text_color_red}Strength: {dict_player_stats['strength']}{text_end}\n{text_color_blue}Dexterity: {dict_player_stats['dexterity']}{text_end}\n{text_color_green}Constitution: {dict_player_stats['constitution']}{text_end}\n")
+        print(f"Your current stats bonues are as follows:\n{text_color_red}Strength: {dict_player_stats['strength_bonus']}{text_end}\n{text_color_blue}Dexterity: {dict_player_stats['dexterity_bonus']}{text_end}\n{text_color_green}Constitution: {dict_player_stats['constitution_bonus']}{text_end}\n")
         print("Please select from the following choices:\n")
         # time.sleep(1)
-        player_stat_choice = input("1. Strength, 2. Dexterity, or 3. Constitution\n")
+        player_stat_choice = input(f"1. {text_color_red}Strength{text_end}, 2. {text_color_blue}Dexterity{text_end}, or 3. {text_color_green}Constitution{text_end}\n")
         if not player_stat_choice:
             print("\nYou did not select Strength, Dexterity, or Constitution.")
             print("Please choose one of the stats above.\n")
@@ -459,7 +470,7 @@ def fight_club(attacker, attack_type = "none"):
 #dict_player_stats = {"name", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "player_defense_rating": player_defense, "player_attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "hit_points": hit_points, "is_alive": True}
 def current_stats_and_inventory():
     print(f"Your current stats are as follows:\nStrength:\t{dict_player_stats['strength']}\nDexterity:\t{dict_player_stats['dexterity']}\nConstitution:\t{dict_player_stats['constitution']}\n")
-    print(f"Your current stats bonuses are as follows:\n" + text_color_red + f"Strength:\t{dict_player_stats['strength_bonus']}" + text_end + text_color_red + f"\nDexterity:\t{dict_player_stats['dexterity_bonus']}" + text_end + f"\nConstitution:\t{dict_player_stats['constitution_bonus']}" + text_end + f"\n")
+    print("Your current stats bonuses are as follows:\n" + text_color_red + f"Strength:\t{dict_player_stats['strength_bonus']}" + text_end + text_color_blue + f"\nDexterity:\t{dict_player_stats['dexterity_bonus']}" + text_end + text_color_green + f"\nConstitution:\t{dict_player_stats['constitution_bonus']}" + text_end + "\n")
     player_character.check_inventory()
 
 # Method to center the text in the screen based on the longest line.
@@ -489,10 +500,10 @@ to recall the events leading up to this point. You were at an office party when
 you started to feel ill. You remember someone claiming to be a doctor had offered
 to help you. Your world faded to black after accepting his help.""" + text_end)
 
-input("Press " + text_color_blue + text_invert + "'Enter'" + text_end + " when you are ready to move on.")
+input("Press " + text_color_blue + text_invert + "'Enter'" + text_end + " when you are ready to move on.\n\n")
 
 
-input(f"Before you can gather your wits about you, time slows to a stop and you are transported to an empty white void . . .\n\nYou blink your eyes a couple of times as they adjust to the void white space. This space is devoid of any features to the point to where you can't tell the difference between the walls, floor, and ceiling (If there are walls and a ceiling). You are suddenly started by the sudden appearance of the {text_color_purple}'Guiding Force'{text_end}. It has an androngenous appearance although the form is slightly feminie with a dual tone voice in unison, one feminine, the other masculine, as the {text_color_purple}'Guiding Force'{text_end} seems to whisper directly into your mind {text_color_purple}'Remember to just breathe. This is your inner soul space where . . . the form fades away from your left side \nand reapears on your right side . . .\nyou will increase your physical attributes.\n'{text_end} and the {text_color_purple}'Guiding Force'{text_end} dissappears as quickly as it appeared. When you have collected your thoughs,\nPress " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n\n")
+input(f"Before you can gather your wits about you, time slows to a stop and you are transported to an empty white void . . .\n\nYou blink your eyes a couple of times as they adjust to the void white space.\nThis space is devoid of any features to the point to where you can't tell the difference between the walls, floor, and ceiling\n(If there are walls and a ceiling). You are suddenly started by the sudden appearance of the {text_color_purple}'Guiding Force'{text_end}. It has an androngenous appearance although the form is slightly feminie with a dual tone voice in unison, one feminine, the other masculine, as the {text_color_purple}'Guiding Force'{text_end} seems to whisper directly into your mind\n{text_color_purple}'Remember to just breathe. This is your inner soul space where . . . \nthe form fades away from your left side \nand reapears on your right side . . .\n'This is the space where you will increase your physical attributes.'\n'{text_end} and the {text_color_purple}'Guiding Force'{text_end} dissappears as quickly as it appeared. When you have collected your thoughs,\nPress " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n\n")
 
 print("One more thing ...\n")
 # time.sleep(1)
@@ -506,11 +517,11 @@ print("You can go right.\n")
 # time.sleep(2)
 print("Heck, you can even go turn around and go back the way you came.\n\n")
 # time.sleep(3)
-print(text_color_red + "But you should" + text_invert + "NEVER" + text_end + text_color_red + " go back the way you came!\nYou can try if you insist.\n\n" + text_end)
+print(text_color_red + "But you should" + text_invert + " NEVER " + text_end + text_color_red + "go back the way you came!\n\n" + text_end)
 # time.sleep(3)
 print("Let that sink into your pretty little noggin for a moment.\n\nYou can nod your pretty little head in agreement once your new reality has sunken in...")
 # time.sleep(1)
-input(center_text(" \nBy pressing " + text_color_green + text_invert + "'Enter'" + text_end + " to continue: \n"))
+input(center_text("\nBy pressing " + text_color_green + text_invert + "'Enter'" + text_end + " to continue: \n"))
 # time.sleep(1)
 print("\n\nTake a breath, don't stress, and remember ...\n")
 # time.sleep(1)
@@ -583,8 +594,7 @@ You prepare to fight, because one of you two is on the menu for supper tonight.
 And I don't think that you want it to be you that's on the menu tonight \ today, you know you can't tell what time of day it is here while trapped in this area as there are no windows or any indicators as to whether it is day or night outside of this place.\n""" + text_end)
 
 
-print("You decide that it won't be you that's on the dinner menu for tonight.")
-print("Prepare to make your stand.\n\n")
+print("You decide that it won't be you that's on the dinner menu for tonight.\n\n")
 
 # Testing the fight mechanics. setup first fight here. Then random fights else where.
 fight(player_character, enemy, "melee")
@@ -601,10 +611,11 @@ def monster_chance():
     if monster_chance <= 30:
         monster_in_room = True
         return monster_in_room
+    else:
+        print("There was no monster to greet you.")
 
 
 def main():
-    print("Setup random room generator with a minimum of 2 directions to go, back and any of the other rooms exits.")
     print("************")
     room_description()
     monster_chance()
