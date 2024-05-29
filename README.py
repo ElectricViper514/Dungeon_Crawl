@@ -62,6 +62,7 @@ Or if I should use a "Curved Progression" approach to leveling up the player.
 # XP Required = a * (level**) + b * Level + c
 
 Maybe I'll use this ... XP_TO_LEVEL = (XP_BASE * CURRENT_LEVEL) ^ SCALE
+I changed the scale rate from 1.5 to 1.15 else the XP to the next level grew quickly out of hand.
 '''
 xp_to_level = (100 * 1) ^ 1.5
 print(xp_to_level) 
