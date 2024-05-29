@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# https://github.com/ElectricViper514/Dungeon_Crawl
 
 '''This is my first portfolio project from Codecademy. I am going to create a very simple text based
 dungeon crawl where the player will be able to select their name. They will start with a small back
@@ -137,7 +138,7 @@ def character_creation():
     else:
         dict_player_stats.update({"name": player_name})
         print(f"\n\nHello {player_name}.")
-        player_gender = input("\n\nWhat gender do you identify as?\n\nIf you don't pick one, I'll decide for you:   ")
+    player_gender = input("\n\nWhat gender do you identify as?\n\nIf you don't pick one, I'll decide for you:   ")
     if len(player_gender) == 0:
         print("\nYour gender shall be set as 'Genderless'\nMoving on from the questions.\n")
     else:
@@ -227,28 +228,28 @@ def increase_stats(player_remaining_stat_points):
 # This is to update the stats and ability modifiers after every time the player gains stat points.
 def update_stat_bonuses():
     print("\n\n\nUpdating stat bonues.\n\n")
-    #player_score_strength = dict_player_stats["strength"]
-    player_score_strength = player_character["strength"]
+    player_score_strength = dict_player_stats["strength"]
+    #player_score_strength = player_character["strength"]
     strength_bonus = dict_stat_bonues[player_score_strength]
-    player_character.update({"strength_bonus": strength_bonus})
-    print(text_color_red + f"Player Strength Bonus: {player_character["strength_bonus"]}\n" + text_end)
+    dict_player_stats.update({"strength_bonus": strength_bonus})
+    print(text_color_red + f"Player Strength Bonus: {dict_player_stats["strength_bonus"]}\n" + text_end)
 
-    player_score_dexterity = player_character["dexterity"]
-    dexterity_bonus = player_character[player_score_dexterity]
-    player_character.update({"dexterity_bonus": dexterity_bonus})
-    print(text_color_blue + f"Player Dexterity Bonus: {player_character["dexterity_bonus"]}\n" + text_end)
+    player_score_dexterity = dict_player_stats["dexterity"]
+    dexterity_bonus = dict_stat_bonues[player_score_dexterity]
+    dict_player_stats.update({"dexterity_bonus": dexterity_bonus})
+    print(text_color_blue + f"Player Dexterity Bonus: {dict_player_stats["dexterity_bonus"]}\n" + text_end)
 
-    player_score_constitution = player_character["constitution"]
-    constitution_bonus = player_character[player_score_constitution]
-    player_character.update({"constitution_bonus": constitution_bonus})
+    player_score_constitution = dict_player_stats["constitution"]
+    constitution_bonus = dict_stat_bonues[player_score_constitution]
+    dict_player_stats.update({"constitution_bonus": constitution_bonus})
     updated_hitpoints = hit_points + constitution_bonus
-    player_character.update({"hit_points": updated_hitpoints})
-    print(text_color_green + f"Player Constitution Bonus: {player_character["constitution_bonus"]}\n" + text_end)
+    dict_player_stats.update({"hit_points": updated_hitpoints})
+    print(text_color_green + f"Player Constitution Bonus: {dict_player_stats["constitution_bonus"]}\n" + text_end)
 
-    player_armor_defence = player_character["armor"]
-    player_defense = 10 + player_character["dexterity_bonus"] + dict_armors[player_armor_defence][0]
-    player_character.update({"player_defense_rating": player_defense})
-    print(text_color_orange + f"Player Defence Rating: {player_character["player_defense_rating"]}\n" + text_end)
+    player_armor_defence = dict_player_equipment["armor"]
+    player_defense = 10 + dict_player_stats["dexterity_bonus"] + dict_armors[player_armor_defence][0]
+    dict_player_stats.update({"player_defense_rating": player_defense})
+    print(text_color_orange + f"Player Defence Rating: {dict_player_stats["player_defense_rating"]}\n" + text_end)
 
 # Dice Roller Function
 def Roll_Dice(dice_number, dice_type, silent = False):
@@ -301,7 +302,7 @@ class Player:
         print("Select from the options below:")
         for key, value in dict_menu_main.items():
             print(f"{key}: {value}", end="  ")
-        character_selection = input(":")
+        character_selection = input("\n: ")
         return character_selection.upper()
     
     # Display the list of options a player can do during a fight
@@ -458,9 +459,10 @@ def fight_club(attacker, attack_type = "none"):
 #dict_player_stats = {"name", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "player_defense_rating": player_defense, "player_attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "hit_points": hit_points, "is_alive": True}
 def current_stats_and_inventory():
     print(f"Your current stats are as follows:\nStrength:\t{dict_player_stats['strength']}\nDexterity:\t{dict_player_stats['dexterity']}\nConstitution:\t{dict_player_stats['constitution']}\n")
-    print(f"Your current stats bonuses are as follows:\nStrength:\t{dict_player_stats['strength_bonus']}\nDexterity:\t{dict_player_stats['dexterity_bonus']}\nConstitution:\t{dict_player_stats['constitution_bonus']}\n")
+    print(f"Your current stats bonuses are as follows:\n" + text_color_red + f"Strength:\t{dict_player_stats['strength_bonus']}" + text_end + text_color_red + f"\nDexterity:\t{dict_player_stats['dexterity_bonus']}" + text_end + f"\nConstitution:\t{dict_player_stats['constitution_bonus']}" + text_end + f"\n")
     player_character.check_inventory()
 
+# Method to center the text in the screen based on the longest line.
 def center_text(text, width=-1):
   lines = text.split('\n')
   width = max(map(len, lines)) if width == -1 else width
@@ -480,24 +482,17 @@ print(center_text(text_color_cyan + "Welcome adventurer!\n\nWelcome to your fina
 print(text_color_blue + """
   
       
-You have awoken in a cold, dark room.
+You have awoken in a cold, dark, and musty room.
 The only sound is that of the dripping of water in the distance.
 As your vision clears and you shake the cobwebs from your head, you begin
 to recall the events leading up to this point. You were at an office party when 
 you started to feel ill. You remember someone claiming to be a doctor had offered
-to help you. Your world faded to black after accepting her help.""" + text_end)
+to help you. Your world faded to black after accepting his help.""" + text_end)
 
 input("Press " + text_color_blue + text_invert + "'Enter'" + text_end + " when you are ready to move on.")
 
-print(text_color_blue + """\n
-As you look around the room you see that you are in a small rectangular room
-made with rough stone walls and at one time it looks to have been a pantry. As you
-investigate the supposed pantry, you realize that you are only wearing some very basic garments. No, make that more like dirty rags. What'ev ... as you look around the room you find an old chef's knife. While lost in thought wondering who would have left such a rusted piece of junk here you snap out of your thoughts as an 'R' 'O' 'U' 'S' or Rodent of Unusual Size scurries across the floor and glares at you hungrily eliciting a not so small yelping from you. You hear the juxting of the rather large, and sharp looking teeth as the, 'R' 'O' 'U' 'S' or ... in laymen's terms ... a giant rat prepares to make a meal out of your leg. You grab the rusty chef's knife and ...
-      
-You prepare to fight, because one of you two is on the menu for supper tonight.
-And I don't think that you want it to be you that's on the menu tonight \ today, you know you can't tell what time of day it is here while trapped in this area as there are no windows or any indicators as to whether it is day or night outside of this place.\n""" + text_end)
 
-input(f"Just before the giant rat lunges at you, time slows to a stop and you are transported to your inner soul space where ...\n\nYou blink your eyes a couple of times as they adjust to the void white room. The room is devoid of any features to the point to where you can't tell the difference between the walls, floor, and ceiling (If there are walls and a ceiling). You are suddenly started by the sudden appearance of the {text_color_purple}'Guiding Force'{text_end}. It has an androngenous appearance although the form is slightly feminie with a soft feminine voice as the {text_color_purple}'Guiding Force'{text_end} seems to whisper directly into your mind {text_color_purple}'Remember to just breathe.'{text_end} and the {text_color_purple}'Guiding Force'{text_end} dissappears as quickly as she/it appeared. When you have collected your thoughs,\nPress " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n\n")
+input(f"Before you can gather your wits about you, time slows to a stop and you are transported to an empty white void . . .\n\nYou blink your eyes a couple of times as they adjust to the void white space. This space is devoid of any features to the point to where you can't tell the difference between the walls, floor, and ceiling (If there are walls and a ceiling). You are suddenly started by the sudden appearance of the {text_color_purple}'Guiding Force'{text_end}. It has an androngenous appearance although the form is slightly feminie with a dual tone voice in unison, one feminine, the other masculine, as the {text_color_purple}'Guiding Force'{text_end} seems to whisper directly into your mind {text_color_purple}'Remember to just breathe. This is your inner soul space where . . . the form fades away from your left side \nand reapears on your right side . . .\nyou will increase your physical attributes.\n'{text_end} and the {text_color_purple}'Guiding Force'{text_end} dissappears as quickly as it appeared. When you have collected your thoughs,\nPress " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n\n")
 
 print("One more thing ...\n")
 # time.sleep(1)
@@ -543,7 +538,6 @@ input(center_text("\n\nThis is where the adventure begins.\n\nYou poor, poor, lo
 
 enemy = Monster(dict_giant_rat)
 
-#fight_club(player_character, "melee")
 
 # Random room description text and possiblity of encountering an enemy in the room. initially set at 18% of encountering an enemy.
 # dict_menu_main = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right", "c": "Character sheet", "i": "Inventory", "q": "Quaff a Potion", "l": "Look Around"}
@@ -551,13 +545,14 @@ enemy = Monster(dict_giant_rat)
 #my_test_variable = input(text_color_orange + dict_menu_main + text_end)
 #actual_input = my_test_variable.upper()
 #print(f"The character menu list is as follows:\n{actual_input}\n\n")
+'''
 player_menu_list = ""
 for key, value in dict_menu_list.items():
     #menu_section = key + ","
     #player_menu_list += 
     print(key, ' : ', value)
+'''
 
-# https://github.com/ElectricViper514/Dungeon_Crawl
 
 def fight(player_character, enemy, attack_type = "none"):
     fight_round = 1
@@ -578,6 +573,15 @@ def fight(player_character, enemy, attack_type = "none"):
             fight_club(enemy)
             fight_round += 1
             print(f"You fought for {fight_round} rounds.\n")
+
+print(text_color_blue + """\n
+As you look around the room you see that you are in a small rectangular room
+made with rough stone walls and at one time it looks to have been a pantry. As you
+investigate the supposed pantry, you realize that you are only wearing some very basic garments. No, make that more like dirty rags. What'ev ... as you look around the room you find an old chef's knife. While lost in thought wondering who would have left such a rusted piece of junk here you snap out of your thoughts as an 'R' 'O' 'U' 'S' or Rodent of Unusual Size scurries across the floor and glares at you hungrily eliciting a not so small yelping from you. You hear the juxting of the rather large, and sharp looking teeth as the, 'R' 'O' 'U' 'S' or ... in laymen's terms ... a giant rat prepares to make a meal out of your leg. You grab the rusty chef's knife and ...
+      
+You prepare to fight, because one of you two is on the menu for supper tonight.
+And I don't think that you want it to be you that's on the menu tonight \ today, you know you can't tell what time of day it is here while trapped in this area as there are no windows or any indicators as to whether it is day or night outside of this place.\n""" + text_end)
+
 
 print("You decide that it won't be you that's on the dinner menu for tonight.")
 print("Prepare to make your stand.\n\n")
@@ -617,6 +621,7 @@ def main():
 
     print("Generate if an enemy is in the room.")
     print("show player menu depending on if enemy is in room. Either standard menu or fight menu.")
+    player_character.player_menu_main
 
 
 main()
