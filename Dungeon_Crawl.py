@@ -307,6 +307,26 @@ class Player:
         print("You have the following items in your inventory")
         for key, value in dict_player_equipment.items():
             print(f"{key}: {value}")
+ 
+##############
+   # test stat update. 
+
+    def update_stats(self):
+        # Example stat update logic
+        for stat in self.dict_player_stats:
+            self.dict_player_stats[stat] += 1  
+        return self.dict_player_stats
+
+###############
+
+
+# Create player character
+player_character = PlayerCharacter({"strength": 10, "dexterity": 8})
+
+# Update stats and print
+player_character.update_stats()
+print(player_character.dict_player_stats)
+########
 
     # Display the list of options a player can do.
     def player_menu_main(self):
