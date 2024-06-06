@@ -593,11 +593,15 @@ def fight(player_character, enemy, attack_type = "none"):
         if fight_round % 2 == 1:
             fight_choice = input("'A'ttack, 'Q'uaff a Potion, or 'F'lee?\n")
             if fight_choice.upper() == "A":
+                fight_round += 1
                 fight_club(player_character, attack_type)
             elif fight_choice.upper() == "Q":
                 print("You quaff a potion to regain some health:\n")
+                fight_round += 1
+                continue
             elif fight_choice.upper() == "F":
                 print("Those who fight and run away,\nlive to fight another day.\n\n")
+                fight_round += 1
                 break
             else:
                 print("You did not choose a valid option.\n")
@@ -605,7 +609,8 @@ def fight(player_character, enemy, attack_type = "none"):
         else:
             fight_club(enemy)
             fight_round += 1
-        print(f"You fought for {fight_round} rounds.\n")
+            
+        #print(f"You fought for {fight_round} rounds.\n")
 
 print(text_color_blue + """\n
 As you look around the room you see that you are in a small rectangular room
