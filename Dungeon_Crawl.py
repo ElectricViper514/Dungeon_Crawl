@@ -643,7 +643,7 @@ def main():
     room_description()
     monster_chance()
 
-    if monster_in_room:
+    if monster_in_room is True:
         mob = random_monster()
         enemy = Monster(mob)
         print(f"A {enemy.name} is poised, ready to strike!")
