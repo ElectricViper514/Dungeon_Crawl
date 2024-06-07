@@ -19,7 +19,7 @@ __status__      = "Prototype" #"Development" | "Production"
 
 import os
 import random
-from re import A
+#from re import A
 import time
 from turtle import clear
 
@@ -61,6 +61,7 @@ xp_to_level = 0
 monster_in_room = False
 player_choice = ""
 room_details = []
+
 
 
 
@@ -635,11 +636,20 @@ def room_description():
     random_room_number = random.choice(list(dict_room_descriptions.keys()))
     print(f"As you enter the new room and scan your surroundings: \n\n{dict_room_descriptions[random_room_number]}")
     if random.random() < 0.9:
-        room_details["enemy"] = random.choice(dict_monsters)
+        #room_details["enemy"] = random.choice(dict_monsters)
+        #room_details["enemy"] = Monster(random.choice(dict_monsters))
+        mob = dict_monsters[Roll_Dice(1, len(dict_monsters), True)]
+        #mob = random.choice(dict_monsters)
+        mob = globals()[mob]
+        current_enemy = Monster(mob)
+        #room_details[current_enemy] = current_enemy.name
+        return current_enemy
+        
     else:
-        room_details["enemy"] = None
+        #room_details[current_enemy] = None
         print("There was no monster to greet you.")
     return room_details
+    
 
 '''
 def monster_chance():
@@ -657,7 +667,7 @@ def main():
     print("************")
     room_description()
     #monster_chance()
-
+    global current_enemy
     '''if monster_in_room is True:
         mob = random_monster()
         enemy = Monster(mob)
@@ -667,14 +677,14 @@ def main():
     else:
         player_character.player_menu_main'''
     
-    if room_details.get("enemy"):
-        global current_enemy
-        current_enemy = room_details["enemy"]
-        print(f"You have encountered a {current_enemy}!")
+    #if room_details.get(current_enemy):
+    if current_enemy:
+        #global current_enemy
+        #current_enemy = room_details["enemy"]
+        print(f"You have encountered a {current_enemy.name}!")
         player_character.player_menu_fight
     
     else:
-        print(room_details)
         print("Luck was on your side.\nThere are no enemys to be found in this room.\n")
         player_character.player_menu_main
 
