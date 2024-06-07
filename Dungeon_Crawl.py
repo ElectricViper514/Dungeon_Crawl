@@ -60,6 +60,7 @@ level_max = 31 #Non inclusive always add 1 to the max level that you are wanting
 xp_to_level = 0
 monster_in_room = False
 player_choice = ""
+room_details = []
 
 
 
@@ -368,7 +369,7 @@ class Player:
                 print("You are not currently holding a melee weapon")
                 to_hit_monster = 0
             else:
-                print(f"You attack a {enemy.name} with your {dict_player_equipment["weapon_melee"]}")
+                print(f"You attack a {current_enemy.name} with your {dict_player_equipment["weapon_melee"]}")
                 die_roll = Roll_Dice(1, 20)
                 attack_bonus = player_character.player_attack_bonus + player_character.strength_bonus
                 print(f"\nPlayer Attack Bonus = {player_character.player_attack_bonus}\n\nPlayer Strength Bonus = {player_character.strength_bonus}")
@@ -379,7 +380,7 @@ class Player:
                 print("You are not currently holding a ranged weapon.")
                 to_hit_monster = 0
             else:
-                print(f"You attack a {enemy.name} with your {dict_player_equipment["weapon_ranged"]}")
+                print(f"You attack a {current_enemy.name} with your {dict_player_equipment["weapon_ranged"]}")
                 die_roll = Roll_Dice(1, 20)
                 attack_bonus = player_character.player_attack_bonus + player_character.dexterity_bonus
                 to_hit_monster = die_roll + attack_bonus
@@ -406,24 +407,24 @@ player_character.check_inventory()
         pass
 '''
 # Random monster generator. This is to randomly select one of the mobs in the dict_monsters dictionary.
-
+'''
 def random_monster():
     mob = dict_monsters[Roll_Dice(1, len(dict_monsters), True)]
     mob = globals()[mob]
     return mob
-    
+   ''' 
 
 
 class Monster:
-    def __init__(self, mob):
-        for key, value in mob.items():
+    def __init__(self, current_enemy):
+        for key, value in current_enemy.items():
             setattr(self, key, value)
     
     def attack(self):
-        print(f"A {enemy.name} viciously attacks you.")
+        print(f"A {current_enemy.name} viciously attacks you.")
         die_roll = Roll_Dice(1, 20, True)
-        to_hit_player = die_roll + enemy.to_hit
-        print(f"Enemy's To Hit = {enemy.to_hit}")
+        to_hit_player = die_roll + current_enemy.to_hit
+        print(f"Enemy's To Hit = {current_enemy.to_hit}")
         return to_hit_player
 
 # Test mobs
@@ -451,42 +452,44 @@ def fight_club(attacker, attack_type = "none"):
             else:
                 print("You are not equiped with a melee or ranged weapon.")
             
-            print(f"You are attacking a {enemy.name}")
+            print(f"You are attacking a {current_enemy.name}")
             to_hit_monster = player_character.attack(attack_type)
-            if to_hit_monster >= enemy.defense_rating:
+            if to_hit_monster >= current_enemy.defense_rating:
                 number_of_dice = dict_weapons_melee[equiped_weapon][0]
                 type_of_dice = dict_weapons_melee[equiped_weapon][1]
                 damage_to_monster = Roll_Dice(number_of_dice, type_of_dice) + ability_modifier
-                print(f"You successfully hit a {enemy.name} for {damage_to_monster} points of damage.")
-                enemy.hit_points -= damage_to_monster
-                if enemy.hit_points <= 0:
-                    enemy.is_alive = False
-                    print(f"You have successfully defeated a {enemy.name}.")
-                    print(f"You have gained {enemy.experience_value} points of experience.")
-                    player_character.experience += enemy.experience_value
-                    print(f"{dict_player_stats['name']}, you now have a total of {player_character.experience} points of experience.")
+                print(f"You hit a {current_enemy.name} for {damage_to_monster} points of damage.\n\n")
+                current_enemy.hit_points -= damage_to_monster
+                if current_enemy.hit_points <= 0:
+                    current_enemy.is_alive = False
+                    print(f"You have successfully defeated a {current_enemy.name}.")
+                    print(f"You have gained {current_enemy.experience_value} points of experience.")
+                    player_character.experience += current_enemy.experience_value
+                    print(f"{player_character.name}, you now have a total of {player_character.experience} points of experience.\n")
+                    print(f"You currently have {player_character.hit_points} hit points remaining.\n")
             else:
-                print(f"You missed a {enemy.name}.")
+                print(center_text(f"You missed a {current_enemy.name}.\n\n"))
         else:
-            print("You can't attack, you're dead.\n\nBetter luck next time.")
+            print(center_text("You can't attack, you're dead.\n\nGame Over.\n\nBetter luck next time."))
     else:
-        if enemy.is_alive is True:
-            attacker = enemy.name
-            print(f"A {enemy.name} attacks you:")
-            hit_player = enemy.attack()
+        if current_enemy.is_alive is True:
+            attacker = current_enemy.name
+            print(f"A {current_enemy.name} attacks you:")
+            hit_player = current_enemy.attack()
             if hit_player >= player_character.player_defense_rating:
-                number_of_dice = enemy.damage[0]
-                type_of_dice =  enemy.damage[1]
+                number_of_dice = current_enemy.damage[0]
+                type_of_dice =  current_enemy.damage[1]
                 damage_to_player = Roll_Dice(number_of_dice, type_of_dice, True)
-                print(f"A {enemy.name} has hit you for {damage_to_player} points of damage.")
+                print(f"A {current_enemy.name} has hit you for {damage_to_player} points of damage.")
                 player_character.hit_points -= damage_to_player
+                print(f"You currently have {player_character.hit_points} hit points remaining.\n")
                 if player_character.hit_points <= 0:
                     player_character.is_alive = False
-                    print(f"You have succumbed to your wounds inflicted by a {enemy.name}")
+                    print(f"You have succumbed to your wounds inflicted by a {current_enemy.name}")
             else:
-                print(f"A {enemy.name} has missed you.")
+                print(f"A {current_enemy.name} has missed you.\n")
         else:
-            print("The enemy is dead. There's no use in beating a dead horse to death.")
+            print("The enemy is dead. There's no use in beating a dead horse to death.\n")
 
 # List current stats and inventory.
 #dict_player_stats = {"name", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "player_defense_rating": player_defense, "player_attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "hit_points": hit_points, "is_alive": True}
@@ -569,7 +572,7 @@ current_stats_and_inventory()
 
 input(center_text("\n\nThis is where the adventure begins.\n\nYou poor, poor, lost test subje ... err ...\nI meant soul, you poor, poor, lost soul.\n\nPress 'Enter' to continue with your adventure.\n"))
 
-enemy = Monster(dict_giant_rat)
+current_enemy = Monster(dict_giant_rat)
 
 
 # Random room description text and possiblity of encountering an enemy in the room. initially set at 18% of encountering an enemy.
@@ -587,11 +590,11 @@ for key, value in dict_menu_list.items():
 '''
 
 
-def fight(player_character, enemy, attack_type = "none"):
+def fight(player_character, current_enemy, attack_type = "none"):
     fight_round = 1
-    while player_character.is_alive and enemy.is_alive:
+    while player_character.is_alive and current_enemy.is_alive:
         if fight_round % 2 == 1:
-            fight_choice = input("'A'ttack, 'Q'uaff a Potion, or 'F'lee?\n")
+            fight_choice = input("'A'ttack Melee, 'Q'uaff a Potion, or 'F'lee?\n")
             if fight_choice.upper() == "A":
                 fight_round += 1
                 fight_club(player_character, attack_type)
@@ -607,7 +610,7 @@ def fight(player_character, enemy, attack_type = "none"):
                 print("You did not choose a valid option.\n")
                 
         else:
-            fight_club(enemy)
+            fight_club(current_enemy)
             fight_round += 1
             
         #print(f"You fought for {fight_round} rounds.\n")
@@ -624,14 +627,21 @@ And I don't think that you want it to be you that's on the menu tonight \ today,
 print("You decide that it won't be you that's on the dinner menu for tonight.\nPrepare to fight as if your life depends on it.\nBecause it does. Good Luck.\n\n")
 
 # Testing the fight mechanics. setup first fight here. Then random fights else where.
-fight(player_character, enemy, "melee")
+fight(player_character, current_enemy, "melee")
 
 # player_character.player_menu_main()
 
 def room_description():
     random_room_number = random.choice(list(dict_room_descriptions.keys()))
-    print(f"As you enter the new room and gather your bearings: \n\n{dict_room_descriptions[random_room_number]}")
+    print(f"As you enter the new room and scan your surroundings: \n\n{dict_room_descriptions[random_room_number]}")
+    if random.random() < 0.9:
+        room_details["enemy"] = random.choice(dict_monsters)
+    else:
+        room_details["enemy"] = None
+        print("There was no monster to greet you.")
+    return room_details
 
+'''
 def monster_chance():
     # I am going to aim for a 30% chance of encountering a enemy
     monster_chance = Roll_Dice(1, 100, True)
@@ -641,20 +651,31 @@ def monster_chance():
         return monster_in_room
     else:
         print("There was no monster to greet you.")
-
+'''
 
 def main():
     print("************")
     room_description()
-    monster_chance()
+    #monster_chance()
 
-    if monster_in_room is True:
+    '''if monster_in_room is True:
         mob = random_monster()
         enemy = Monster(mob)
         print(f"A {enemy.name} is poised, ready to strike!")
         player_character.player_menu_fight
     
     else:
+        player_character.player_menu_main'''
+    
+    if room_details.get("enemy"):
+        global current_enemy
+        current_enemy = room_details["enemy"]
+        print(f"You have encountered a {current_enemy}!")
+        player_character.player_menu_fight
+    
+    else:
+        print(room_details)
+        print("Luck was on your side.\nThere are no enemys to be found in this room.\n")
         player_character.player_menu_main
 
     print("show player menu depending on if enemy is in room. Either standard menu or fight menu.")
