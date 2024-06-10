@@ -11,7 +11,7 @@ __author__      = "John W. Davis"
 __copyright__   = "2024 - The Codecademy Project"
 __credits__     = ["John W. Davis"]
 __license__     = ""
-__version__     = "0.0.1"
+__version__     = "0.2.0"
 __maintainer__  = "John W. Davis"
 __website__     = "www.VipersByteSolutions.com"
 __email__       = "ElectricViper@VipersByteSolutions.com"
@@ -307,9 +307,9 @@ class Player:
     
     # Display the players currently held inventory
     def check_inventory(self):
-        print("You have the following items in your inventory")
+        print("You have the following items in your inventory:\n")
         for key, value in dict_player_equipment.items():
-            print(f"{key}:\t{value}")
+            print(f"{text_bold}{key}{text_end}:\t{text_bold}{text_color_orange}{value}{text_end}")
  
     '''def update_stats(self, stat, value):
         # Example stat update logic
@@ -341,7 +341,7 @@ class Player:
 
     # Display the list of options a player can do.
     def player_menu_main(self):
-        print("Select from the options below:")
+        print("Select from the options below:\n")
         for key, value in dict_menu_main.items():
             print(f"{key}: {value}", end="  ")
         character_selection = input("\n: ")
@@ -349,18 +349,21 @@ class Player:
     
     # Display the list of options a player can do during a fight
     def player_menu_fight(self):
-        print("Select from the options below:")
+        print("Select from the options below:\n")
         for key, value in dict_menu_fight.items():
             print(f"{key}: {value}", end="  ")
-        character_selection = input(":")
-        if character_selection.upper() == "A":
-            player_character.attack("melee")
-        elif character_selection.upper() == "B":
+            #Seeing I can upper cut the input.
+        #character_selection = input(":")
+        character_selection = input.upper((": "))
+        if character_selection() == "A":
+            player_character("melee")
+        elif character_selection() == "B":
             player_character.attack("ranged")
-        elif character_selection.upper() == "Q":
+        elif character_selection() == "Q":
             print("You quaff a potion")
-        elif character_selection.upper() == "F":
+        elif character_selection() == "F":
             print("You run away in terror.")
+        return character_selection
     
     # Attack Code using the standard D20 system. Roll 1d20 + attack bonus + attack stat bonus >= Defenders Defence/AC rating.
     def attack(self, attack_type):
@@ -526,7 +529,7 @@ to recall the events leading up to this point. You were at an office party when
 you started to feel ill. You remember someone claiming to be a doctor had offered
 to help you. Your world faded to black after accepting his help.""" + text_end)
 
-input("Press " + text_color_blue + text_invert + "'Enter'" + text_end + " when you are ready to move on.\n\n")
+input(f"Press {text_color_blue}{text_invert}'Enter'{text_end} when you are ready to move on.\n\n")
 
 
 input(f"Before you can gather your wits about you, time slows to a stop and you are transported to an empty white void . . .\n\nYou blink your eyes a couple of times as they adjust to the void white space.\nThis space is devoid of any features to the point to where you can't tell the difference between the walls, floor, and ceiling\n(If there are walls and a ceiling). You are suddenly started by the sudden appearance of the {text_color_purple}'Guiding Force'{text_end}. It has an androngenous appearance although the form is slightly feminie with a dual tone voice in unison, one feminine, the other masculine, as the {text_color_purple}'Guiding Force'{text_end} seems to whisper directly into your mind\n{text_color_purple}'Remember to just breathe. This is your inner soul space where . . . \nthe form fades away from your left side \nand reapears on your right side . . .\n'This is the space where you will increase your physical attributes.'\n'{text_end} and the {text_color_purple}'Guiding Force'{text_end} dissappears as quickly as it appeared. When you have collected your thoughs,\nPress " + text_color_green + text_invert + "'Enter'" + text_end + " to continue:\n\n")
@@ -595,6 +598,7 @@ def fight(player_character, current_enemy, attack_type = "none"):
     fight_round = 1
     while player_character.is_alive and current_enemy.is_alive:
         if fight_round % 2 == 1:
+            player_character.player_menu_fight
             fight_choice = input("'A'ttack Melee, 'Q'uaff a Potion, or 'F'lee?\n")
             if fight_choice.upper() == "A":
                 fight_round += 1
@@ -665,33 +669,56 @@ def monster_chance():
 
 def main():
     print("************")
-    room_description()
-    #monster_chance()
-    global current_enemy
-    '''if monster_in_room is True:
-        mob = random_monster()
-        enemy = Monster(mob)
-        print(f"A {enemy.name} is poised, ready to strike!")
-        player_character.player_menu_fight
+    print("attempting to show the main character menu.\n****************************")
+    player_character.player_menu_main
+    print("Attempting to show the main character fight menu.\n****************************")
+    player_character.player_menu_fight
+    print("Finished with the player menu selection.\n****************************\n\n")
     
-    else:
-        player_character.player_menu_main'''
+    continue_game = True
+    while continue_game:
+        
+        room_description()
+        #monster_chance()
+        global current_enemy
+        if monster_in_room is True:
+            mob = current_enemy
+            current_enemy = Monster(mob)
+            print(f"A {current_enemy.name} is poised, ready to strike!")
+            player_character.player_menu_fight
     
-    #if room_details.get(current_enemy):
-    if current_enemy:
-        #global current_enemy
+        else:
+            player_character.player_menu_main
+    
+        #if room_details.get(current_enemy):
+        if current_enemy:
+            #global current_enemy
         #current_enemy = room_details["enemy"]
-        print(f"You have encountered a {current_enemy.name}!")
-        player_character.player_menu_fight
+            print(f"You have encountered a {current_enemy.name}!")
+            fight_club(player_character, current_enemy, )
     
-    else:
-        print("Luck was on your side.\nThere are no enemys to be found in this room.\n")
+        else:
+            print("Luck was on your side.\nThere are no enemys to be found in this room.\n")
+            player_character.player_menu_main
+
+        print("show player menu depending on if enemy is in room. Either standard menu or fight menu.")
         player_character.player_menu_main
 
-    print("show player menu depending on if enemy is in room. Either standard menu or fight menu.")
-    player_character.player_menu_main
+        input("Test again? Y / N:\n: ")
+        choice = input()
+        user_choice = choice.upper()
+        if user_choice == "Y":
+            print("\n\n\nContinuing Onward.")
+            continue_game = True
+        if user_choice == "N":
+            continue_game = False
+            print("\n\n\nFair Thee Well Adventure!")
+            time.sleep(3)
+        else:
+            print("You did not select either 'Y' or 'N'. Please try another selection.")
 
-
+'''if __name__ == "__main__":
+    main()'''
 main()
 print("\n\nThis is the end of the file.\n\n")
 
