@@ -307,8 +307,9 @@ class Player:
     
     # Display the players currently held inventory
     def check_inventory(self):
+        self.dict_player_equipment = dict_player_equipment
         print("You have the following items in your inventory:\n")
-        for key, value in dict_player_equipment.items():
+        for key, value in zip(dict_player_equipment.keys(), dict_player_equipment.values()):
             print(f"{text_bold}{key}{text_end}:\t{text_bold}{text_color_orange}{value}{text_end}")
  
     '''def update_stats(self, stat, value):
@@ -327,6 +328,9 @@ class Player:
     def update_stats(self, stat, value):
         # Example stat update logic
         #for stat in dict_player_stats:
+        self.dict_player_equipment = dict_player_equipment
+        self.dict_stat_bonues = dict_stat_bonues
+        self.dict_armors = dict_armors
         setattr(player_character, stat, value)
         player_score_bonus = getattr(player_character, stat)
         stat_bonus = dict_stat_bonues[player_score_bonus]
@@ -341,6 +345,7 @@ class Player:
 
     # Display the list of options a player can do.
     def player_menu_main(self):
+        self.dict_menu_main = dict_menu_main
         print("Select from the options below:\n")
         for key, value in dict_menu_main.items():
             print(f"{key}: {value}", end="  ")
@@ -349,6 +354,7 @@ class Player:
     
     # Display the list of options a player can do during a fight
     def player_menu_fight(self):
+        self.dict_menu_fight = dict_menu_fight
         print("Select from the options below:\n")
         for key, value in dict_menu_fight.items():
             print(f"{key}: {value}", end="  ")
@@ -368,6 +374,7 @@ class Player:
     # Attack Code using the standard D20 system. Roll 1d20 + attack bonus + attack stat bonus >= Defenders Defence/AC rating.
     def attack(self, attack_type):
         self.attack_type = attack_type
+        self.dict_player_equipment = dict_player_equipment
         if attack_type == "melee":
             if dict_player_equipment["weapon_melee"] == "none":
                 print("You are not currently holding a melee weapon")
@@ -394,7 +401,8 @@ class Player:
 
 player_character = Player(dict_player_stats)
 
-for key, value in dict_player_stats.items():
+# This is testing what the players stats are.
+for key, value in zip(dict_player_stats.keys(), dict_player_stats.values()):
     print(f"{key}:\t{value}")
 
 # This section is just for testing to make sure that the fields are being properly set.
@@ -471,6 +479,7 @@ def fight_club(attacker, attack_type = "none"):
                     player_character.experience += current_enemy.experience_value
                     print(f"{player_character.name}, you now have a total of {player_character.experience} points of experience.\n")
                     print(f"You currently have {player_character.hit_points} hit points remaining.\n")
+                    #del current_enemy
             else:
                 print(center_text(f"You missed a {current_enemy.name}.\n\n"))
         else:
@@ -682,10 +691,9 @@ def main():
         #monster_chance()
         global current_enemy
         if monster_in_room is True:
-            mob = current_enemy
-            current_enemy = Monster(mob)
             print(f"A {current_enemy.name} is poised, ready to strike!")
             player_character.player_menu_fight
+            fight(player_character, current_enemy, "melee")
     
         else:
             player_character.player_menu_main
@@ -704,18 +712,18 @@ def main():
         print("show player menu depending on if enemy is in room. Either standard menu or fight menu.")
         player_character.player_menu_main
 
-        input("Test again? Y / N:\n: ")
-        choice = input()
-        user_choice = choice.upper()
-        if user_choice == "Y":
-            print("\n\n\nContinuing Onward.")
-            continue_game = True
-        if user_choice == "N":
-            continue_game = False
-            print("\n\n\nFair Thee Well Adventure!")
-            time.sleep(3)
-        else:
-            print("You did not select either 'Y' or 'N'. Please try another selection.")
+        while continue_game:
+            choice = input("Test again? Y / N:\n: ")
+            user_choice = choice.upper()
+            if user_choice == "Y":
+                print("\n\n\nContinuing Onward.")
+                continue_game = True
+            if user_choice == "N":
+                continue_game = False
+                print("\n\n\nFair Thee Well Adventure!")
+                time.sleep(3)
+            else:
+                print("You did not select either 'Y' or 'N'. Please try another selection.")
 
 '''if __name__ == "__main__":
     main()'''
