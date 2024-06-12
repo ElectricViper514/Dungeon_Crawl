@@ -17,6 +17,7 @@ __website__     = "www.VipersByteSolutions.com"
 __email__       = "ElectricViper@VipersByteSolutions.com"
 __status__      = "Prototype" #"Development" | "Production"
 
+from operator import truediv
 import os
 import random
 #from re import A
@@ -109,14 +110,16 @@ dict_weapons_melee = {"rusty kitchen knife": (1, 4, 1, "melee"), "shortsword": [
 # "Weapon name": Number of Damage, Value of Damage Damage, Cost, type of attack "melee" or "ranged"
 dict_weapons_ranged = {"throwing knife": [1, 3, 1, "ranged"], "shortbow": [1, 6, 10, "ranged"], "songbow": [1, 8, 20, "ranged"], "heavy crossbow": [2, 6, 50, "ranged"]}
 
+# This is not in play yet.
 # "Bonus Damage: -5 through +5"
 dict_damage_modifier = {"Crippling": -5, "Debilitating": -4, "Weakening": -3, "Hampering": -2, "Slight Impairment": -1, "Normal": 0, "Slight Enhancement": 1, "Boosting": 2, "Strengthening": 3, "Empowering": 4, "Potent": 5}
 
 # "Armor name": [Defence value, cost]
 dict_armors = {"rags": [1, 0], "cloth armor": [2, 10], "leather armor": [3, 25], "chainmail": [6, 70], "platemail": [ 8, 200]}
 
+# Change the potions to heal a random dice amount instead of a static amount
 # "Healing potion name": [Healing value, cost].
-dict_potions = {"potion of healing": [30, 15], "elixir of healing": [60, 40], "infustion of healing": [120, 100], "tincture of healing": [300, 250]}
+dict_potions = {"healing draught": [30, 15], "healing elixir": [60, 40], "healing infustion": [120, 100], "healing tincture": [300, 250]}
 
 # {0 - name: xyz, 1 - hit_points = 5, 2 - to_hit = 1, 3 - damage = 3, 4 - defence_rating = 4, 5 - experience_value = 7, 6 - gold = 3, 7 - is_alive = True}
 dict_monsters = {1: 'dict_giant_rat', 2: 'dict_goblin', 3: 'dict_kobold'}
@@ -126,7 +129,7 @@ dict_goblin = {"name": "goblin", "hit_points": 7, "to_hit": 4, "damage": [1, 5],
 dict_kobold = {"name": "kobold", "hit_points": 5, "to_hit": 4, "damage": [1, 3], "defense_rating": 12, "experience_value": 10, "gold": 7, "is_alive": True}
 
 # Room descriptions currently 1 - 10
-dict_room_descriptions = {1: "Room 1", 2: "Room 2", 3: "Room 3", 4: "Room 4", 5: "Room 5", 6: "Room 6", 7: "Room 7", 8: "Room 8", 9: "Room 9", 10: "Room 10"}
+dict_room_selection = {1: "Room 1", 2: "Room 2", 3: "Room 3", 4: "Room 4", 5: "Room 5", 6: "Room 6", 7: "Room 7", 8: "Room 8", 9: "Room 9", 10: "Room 10"}
 
 # Room Exits {1: "Foward", 2: "Right", 3: "Left", 4: "Back"}
 dict_room_exits = {1: "Foward", 2: "Right", 3: "Left", 4: "Back"}
@@ -310,7 +313,7 @@ class Player:
         self.dict_player_equipment = dict_player_equipment
         print("You have the following items in your inventory:\n")
         for key, value in zip(dict_player_equipment.keys(), dict_player_equipment.values()):
-            print(f"{text_bold}{key}{text_end}:\t{text_bold}{text_color_orange}{value}{text_end}")
+            print(f"{text_bold}{key:14}{text_end}: {text_bold}{text_color_orange}{value}{text_end}")
  
     '''def update_stats(self, stat, value):
         # Example stat update logic
@@ -349,8 +352,10 @@ class Player:
         print("Select from the options below:\n")
         for key, value in dict_menu_main.items():
             print(f"{key}: {value}", end="  ")
-        character_selection = input("\n: ")
-        return character_selection.upper()
+        '''character_selection = input("\n: ")
+        character_selection = character_selection.upper()
+        return character_selection'''
+        input("\n\nPress Enter to Continue:")
     
     # Display the list of options a player can do during a fight
     def player_menu_fight(self):
@@ -360,15 +365,18 @@ class Player:
             print(f"{key}: {value}", end="  ")
             #Seeing I can upper cut the input.
         #character_selection = input(":")
-        character_selection = input.upper((": "))
+        character_selection = input((": "))
+        character_selection = character_selection.upper()
         if character_selection() == "A":
             player_character("melee")
         elif character_selection() == "B":
-            player_character.attack("ranged")
+            player_character("ranged") # player_character.attack("ranged")
         elif character_selection() == "Q":
             print("You quaff a potion")
         elif character_selection() == "F":
             print("You run away in terror.")
+        else:
+            print("You did not make a valid selection.")
         return character_selection
     
     # Attack Code using the standard D20 system. Roll 1d20 + attack bonus + attack stat bonus >= Defenders Defence/AC rating.
@@ -397,13 +405,21 @@ class Player:
                 to_hit_monster = die_roll + attack_bonus
                 print(f"Total Attack Roll: {to_hit_monster}")
         return to_hit_monster
+    
+    # This is for adding in some healing potions
+    def quaff():
+        amount_healed = 10
+        player_character.hit_points += amount_healed
+        healing_potion = "healing draught"
+        print(f"You have quaffed a {healing_potion} regaining {amount_healed} hit points.")
+        # Add logic for reducing the amount of potions in the inventory.
 
 
 player_character = Player(dict_player_stats)
 
 # This is testing what the players stats are.
-for key, value in zip(dict_player_stats.keys(), dict_player_stats.values()):
-    print(f"{key}:\t{value}")
+#for key, value in zip(dict_player_stats.keys(), dict_player_stats.values()):
+#    print(f"{key}:\t{value}")
 
 # This section is just for testing to make sure that the fields are being properly set.
 '''print("Testing the menu display options")
@@ -463,14 +479,14 @@ def fight_club(attacker, attack_type = "none"):
                 ability_modifier = player_character.dexterity_bonus
             else:
                 print("You are not equiped with a melee or ranged weapon.")
-            
-            print(f"You are attacking a {current_enemy.name}")
+                print("I guess that you plan to pummle your oppenent to death with your bare hands.\nI hope that you're ready for bruised and bloody knuckles.")
+            print(f"\nYou are attacking a {current_enemy.name}")
             to_hit_monster = player_character.attack(attack_type)
             if to_hit_monster >= current_enemy.defense_rating:
                 number_of_dice = dict_weapons_melee[equiped_weapon][0]
                 type_of_dice = dict_weapons_melee[equiped_weapon][1]
                 damage_to_monster = Roll_Dice(number_of_dice, type_of_dice) + ability_modifier
-                print(f"You hit a {current_enemy.name} for {damage_to_monster} points of damage.\n\n")
+                print(f"\nYou hit a {current_enemy.name} for {damage_to_monster} points of damage.\n\n")
                 current_enemy.hit_points -= damage_to_monster
                 if current_enemy.hit_points <= 0:
                     current_enemy.is_alive = False
@@ -499,6 +515,10 @@ def fight_club(attacker, attack_type = "none"):
                 if player_character.hit_points <= 0:
                     player_character.is_alive = False
                     print(f"You have succumbed to your wounds inflicted by a {current_enemy.name}")
+                    time.sleep(2)
+                    print("You have died.")
+                    input("Press 'Enter' to exit.")
+                    exit
             else:
                 print(f"A {current_enemy.name} has missed you.\n")
         else:
@@ -583,7 +603,8 @@ increase_stats(player_remaining_stat_points)
 #player_character.update_stats()
 current_stats_and_inventory()
 
-input(center_text("\n\nThis is where the adventure begins.\n\nYou poor, poor, lost test subje ... err ...\nI meant soul, you poor, poor, lost soul.\n\nPress 'Enter' to continue with your adventure.\n"))
+print(center_text(f"\n\n{text_color_cyan}This is where the adventure begins.\n\nYou poor, poor, lost test subje ... err ... uhhhmmmm ... soul, yeeeaaah.\nI meant soul, you poor, poor, lost soul.{text_end}\n\n"))
+input(f"{text_color_cyan}Press{text_end} {text_bold}'Enter'{text_end}{text_color_cyan} to continue with your adventure.{text_end}\n")
 
 current_enemy = Monster(dict_giant_rat)
 
@@ -591,9 +612,6 @@ current_enemy = Monster(dict_giant_rat)
 # Random room description text and possiblity of encountering an enemy in the room. initially set at 18% of encountering an enemy.
 # dict_menu_main = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right", "c": "Character sheet", "i": "Inventory", "q": "Quaff a Potion", "l": "Look Around"}
 
-#my_test_variable = input(text_color_orange + dict_menu_main + text_end)
-#actual_input = my_test_variable.upper()
-#print(f"The character menu list is as follows:\n{actual_input}\n\n")
 '''
 player_menu_list = ""
 for key, value in dict_menu_list.items():
@@ -607,16 +625,20 @@ def fight(player_character, current_enemy, attack_type = "none"):
     fight_round = 1
     while player_character.is_alive and current_enemy.is_alive:
         if fight_round % 2 == 1:
-            player_character.player_menu_fight
-            fight_choice = input("'A'ttack Melee, 'Q'uaff a Potion, or 'F'lee?\n")
-            if fight_choice.upper() == "A":
+            #player_character.player_menu_fight I could not get this to display for some reason, yet I can get the inventory to work using the same format... Things to think on.
+            fight_choice = input("'A'ttack Melee, 'B'ow Attack Ranged, 'Q'uaff a Potion, or 'F'lee?\n")
+            fight_choice = fight_choice.upper()
+            if fight_choice == "A":
                 fight_round += 1
-                fight_club(player_character, attack_type)
-            elif fight_choice.upper() == "Q":
+                fight_club(player_character, attack_type = "melee")
+            elif fight_choice == "B":
+                fight_round +=1
+                fight_club(player_character, attack_type = "ranged")
+            elif fight_choice == "Q":
                 print("You quaff a potion to regain some health:\n")
+                player_character.quaff()
                 fight_round += 1
-                continue
-            elif fight_choice.upper() == "F":
+            elif fight_choice == "F":
                 print("Those who fight and run away,\nlive to fight another day.\n\n")
                 fight_round += 1
                 break
@@ -638,51 +660,41 @@ You prepare to fight, because one of you two is on the menu for supper tonight.
 And I don't think that you want it to be you that's on the menu tonight \ today, you know you can't tell what time of day it is here while trapped in this area as there are no windows or any indicators as to whether it is day or night outside of this place.\n""" + text_end)
 
 
-print("You decide that it won't be you that's on the dinner menu for tonight.\nPrepare to fight as if your life depends on it.\nBecause it does. Good Luck.\n\n")
+print(f"{text_color_cyan}\nYou decide that it won't be you that's on the dinner menu for tonight.\nPrepare to fight as if your life depends on it.\n\nBecause it does.\n\nGood Luck.\n\n{text_end}")
 
 # Testing the fight mechanics. setup first fight here. Then random fights else where.
-fight(player_character, current_enemy, "melee")
+fight(player_character, current_enemy)#, "melee")
 
 # player_character.player_menu_main()
-
-def room_description():
-    random_room_number = random.choice(list(dict_room_descriptions.keys()))
-    print(f"As you enter the new room and scan your surroundings: \n\n{dict_room_descriptions[random_room_number]}")
-    if random.random() < 0.9:
-        #room_details["enemy"] = random.choice(dict_monsters)
-        #room_details["enemy"] = Monster(random.choice(dict_monsters))
-        mob = dict_monsters[Roll_Dice(1, len(dict_monsters), True)]
-        #mob = random.choice(dict_monsters)
-        mob = globals()[mob]
-        current_enemy = Monster(mob)
-        #room_details[current_enemy] = current_enemy.name
-        return current_enemy
-        
-    else:
-        #room_details[current_enemy] = None
-        print("There was no monster to greet you.")
-    return room_details
-    
-
-'''
-def monster_chance():
-    # I am going to aim for a 30% chance of encountering a enemy
-    monster_chance = Roll_Dice(1, 100, True)
-    #if monster_chance <= 30:
-    if monster_chance <= 95:
-        monster_in_room = True
-        return monster_in_room
-    else:
-        print("There was no monster to greet you.")
-'''
+# Terminate the current instatiation of the Monster object
+#del current_enemy
 
 def main():
     print("************")
     print("attempting to show the main character menu.\n****************************")
-    player_character.player_menu_main
+    player_character.player_menu_main()
     print("Attempting to show the main character fight menu.\n****************************")
-    player_character.player_menu_fight
+    player_character.player_menu_fight()
     print("Finished with the player menu selection.\n****************************\n\n")
+
+    # del current_enemy
+    def room_description():
+        random_room_number = random.choice(list(dict_room_selection.keys()))
+        print(f"As you enter the new room and scan your surroundings: \n{dict_room_selection[random_room_number]}")
+        if random.random() < 0.9:
+        #room_details["enemy"] = random.choice(dict_monsters)
+        #room_details["enemy"] = Monster(random.choice(dict_monsters))
+            mob = dict_monsters[Roll_Dice(1, len(dict_monsters), False)]
+        #mob = random.choice(dict_monsters)
+            #mob = globals()[mob]
+            current_enemy = Monster(mob)
+        #room_details[current_enemy] = current_enemy.name
+            return current_enemy
+        
+        else:
+        #room_details[current_enemy] = None
+            print("There was no monster to greet you.")
+        return room_details
     
     continue_game = True
     while continue_game:
@@ -690,38 +702,43 @@ def main():
         room_description()
         #monster_chance()
         global current_enemy
-        if monster_in_room is True:
+        if current_enemy.is_alive:
             print(f"A {current_enemy.name} is poised, ready to strike!")
-            player_character.player_menu_fight
-            fight(player_character, current_enemy, "melee")
+            #player_character.player_menu_fight
+            fight(player_character, current_enemy)
     
         else:
-            player_character.player_menu_main
+            player_character.player_menu_main()
     
         #if room_details.get(current_enemy):
-        if current_enemy:
+        if current_enemy.is_alive:
             #global current_enemy
         #current_enemy = room_details["enemy"]
             print(f"You have encountered a {current_enemy.name}!")
-            fight_club(player_character, current_enemy, )
+            fight(player_character, current_enemy)
     
         else:
-            print("Luck was on your side.\nThere are no enemys to be found in this room.\n")
-            player_character.player_menu_main
+            print("Luck was on your side.\nThere are no enemies to be found in this room.\n")
+            player_character.player_menu_main()
 
-        print("show player menu depending on if enemy is in room. Either standard menu or fight menu.")
-        player_character.player_menu_main
+        print("\n\n\nshow player menu depending on if enemy is in room. Either standard menu or fight menu.\n\n\n")
+        player_character.player_menu_main()
 
-        while continue_game:
+        #while continue_game:
+        user_selection = True
+        while user_selection:
             choice = input("Test again? Y / N:\n: ")
             user_choice = choice.upper()
             if user_choice == "Y":
                 print("\n\n\nContinuing Onward.")
+                user_selection = False
                 continue_game = True
-            if user_choice == "N":
+                continue
+            elif user_choice == "N":
+                user_selection = False
                 continue_game = False
-                print("\n\n\nFair Thee Well Adventure!")
-                time.sleep(3)
+                print("\n\n\nFare Thee Well Adventurer!")
+                time.sleep(2.5)
             else:
                 print("You did not select either 'Y' or 'N'. Please try another selection.")
 
