@@ -91,9 +91,6 @@ while level < (level_max):
 
 for key, value in dict_level_experience.items():
     print(f"{key}: {value}")
-
-# time.sleep(5)
-
 '''
 # Player's Equipment List
 dict_player_equipment = {"weapon_melee": "rusty kitchen knife","weapon_ranged": "none", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale", {"Healing Draught": 3}]}
@@ -193,12 +190,8 @@ def increase_stats(player_remaining_stat_points):
                 update_strength = player_character.strength + player_stat_points_added
                 print(f"\nYou have opted to add {player_stat_points_added} to your current strength score of {getattr(player_character, 'strength')}. This will make your new Strength score {update_strength}.\n")
                 player_character.update_stats("strength", update_strength)
-                #dict_player_stats.update({"strength": update_strength})
                 player_remaining_stat_points -= player_stat_points_added
                 # time.sleep(3)
-                #update_stat_bonuses()
-                
-                
 
         elif player_stat_choice == 2:
             player_stat_points_added = input(f"How many points of your remaining {player_remaining_stat_points} would you like to add to your Dexterity?\n:")
@@ -213,9 +206,6 @@ def increase_stats(player_remaining_stat_points):
                 player_character.update_stats("dexterity", update_dexterity)
                 player_remaining_stat_points -= player_stat_points_added
                 # time.sleep(3)
-                #update_stat_bonuses()
-                #player_character.update_stats("dexterity", update_dexterity)
-                #return "dexterity", update_dexterity
 
         elif player_stat_choice == 3:
             player_stat_points_added = input(f"How many points of your remaining {player_remaining_stat_points} would you like to add to your Constitution?\n:")
@@ -227,10 +217,8 @@ def increase_stats(player_remaining_stat_points):
             else:
                 update_constitution = player_character.constitution + player_stat_points_added
                 print(f"\n{player_character.name}, you have opted to add {player_stat_points_added} to your current Constitution score of {player_character.constitution}. This will make your new Constitution score {update_constitution}.\n")
-                #dict_player_stats.update({"constitution": update_constitution})
                 player_remaining_stat_points -= player_stat_points_added
-                # time.sleep(3)
-                #update_stat_bonuses()
+                # time.sleep(2)
                 player_character.update_stats("constitution", update_constitution)
 
         else:
@@ -239,33 +227,7 @@ def increase_stats(player_remaining_stat_points):
     
     print(f"The {text_color_purple}'Guiding Force'{text_end} smiles at you and fades away appearing as if it turned to dust and scattered in the wind before your eyes over a second or two.\nYou blink and the plain white void of a room is once again replaced with the lovely smell of damp, rot, and musty smell of your new reality.\n\n{text_bold}{center_text("\nThe dungeon\n")}\n\n{text_end}")
 
-# This is to update the stats and ability modifiers after every time the player gains stat points.
-'''
-def update_stat_bonuses():
-    print("\n\n\nUpdating stat bonues.\n\n")
-    player_score_strength = dict_player_stats["strength"]
-    #player_score_strength = player_character["strength"]
-    strength_bonus = dict_stat_bonues[player_score_strength]
-    dict_player_stats.update({"strength_bonus": strength_bonus})
-    print(text_color_red + f"Player Strength Bonus: {dict_player_stats["strength_bonus"]}\n" + text_end)
 
-    player_score_dexterity = dict_player_stats["dexterity"]
-    dexterity_bonus = dict_stat_bonues[player_score_dexterity]
-    dict_player_stats.update({"dexterity_bonus": dexterity_bonus})
-    print(text_color_blue + f"Player Dexterity Bonus: {dict_player_stats["dexterity_bonus"]}\n" + text_end)
-
-    player_score_constitution = dict_player_stats["constitution"]
-    constitution_bonus = dict_stat_bonues[player_score_constitution]
-    dict_player_stats.update({"constitution_bonus": constitution_bonus})
-    updated_hitpoints = hit_points + constitution_bonus
-    dict_player_stats.update({"hit_points": updated_hitpoints})
-    print(text_color_green + f"Player Constitution Bonus: {dict_player_stats["constitution_bonus"]}\n" + text_end)
-
-    player_armor_defence = dict_player_equipment["armor"]
-    player_defense = 10 + dict_player_stats["dexterity_bonus"] + dict_armors[player_armor_defence][0]
-    dict_player_stats.update({"player_defense_rating": player_defense})
-    print(text_color_orange + f"Player Defence Rating: {dict_player_stats["player_defense_rating"]}\n" + text_end)
-'''
 
 # Dice Roller Function
 def Roll_Dice(dice_number, dice_type, silent = False):
@@ -296,6 +258,8 @@ def Roll_Dice(dice_number, dice_type, silent = False):
         print(f"The roll total was {dice_roll_total}")
     return dice_roll_total
 
+
+
 # Establishing the class object for the player.
 class Player:
 
@@ -314,19 +278,6 @@ class Player:
         print("You have the following items in your inventory:\n")
         for key, value in zip(dict_player_equipment.keys(), dict_player_equipment.values()):
             print(f"{text_bold}{key:14}{text_end}: {text_bold}{text_color_orange}{value}{text_end}")
- 
-    '''def update_stats(self, stat, value):
-        # Example stat update logic
-        #for stat in dict_player_stats:
-        dict_player_stats.update({stat: value})
-        player_score_bonus = dict_player_stats[stat]
-        stat_bonus = dict_stat_bonues[player_score_bonus]
-        dict_player_stats.update({stat + "_bonus": stat_bonus})
-        print(text_color_purple + f"Player Stat Bonus:\t{dict_player_stats[stat + "_bonus"]}\n" + text_end)
-        player_armor_defence = dict_player_equipment["armor"]
-        player_defense = 10 + dict_player_stats["dexterity_bonus"] + dict_armors[player_armor_defence][0]
-        dict_player_stats.update({"player_defense_rating": player_defense})
-        #return self.dict_player_stats'''
     
     def update_stats(self, stat, value):
         # Example stat update logic
@@ -363,9 +314,10 @@ class Player:
         print("Select from the options below:\n")
         for key, value in dict_menu_fight.items():
             print(f"{key}: {value}", end="  ")
-            #Seeing I can upper cut the input.
+        input("\n\nPress Enter to Continue:")
+            #Seeing if I can upper cut the input.
         #character_selection = input(":")
-        character_selection = input((": "))
+        '''character_selection = input((": "))
         character_selection = character_selection.upper()
         if character_selection() == "A":
             player_character("melee")
@@ -377,7 +329,7 @@ class Player:
             print("You run away in terror.")
         else:
             print("You did not make a valid selection.")
-        return character_selection
+        return character_selection'''
     
     # Attack Code using the standard D20 system. Roll 1d20 + attack bonus + attack stat bonus >= Defenders Defence/AC rating.
     def attack(self, attack_type):
@@ -625,7 +577,7 @@ def fight(player_character, current_enemy, attack_type = "none"):
     fight_round = 1
     while player_character.is_alive and current_enemy.is_alive:
         if fight_round % 2 == 1:
-            #player_character.player_menu_fight I could not get this to display for some reason, yet I can get the inventory to work using the same format... Things to think on.
+            #player_character.player_menu_fight() #### Solved #### Don't forget the parenthesis at the end of a definition.     ####I could not get this to display for some reason, yet I can get the inventory to work using the same format... Things to think on.
             fight_choice = input("'A'ttack Melee, 'B'ow Attack Ranged, 'Q'uaff a Potion, or 'F'lee?\n")
             fight_choice = fight_choice.upper()
             if fight_choice == "A":
@@ -670,48 +622,47 @@ fight(player_character, current_enemy)#, "melee")
 #del current_enemy
 
 def main():
-    print("************")
-    print("attempting to show the main character menu.\n****************************")
-    player_character.player_menu_main()
-    print("Attempting to show the main character fight menu.\n****************************")
-    player_character.player_menu_fight()
-    print("Finished with the player menu selection.\n****************************\n\n")
 
-    # del current_enemy
-    def room_description():
-        random_room_number = random.choice(list(dict_room_selection.keys()))
-        print(f"As you enter the new room and scan your surroundings: \n{dict_room_selection[random_room_number]}")
-        if random.random() < 0.9:
-        #room_details["enemy"] = random.choice(dict_monsters)
-        #room_details["enemy"] = Monster(random.choice(dict_monsters))
-            mob = dict_monsters[Roll_Dice(1, len(dict_monsters), False)]
-        #mob = random.choice(dict_monsters)
-            #mob = globals()[mob]
-            current_enemy = Monster(mob)
-        #room_details[current_enemy] = current_enemy.name
-            return current_enemy
+    while player_character.is_alive:
         
-        else:
-        #room_details[current_enemy] = None
-            print("There was no monster to greet you.")
-        return room_details
-    
-    continue_game = True
-    while continue_game:
+        print("************")
+        print("attempting to show the main character menu.\n****************************")
+        player_character.player_menu_main()
+        print("Attempting to show the main character fight menu.\n****************************")
+        player_character.player_menu_fight()
+        print("Finished with the player menu selection.\n****************************\n\n")
         
-        room_description()
-        #monster_chance()
         global current_enemy
-        if current_enemy.is_alive:
+
+        # del current_enemy
+        def room_description():
+            random_room_number = random.choice(list(dict_room_selection.keys()))
+            print(f"As you enter the new room and scan your surroundings:\n\n{dict_room_selection[random_room_number]}")
+            if random.random() < 0.9:
+                mob = dict_monsters[Roll_Dice(1, len(dict_monsters), False)]
+                mob = globals()[mob]
+                current_enemy = None
+                current_enemy = Monster(mob)
+                print(f"A {current_enemy.name} is poised, ready to strike!")
+                fight(player_character, current_enemy)
+                #return current_enemy
+            else:
+                print("\nThere was no monster to greet you.\n")
+            return room_details
+    
+
+    
+        room_description()
+
+        '''if current_enemy.is_alive:
             print(f"A {current_enemy.name} is poised, ready to strike!")
             #player_character.player_menu_fight
             fight(player_character, current_enemy)
     
         else:
-            player_character.player_menu_main()
+            player_character.player_menu_main()'''
     
-        #if room_details.get(current_enemy):
-        if current_enemy.is_alive:
+        '''if current_enemy.is_alive:
             #global current_enemy
         #current_enemy = room_details["enemy"]
             print(f"You have encountered a {current_enemy.name}!")
@@ -722,29 +673,35 @@ def main():
             player_character.player_menu_main()
 
         print("\n\n\nshow player menu depending on if enemy is in room. Either standard menu or fight menu.\n\n\n")
-        player_character.player_menu_main()
+        player_character.player_menu_main()'''
 
-        #while continue_game:
-        user_selection = True
-        while user_selection:
-            choice = input("Test again? Y / N:\n: ")
-            user_choice = choice.upper()
-            if user_choice == "Y":
-                print("\n\n\nContinuing Onward.")
-                user_selection = False
-                continue_game = True
-                continue
-            elif user_choice == "N":
-                user_selection = False
-                continue_game = False
-                print("\n\n\nFare Thee Well Adventurer!")
-                time.sleep(2.5)
-            else:
-                print("You did not select either 'Y' or 'N'. Please try another selection.")
+        '''continue_game = True
+        while continue_game:
+            user_selection = True
+            while user_selection:
+                choice = input("Test again? Y / N:\n: ")
+                user_choice = choice.upper()
+                if user_choice == "Y":
+                    print("\n\n\nContinuing Onward.")
+                    user_selection = False
+                    continue_game = True
+                    continue
+                elif user_choice == "N":
+                    user_selection = False
+                    continue_game = False
+                    print("\n\n\nFare Thee Well Adventurer!")
+                    time.sleep(2.5)
+                else:
+                    print("You did not select either 'Y' or 'N'. Please try another selection.")'''
 
-'''if __name__ == "__main__":
-    main()'''
-main()
+        print(f"You have succumbed to your wounds inflicted by a {current_enemy.name}")
+        time.sleep(2)
+        print("You have died.")
+        input("Press 'Enter' to exit.")
+
+if __name__ == "__main__":
+    main()
+#main()
 print("\n\nThis is the end of the file.\n\n")
 
 input("Press " + text_invert + "'Enter'" + text_end + " to exit the game.")
