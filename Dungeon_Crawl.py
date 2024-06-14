@@ -359,7 +359,7 @@ class Player:
         return to_hit_monster
     
     # This is for adding in some healing potions
-    def quaff():
+    def quaff(self):
         amount_healed = 10
         player_character.hit_points += amount_healed
         healing_potion = "healing draught"
@@ -431,7 +431,7 @@ def fight_club(attacker, attack_type = "none"):
                 ability_modifier = player_character.dexterity_bonus
             else:
                 print("You are not equiped with a melee or ranged weapon.")
-                print("I guess that you plan to pummle your oppenent to death with your bare hands.\nI hope that you're ready for bruised and bloody knuckles.")
+                print("I guess that you plan to pummel your oppenent to death with your bare hands.\nI hope that you're ready for bruised and bloody knuckles.")
             print(f"\nYou are attacking a {current_enemy.name}")
             to_hit_monster = player_character.attack(attack_type)
             if to_hit_monster >= current_enemy.defense_rating:
@@ -598,6 +598,7 @@ def fight(player_character, current_enemy, attack_type = "none"):
                 print("You did not choose a valid option.\n")
                 
         else:
+            time.sleep(1.5)
             fight_club(current_enemy)
             fight_round += 1
             
@@ -624,13 +625,6 @@ fight(player_character, current_enemy)#, "melee")
 def main():
 
     while player_character.is_alive:
-        
-        print("************")
-        print("attempting to show the main character menu.\n****************************")
-        player_character.player_menu_main()
-        print("Attempting to show the main character fight menu.\n****************************")
-        player_character.player_menu_fight()
-        print("Finished with the player menu selection.\n****************************\n\n")
         
         global current_enemy
 
@@ -694,10 +688,10 @@ def main():
                 else:
                     print("You did not select either 'Y' or 'N'. Please try another selection.")'''
 
-        print(f"You have succumbed to your wounds inflicted by a {current_enemy.name}")
-        time.sleep(2)
-        print("You have died.")
-        input("Press 'Enter' to exit.")
+    print(f"You have succumbed to your wounds inflicted by a {current_enemy.name}")
+    time.sleep(2)
+    print("You have died.")
+    input("Press 'Enter' to exit.")
 
 if __name__ == "__main__":
     main()
