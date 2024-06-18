@@ -420,7 +420,7 @@ class Monster:
 # Weapons Dict 0 - "Weapon name": [Number of dice to roll, type of dice to roll, Cost of the weapon, type of attack "melee" or "ranged"]
 def fight_club(attacker, attack_type = "none"):
     to_hit_monster = 0
-    hit_player = 0
+    to_hit_player = 0
     if attacker == player_character:
         if player_character.is_alive is True:
             if attack_type == "melee":
@@ -456,8 +456,8 @@ def fight_club(attacker, attack_type = "none"):
         if current_enemy.is_alive is True:
             attacker = current_enemy.name
             print(f"A {current_enemy.name} attacks you:")
-            hit_player = current_enemy.attack()
-            if hit_player >= player_character.player_defense_rating:
+            to_hit_player = current_enemy.attack()
+            if to_hit_player >= player_character.player_defense_rating:
                 number_of_dice = current_enemy.damage[0]
                 type_of_dice =  current_enemy.damage[1]
                 damage_to_player = Roll_Dice(number_of_dice, type_of_dice, True)
