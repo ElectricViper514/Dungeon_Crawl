@@ -447,7 +447,7 @@ def fight_club(attacker, attack_type = "none"):
                     player_character.experience += current_enemy.experience_value
                     print(f"{player_character.name}, you now have a total of {player_character.experience} points of experience.\n")
                     print(f"You currently have {player_character.hit_points} hit points remaining.\n")
-                    #del current_enemy
+                    
             else:
                 print(center_text(f"You missed a {current_enemy.name}.\n\n"))
         else:
@@ -626,22 +626,24 @@ def main():
 
     while player_character.is_alive:
         
-        global current_enemy
-
+        #global current_enemy
+        current_enemy = None
         # del current_enemy
         def room_description():
+            current_enemy = None
             random_room_number = random.choice(list(dict_room_selection.keys()))
-            print(f"As you enter the new room and scan your surroundings:\n\n{dict_room_selection[random_room_number]}")
+            print(f"\n\nAs you enter the new room and scan your surroundings:\n\n{dict_room_selection[random_room_number]}")
             if random.random() < 0.9:
+                print("\n\nThere! Out of the corner of your eye you spot something that does not belong here.")
                 mob = dict_monsters[Roll_Dice(1, len(dict_monsters), False)]
                 mob = globals()[mob]
-                current_enemy = None
                 current_enemy = Monster(mob)
-                print(f"A {current_enemy.name} is poised, ready to strike!")
+                current_enemy.isAlive = True
+                print(f"\nA {current_enemy.name} is poised, ready to strike!")
                 fight(player_character, current_enemy)
                 #return current_enemy
             else:
-                print("\nThere was no monster to greet you.\n")
+                print("\n\nThere was no monster to greet you.\n")
             return room_details
     
 
@@ -695,7 +697,7 @@ def main():
 
 if __name__ == "__main__":
     main()
-#main()
+
 print("\n\nThis is the end of the file.\n\n")
 
 input("Press " + text_invert + "'Enter'" + text_end + " to exit the game.")
