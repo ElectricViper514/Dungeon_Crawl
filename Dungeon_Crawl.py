@@ -407,17 +407,42 @@ class Monster:
         print(f"Enemy's To Hit = {current_enemy.to_hit}")
         return to_hit_player
 
-# Test mobs
 
+def combat(player_character, current_enemy):
+    while current_enemy.hit_points> 0 and player_character.hit_points > 0:
+        print(f"You are fighting a {current_enemy.name}")
+        print("What would you like to do?")
+        print("1. Attack")
+        print("2. Flee")
 
-#mob = random_monster()
-#enemy = Monster(mob)
+        choice = input("> ")
+        if choice == '1':
+            damage = player_character.attack("melee")
+            current_enemy.hit_points -= damage
+            print(f"You attack the {current_enemy.name} for {damage} damage.")
+            if current_enemy.hit_points <= 0:
+                print(f"You defeated the {current_enemy.name}!")
+                return True # Player wins
+        elif choice == '2':
+            print("You flee from the battle.")
+            return False # Player flees
+        else:
+            print("Invalid choice.")
+        # Enemy's turn
+        if current_enemy.hit_points > 0:
+            player_character.hit_points -= current_enemy.attack()
+            print(f"The {current_enemy.name} attacks you for {current_enemy.attack()} damage.")
+            if player_character.hit_points <= 0:
+                print("You have been defeated!")
+                return False # Player loses
+
 
 # FIGHT CLUB! reference dictionaries below.
 # Monster Dict {0 - name: goblin, 1 - hit_points = 5, 2 - to_hit = 1, 3 - damage = 3, 4 - defence_rating = 4, 5 - experience_value = 7, 6 - gold = 3, 7 - is_alive = True}
 # Player Dict {"name": "Soandso", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "player_attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "alive": True}
 # Equipment Dict"weapon_melee": "rusty kitchen knife","weapon_ranged": "none", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale"]}
 # Weapons Dict 0 - "Weapon name": [Number of dice to roll, type of dice to roll, Cost of the weapon, type of attack "melee" or "ranged"]
+'''
 def fight_club(attacker, attack_type = "none"):
     to_hit_monster = 0
     to_hit_player = 0
@@ -475,7 +500,7 @@ def fight_club(attacker, attack_type = "none"):
                 print(f"A {current_enemy.name} has missed you.\n")
         else:
             print("The enemy is dead. There's no use in beating a dead horse to death.\n")
-
+'''
 # List current stats and inventory.
 #dict_player_stats = {"name", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "player_defense_rating": player_defense, "player_attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "hit_points": hit_points, "is_alive": True}
 def current_stats_and_inventory():
@@ -560,7 +585,7 @@ input(f"{text_color_cyan}Press{text_end} {text_bold}'Enter'{text_end}{text_color
 
 current_enemy = Monster(dict_giant_rat)
 
-
+combat(player_character, current_enemy)
 # Random room description text and possiblity of encountering an enemy in the room. initially set at 18% of encountering an enemy.
 # dict_menu_main = {"w": "Move forward", "a": "Go left", "s": "Turn back", "d": "Go right", "c": "Character sheet", "i": "Inventory", "q": "Quaff a Potion", "l": "Look Around"}
 
@@ -572,7 +597,7 @@ for key, value in dict_menu_list.items():
     print(key, ' : ', value)
 '''
 
-
+'''
 def fight(player_character, current_enemy, attack_type = "none"):
     fight_round = 1
     while player_character.is_alive and current_enemy.is_alive:
@@ -603,7 +628,7 @@ def fight(player_character, current_enemy, attack_type = "none"):
             fight_round += 1
             
         #print(f"You fought for {fight_round} rounds.\n")
-
+'''
 print(text_color_blue + """\n
 As you look around the room you see that you are in a small rectangular room
 made with rough stone walls and at one time it looks to have been a pantry. As you
@@ -616,7 +641,7 @@ And I don't think that you want it to be you that's on the menu tonight \ today,
 print(f"{text_color_cyan}\nYou decide that it won't be you that's on the dinner menu for tonight.\nPrepare to fight as if your life depends on it.\n\nBecause it does.\n\nGood Luck.\n\n{text_end}")
 
 # Testing the fight mechanics. setup first fight here. Then random fights else where.
-fight(player_character, current_enemy)#, "melee")
+combat(player_character, current_enemy)#, "melee")
 
 # player_character.player_menu_main()
 # Terminate the current instatiation of the Monster object
@@ -624,7 +649,7 @@ fight(player_character, current_enemy)#, "melee")
 
 def main():
 
-    while player_character.is_alive:
+    while player_character.hit_points:
         
         #global current_enemy
         current_enemy = None
@@ -640,7 +665,7 @@ def main():
                 current_enemy = Monster(mob)
                 current_enemy.isAlive = True
                 print(f"\nA {current_enemy.name} is poised, ready to strike!")
-                fight(player_character, current_enemy)
+                combat(player_character, current_enemy)
                 #return current_enemy
             else:
                 print("\n\nThere was no monster to greet you.\n")
