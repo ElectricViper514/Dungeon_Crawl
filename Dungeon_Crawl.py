@@ -48,6 +48,7 @@ constitution_bonus = 0
 player_attack_bonus = 1
 player_defense = 10
 hit_points = 10
+hit_points_max = 10
 player_remaining_stat_points = 10
 player_stat_points_added = 0
 player_stat_choice = ""
@@ -69,7 +70,7 @@ room_details = []
 # These are the dictionaries, lists, and variables of weapons, armor, potions, monsters, etc...
 
 # Starting basic player stats.
-dict_player_stats = {"name": "Soandso", "gender": "Genderless", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "player_defense_rating": player_defense, "player_attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "hit_points": hit_points, "is_alive": True}
+dict_player_stats = {"name": "Soandso", "gender": "Genderless", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "player_defense_rating": player_defense, "player_attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "hit_points": hit_points, "hit_points_max": hit_points_max, "is_alive": True}
 
 # Stats and their bonuses
 dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 0, 11: 0, 12: 1, 13: 1, 14: 2, 15: 2, 16: 3, 17: 3, 18: 4, 19: 4, 20: 5, 21: 5, 22: 6, 23: 6, 24: 7, 25: 7, 26: 8, 27: 8, 28: 9, 29: 9, 30: 10}
@@ -93,7 +94,7 @@ for key, value in dict_level_experience.items():
     print(f"{key}: {value}")
 '''
 # Player's Equipment List
-dict_player_equipment = {"weapon_melee": "rusty kitchen knife","weapon_ranged": "none", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale", {"Healing Draught": 3}]}
+dict_player_equipment = {"weapon_melee": "rusty kitchen knife","weapon_ranged": "rusty throwing knife", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale", {"Healing Draught": 3}]}
 
 # Players Menu
 dict_menu_main = {"W": "Move forward", "A": "Go left", "S": "Turn back", "D": "Go right", "C": "Character sheet", "I": "Inventory", "Q": "Quaff a Potion", "L": "Look Around"}
@@ -101,11 +102,11 @@ dict_menu_main = {"W": "Move forward", "A": "Go left", "S": "Turn back", "D": "G
 # Player Monster Encounter 
 dict_menu_fight = {"A": "Melee - Attack", "B": "Ranged - Attack", "Q": "Quaff Potion", "F": "Flee"}
 
-# "Weapon name": [Number of Damage, Value of Damage Damage, Cost, type of attack "melee" or "ranged"]
+# "Weapon name": [Number of Damage Dice (example: 1, 4, 7), Damage Damage Dice Type (example: d4, d8, d20), Cost, type of attack "melee" or "ranged"]
 dict_weapons_melee = {"rusty kitchen knife": (1, 4, 1, "melee"), "shortsword": [1, 6, 10, "melee"], "longsword": [1, 8, 20, "melee"], "greatsword": [2, 6, 50, "melee"]}
 
-# "Weapon name": Number of Damage, Value of Damage Damage, Cost, type of attack "melee" or "ranged"
-dict_weapons_ranged = {"throwing knife": [1, 3, 1, "ranged"], "shortbow": [1, 6, 10, "ranged"], "songbow": [1, 8, 20, "ranged"], "heavy crossbow": [2, 6, 50, "ranged"]}
+# "Weapon name": Number of Damage Dice, Value of Damage Damage, Cost, type of attack "melee" or "ranged"
+dict_weapons_ranged = {"rusty throwing knife": [1, 3, 1, "ranged"], "shortbow": [1, 6, 10, "ranged"], "songbow": [1, 8, 20, "ranged"], "heavy crossbow": [2, 6, 50, "ranged"]}
 
 # This is not in play yet.
 # "Bonus Damage: -5 through +5"
@@ -157,8 +158,8 @@ def character_creation():
         print(text_color_green + "\nConstitution: This determines how healthy you are and how well you can shrug off the effects of diseases, illnesses, and poisons.")
         input("Press " + text_invert + "'Enter'" + text_end + text_color_green + " to continue:\n\n" + text_end)
 
-        print("\nWhich one of the stats would you like to add points to first?\n")
-        print(text_color_red + "1. Strength, " + text_end + text_color_blue + "2. Dexterity, " + text_end + "or " + text_color_green + "3. Constitution" + text_end + "\n\nThese all start with a base of 10 which gives you a +0 to your modifiers.\nYou gain +1 to your modifiers every 2 points over 10 that you allocate to your stats.\n\nMake your choices.\n")
+        '''print("\nWhich one of the stats would you like to add points to first?\n")
+        print(text_color_red + "1. Strength, " + text_end + text_color_blue + "2. Dexterity, " + text_end + "or " + text_color_green + "3. Constitution" + text_end + "\n\nThese all start with a base of 10 which gives you a +0 to your modifiers.\nYou gain +1 to your modifiers every 2 points over 10 that you allocate to your stats.\n\nMake your choices.\n")'''
         print(f"Your current stats are as follows:\n{text_color_red}Strength: {player_character.strength}{text_end}\n{text_color_blue}Dexterity: {player_character.dexterity}{text_end}\n{text_color_green}Constitution: {player_character.constitution}{text_end}\n")
 
         # time.sleep(2)
@@ -218,14 +219,13 @@ def increase_stats(player_remaining_stat_points):
                 update_constitution = player_character.constitution + player_stat_points_added
                 print(f"\n{player_character.name}, you have opted to add {player_stat_points_added} to your current Constitution score of {player_character.constitution}. This will make your new Constitution score {update_constitution}.\n")
                 player_remaining_stat_points -= player_stat_points_added
-                # time.sleep(2)
                 player_character.update_stats("constitution", update_constitution)
 
         else:
             print(f"\n{dict_player_stats['name']}, you did not select Strength, Dexterity, or Constitution.")
             print("Please choose one of the stats above.\n")
     
-    print(f"The {text_color_purple}'Guiding Force'{text_end} smiles at you and fades away appearing as if it turned to dust and scattered in the wind before your eyes over a second or two.\nYou blink and the plain white void of a room is once again replaced with the lovely smell of damp, rot, and musty smell of your new reality.\n\n{text_bold}{center_text("\nThe dungeon\n")}\n\n{text_end}")
+    print(f"The {text_color_purple}'Guiding Force'{text_end} smiles at you and breaks apart as tiny pixilated cubes that scatter away in the wind before your eyes over the course of a second or two.\nYou blink and the plain white void of a room is once again replaced with the lovely smell of damp, rot, and musty smell of your new reality.\n\n{text_bold}{center_text("\nThe dungeon\n")}\n\n{text_end}")
 
 
 
@@ -291,11 +291,11 @@ class Player:
         setattr(player_character, stat + "_bonus", stat_bonus)
         if stat == 'constitution':
             player_character.hit_points = player_character.hit_points + stat_bonus
+            player_character.hit_points_max = player_character.hit_points_max + stat_bonus
         #print(text_color_purple + f"Player Stat Bonus:\t{player_character[stat + "_bonus"]}\n" + text_end)
         player_armor_defence = dict_player_equipment["armor"]
         player_defense = 10 + getattr(player_character, "dexterity_bonus") + dict_armors[player_armor_defence][0]
         setattr(player_character, "player_defense_rating", player_defense)
-        #return self.dict_player_stats
 
     # Display the list of options a player can do.
     def player_menu_main(self):
@@ -315,21 +315,6 @@ class Player:
         for key, value in dict_menu_fight.items():
             print(f"{key}: {value}", end="  ")
         input("\n\nPress Enter to Continue:")
-            #Seeing if I can upper cut the input.
-        #character_selection = input(":")
-        '''character_selection = input((": "))
-        character_selection = character_selection.upper()
-        if character_selection() == "A":
-            player_character("melee")
-        elif character_selection() == "B":
-            player_character("ranged") # player_character.attack("ranged")
-        elif character_selection() == "Q":
-            print("You quaff a potion")
-        elif character_selection() == "F":
-            print("You run away in terror.")
-        else:
-            print("You did not make a valid selection.")
-        return character_selection'''
     
     # Attack Code using the standard D20 system. Roll 1d20 + attack bonus + attack stat bonus >= Defenders Defence/AC rating.
     def attack(self, attack_type):
@@ -343,7 +328,6 @@ class Player:
                 print(f"You attack a {current_enemy.name} with your {dict_player_equipment["weapon_melee"]}")
                 die_roll = Roll_Dice(1, 20)
                 attack_bonus = player_character.player_attack_bonus + player_character.strength_bonus
-                print(f"\nPlayer Attack Bonus = {player_character.player_attack_bonus}\n\nPlayer Strength Bonus = {player_character.strength_bonus}")
                 to_hit_monster = die_roll + attack_bonus
                 print(f"Total Attack Roll: {to_hit_monster}")
         else:
@@ -360,11 +344,13 @@ class Player:
     
     # This is for adding in some healing potions
     def quaff(self):
-        amount_healed = 10
-        player_character.hit_points += amount_healed
-        healing_potion = "healing draught"
-        print(f"You have quaffed a {healing_potion} regaining {amount_healed} hit points.")
-        # Add logic for reducing the amount of potions in the inventory.
+        print("You quaff a potion.")
+        healed_amount = Roll_Dice(4, 4, True)
+        total_healed = player_character.hit_points + healed_amount + player_character.constitution_bonus
+        if total_healed > player_character.hit_points_max:
+            player_character.hit_points = player_character.hit_points_max
+        else:
+            player_character.hit_points += healed_amount
 
 
 player_character = Player(dict_player_stats)
@@ -412,29 +398,65 @@ def combat(player_character, current_enemy):
     while current_enemy.hit_points> 0 and player_character.hit_points > 0:
         print(f"You are fighting a {current_enemy.name}")
         print("What would you like to do?")
-        print("1. Attack")
-        print("2. Flee")
+        print("1. Attack - Melee")
+        print("2. Attack - Ranged")
+        print("3. Quaff a Potion")
+        print("4. Flee")
 
         choice = input("> ")
         if choice == '1':
-            damage = player_character.attack("melee")
-            current_enemy.hit_points -= damage
-            print(f"You attack the {current_enemy.name} for {damage} damage.")
-            if current_enemy.hit_points <= 0:
-                print(f"You defeated the {current_enemy.name}!")
-                return True # Player wins
+            to_hit_monster = player_character.attack("melee")
+            if to_hit_monster >= current_enemy.defense_rating:
+                equiped_weapon = dict_player_equipment["weapon_melee"]
+                number_of_dice = dict_weapons_melee[equiped_weapon][0]
+                type_of_dice = dict_weapons_melee[equiped_weapon][1]
+                ability_modifier = player_character.strength_bonus
+                damage_to_monster = Roll_Dice(number_of_dice, type_of_dice) + ability_modifier
+                print(f"\nYou attack the {current_enemy.name} for {damage_to_monster} damage.\n\n")
+                current_enemy.hit_points -= damage_to_monster
+                if current_enemy.hit_points <= 0:
+                    print(f"You defeated the {current_enemy.name}!")
+                    return True # Player wins         
         elif choice == '2':
+            to_hit_monster = player_character.attack("ranged")
+            if to_hit_monster >= current_enemy.defense_rating:
+                equiped_weapon = dict_player_equipment["weapon_ranged"]
+                number_of_dice = dict_weapons_ranged[equiped_weapon][0]
+                type_of_dice = dict_weapons_ranged[equiped_weapon][1]
+                ability_modifier = player_character.dexterity_bonus
+                damage_to_monster = Roll_Dice(number_of_dice, type_of_dice) + ability_modifier
+                print(f"\nYou attack the {current_enemy.name} for {damage_to_monster} damage.\n\n")
+                current_enemy.hit_points -= damage_to_monster
+                if current_enemy.hit_points <= 0:
+                    print(f"You defeated the {current_enemy.name}!")
+                    return True # Player wins         
+        elif choice == '3':
+            player_character.quaff()
+        elif choice == '4':
             print("You flee from the battle.")
             return False # Player flees
         else:
             print("Invalid choice.")
         # Enemy's turn
         if current_enemy.hit_points > 0:
-            player_character.hit_points -= current_enemy.attack()
-            print(f"The {current_enemy.name} attacks you for {current_enemy.attack()} damage.")
-            if player_character.hit_points <= 0:
-                print("You have been defeated!")
-                return False # Player loses
+            print(f"A {current_enemy.name} attacks you:")
+            to_hit_player = current_enemy.attack()
+            if to_hit_player >= player_character.player_defense_rating:
+                number_of_dice = current_enemy.damage[0]
+                type_of_dice =  current_enemy.damage[1]
+                damage_to_player = Roll_Dice(number_of_dice, type_of_dice, True)
+                print(f"A {current_enemy.name} has hit you for {damage_to_player} points of damage.")
+                player_character.hit_points -= damage_to_player
+                print(f"You currently have {player_character.hit_points} hit points remaining.\n")
+                if player_character.hit_points <= 0:
+                    player_character.is_alive = False
+                    print(f"You have succumbed to your wounds inflicted by a {current_enemy.name}")
+                    time.sleep(2)
+                    print("You have died.")
+                    input("Press 'Enter' to exit.")
+                    exit
+            else:
+                print(f"A {current_enemy.name} has missed you.\n")
 
 
 # FIGHT CLUB! reference dictionaries below.
@@ -649,7 +671,7 @@ combat(player_character, current_enemy)#, "melee")
 
 def main():
 
-    while player_character.hit_points:
+    while player_character.hit_points > 0:
         
         #global current_enemy
         current_enemy = None
