@@ -405,10 +405,10 @@ def combat(player_character, current_enemy):
     while current_enemy.hit_points> 0 and player_character.hit_points > 0:
         print(f"You are fighting a {current_enemy.name}.\n")
         print("What would you like to do?\n")
-        print("1. Attack - Melee")
-        print("2. Attack - Ranged")
-        print("3. Quaff a Potion")
-        print("4. Flee")
+        print(f"1. {text_color_red}Attack - Melee{text_end}")
+        print(f"2. {text_color_blue}Attack - Ranged{text_end}")
+        print(f"3. {text_color_green}Quaff a Potion{text_end}")
+        print(f"4. {text_color_red}Flee{text_end}")
 
         choice = input(f"{text_bold}{text_color_orange}> {text_end}")
         if choice == '1':
