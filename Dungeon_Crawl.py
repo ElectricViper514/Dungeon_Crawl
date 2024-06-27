@@ -136,15 +136,27 @@ dict_room_exits = {1: "Foward", 2: "Right", 3: "Left", 4: "Back"}
 def character_creation():
     player_gender = ""
 
-    input(f"\n{text_color_blue}Before you can gather your wits about you, time slows to a stop and you are transported to an empty white void . . .\n\nYou blink your eyes a couple of times as they adjust to the void white space.\nThis space is devoid of any features to the point to where you can't tell the difference between the walls, floor, and ceiling\n(If there are walls and a ceiling). You are suddenly started by the sudden appearance of the{text_end} {text_color_purple}'Guiding Force'{text_end}.{text_color_blue} It has an androngenous appearance although the form is slightly feminie with a dual tone voice in unison, one feminine, the other masculine, as the{text_end} {text_color_purple}'Guiding Force'{text_end} {text_color_blue}seems to whisper directly into your mind{text_end}\n{text_color_purple}'Remember to just breathe. This is your inner soul space where . . .{text_end}{text_color_blue} \nthe form fades away from your left side\n\n . . . \n\n only to reapear on your right side\n\n . . . {text_end}{text_color_purple} \n'This is the space where you will increase your physical attributes.'\n'Once you have collected your thoughs . . .'\nPress {text_color_green}{text_bold}'Enter'{text_end}{text_color_purple} to continue:\n{text_bold}{text_color_orange}> {text_end}")
+    input(f"\n{text_color_blue}Before you can gather your wits about you, time slows to a stop and you are transported to an empty white void . . .\n\nYou blink your eyes a couple of times as they adjust to the void white space.\nThis space is devoid of any features to the point to where you can't tell the difference between the walls, floor, and ceiling\n(If there are walls and a ceiling). You are suddenly started by the sudden appearance of the{text_end} {text_color_purple}'Guiding Force'{text_end}.{text_color_blue} It has an androngenous appearance although the form is slightly feminie with a dual tone voice in unison, one feminine, the other masculine, as the{text_end} {text_color_purple}'Guiding Force'{text_end} {text_color_blue}seems to whisper directly into your mind{text_end}\n{text_color_purple}'Remember to just breathe. This is your inner soul space where . . .{text_end}{text_color_blue} \nthe form fades away from your left side\n\n . . . \n\n only to reapear on your right side\n\n . . . {text_end}{text_color_purple} \n'This is the space where you will increase your physical attributes.'\n'Once you have collected your thoughs . . .'\nPress {text_color_green}{text_bold}'Enter'{text_end}{text_color_purple} to continue:\n{text_bold}{text_color_orange}> ")
+    print(f"{text_end}")
 
-    player_name = input(f"\n{text_color_purple}What name do you wish to go by, brave soul?\nIf you don't decide on a name now I shall decide on one for you:{text_end}\n{text_bold}{text_color_orange}> {text_end}")
+
+
+
+    player_name = input(f"\n{text_color_purple}What name do you wish to go by, brave soul?\nIf you don't decide on a name now I shall decide on one for you:{text_end}\n{text_bold}{text_color_orange}> ")
+    print(f"{text_end}")
+
+
+
     if len(player_name) == 0:
         print(f"\n{text_color_purple}Your name shall be set as 'Soandso'\nLet's move on the next question.")        
     else:
         player_character.name = player_name
         print(f"\n\n{text_color_purple}Hello {text_end}{text_bold}{text_color_orange}{player_character.name}{text_end}.")
-    player_gender = input(f"\n\n{text_color_purple}What gender do you identify as?\n\nIf you don't pick one I shall decide your gender for you:{text_end}{text_bold}{text_color_orange}\n> {text_end}")
+    player_gender = input(f"\n\n{text_color_purple}What gender do you identify as?\n\nIf you don't pick one I shall decide your gender for you:{text_end}{text_bold}{text_color_orange}\n> ")
+    print(f"{text_end}")
+
+
+
     if len(player_gender) == 0:
         print(f"\n{text_color_purple}Your gender shall be set as 'Genderless'\nMoving on from the questions.{text_end}\n")
     else:
@@ -154,11 +166,23 @@ def character_creation():
 
         print("Now, " + text_end + text_bold + text_color_orange + f"{player_character.name}" + text_end + f"{text_color_purple}, all of your base stats start off as{text_end}{text_color_orange}{text_bold} 10 {text_end}{text_color_purple}each. You have {text_end}{text_color_orange}{text_bold}10 {text_end}{text_color_purple}points to add to your stats. The stats that you are concerned with are as follows:{text_end}")
         print(text_color_red + f"\nStrength:{text_end}{text_color_purple} This determines how hard you can hit and how easily you hit with melee weapons.")
-        input(f"Press{text_end} " + text_color_red + text_bold + "'Enter'" + text_end + text_color_purple+ " to continue:\n" + text_end + f"{text_bold}{text_color_orange}> {text_end}")
+        input(f"Press{text_end} " + text_color_red + text_bold + "'Enter'" + text_end + text_color_purple+ " to continue:\n" + text_end + f"{text_bold}{text_color_orange}> ")
+        print(f"{text_end}")
+
+
+
         print(text_color_blue + f"\nDexterity: {text_end}{text_color_purple}This determines how well you can avoid attacks while also determining how well you can hit with ranged weapons.")
-        input(f"Press{text_color_blue}{text_bold} 'Enter' {text_end}{text_color_purple}to continue:\n\n{text_end}{text_bold}{text_color_orange}> {text_end}")
+        input(f"Press{text_color_blue}{text_bold} 'Enter' {text_end}{text_color_purple}to continue:\n\n{text_end}{text_bold}{text_color_orange}> ")
+        print(f"{text_end}")
+
+
+
         print(text_color_green + f"\nConstitution:{text_end}{text_color_purple} This determines how healthy you are and how well you can shrug off the effects of diseases, illnesses, and poisons.")
-        input(f"Press{text_color_green}{text_bold} 'Enter' {text_end}{text_color_purple}to continue:\n\n{text_end}{text_bold}{text_color_orange}> {text_end}")
+        input(f"Press{text_color_green}{text_bold} 'Enter' {text_end}{text_color_purple}to continue:\n\n{text_end}{text_bold}{text_color_orange}> ")
+        print(f"{text_end}")
+
+
+
 
 
 
@@ -183,7 +207,11 @@ def increase_stats(player_remaining_stat_points):
             continue
         player_stat_choice = int(player_stat_choice)
         if player_stat_choice == 1:
-            player_stat_points_added = input(f"{text_color_purple}How many points of your remaining {text_end}{text_color_orange}{text_bold}{player_remaining_stat_points}{text_end}{text_color_purple} would you like to add to your {text_end}{text_color_red}{text_bold}Strength?{text_end}\n{text_bold}{text_color_orange}> {text_end}")
+            player_stat_points_added = input(f"{text_color_purple}How many points of your remaining {text_end}{text_color_orange}{text_bold}{player_remaining_stat_points}{text_end}{text_color_purple} would you like to add to your {text_end}{text_color_red}{text_bold}Strength?{text_end}\n{text_bold}{text_color_orange}> ")
+            print(f"{text_end}")
+
+
+
             player_stat_points_added = int(player_stat_points_added)
             if player_stat_points_added <= 0:
                 print(f"\n{text_color_purple}You have opted to add 0 points to your {text_end}{text_color_red}{text_bold}Strength.{text_end}\n{text_color_purple}Change your mind did we?\n\nPlease make another selection.{text_end}")
@@ -197,7 +225,11 @@ def increase_stats(player_remaining_stat_points):
                 # time.sleep(3)
 
         elif player_stat_choice == 2:
-            player_stat_points_added = input(f"{text_color_purple}How many points of your remaining {text_end}{text_color_orange}{text_bold}{player_remaining_stat_points} {text_end}{text_color_purple}would you like to add to your {text_end}{text_color_blue}{text_bold}Dexterity?{text_end}\n{text_bold}{text_color_orange}> {text_end}")
+            player_stat_points_added = input(f"{text_color_purple}How many points of your remaining {text_end}{text_color_orange}{text_bold}{player_remaining_stat_points} {text_end}{text_color_purple}would you like to add to your {text_end}{text_color_blue}{text_bold}Dexterity?{text_end}\n{text_bold}{text_color_orange}> ")
+            print(f"{text_end}")
+
+
+
             player_stat_points_added = int(player_stat_points_added)
             if player_stat_points_added <= 0:
                 print(f"\n{text_color_purple}{text_bold}{player_character.name}, {text_end}{text_color_purple}you have opted to add 0 points to Dexterity.\nChange your mind did we?\n\nPlease make another selection.")
@@ -211,7 +243,11 @@ def increase_stats(player_remaining_stat_points):
                 # time.sleep(3)
 
         elif player_stat_choice == 3:
-            player_stat_points_added = input(f"{text_color_purple}How many points of your remaining {text_end}{text_color_orange}{text_bold}{player_remaining_stat_points} {text_end}{text_color_purple}would you like to add to your {text_end}{text_color_green}{text_bold}Constitution?{text_end}\n{text_bold}{text_color_orange}> {text_end}")
+            player_stat_points_added = input(f"{text_color_purple}How many points of your remaining {text_end}{text_color_orange}{text_bold}{player_remaining_stat_points} {text_end}{text_color_purple}would you like to add to your {text_end}{text_color_green}{text_bold}Constitution?{text_end}\n{text_bold}{text_color_orange}> ")
+            print(f"{text_end}")
+
+
+
             player_stat_points_added = int(player_stat_points_added)
             if player_stat_points_added <= 0:
                 print(f"\n{text_color_purple}{text_bold}{player_character.name}{text_end}{text_color_purple}, you have opted to add 0 point to your {text_end}{text_color_green}{text_bold}Constitution.\n{text_end}{text_color_purple}Change your mind did we?\n\nMake another selection.")
@@ -297,7 +333,6 @@ class Player:
         if stat == 'constitution':
             player_character.hit_points = player_character.hit_points + stat_bonus
             player_character.hit_points_max = player_character.hit_points_max + stat_bonus
-        #print(text_color_purple + f"Player Stat Bonus:\t{player_character[stat + "_bonus"]}\n" + text_end)
         player_armor_defence = dict_player_equipment["armor"]
         player_defense = 10 + getattr(player_character, "dexterity_bonus") + dict_armors[player_armor_defence][0]
         setattr(player_character, "player_defense_rating", player_defense)
@@ -312,7 +347,8 @@ class Player:
         character_selection = input("\n: ")
         character_selection = character_selection.upper()
         return character_selection
-        input("\n\nPress Enter to Continue:\n{text_bold}{text_color_orange}> {text_end}")
+        input("\n\nPress Enter to Continue:\n{text_bold}{text_color_orange}> ")
+        print(f"{text_end}")
     '''
     # Display the list of options a player can do during a fight
     # Temporarily on hold until I can figure out a better way to implement this function.
@@ -321,7 +357,8 @@ class Player:
         print("Select from the options below:\n")
         for key, value in dict_menu_fight.items():
             print(f"{key}: {value}", end="  ")
-        input("\n\nPress Enter to Continue:\n{text_bold}{text_color_orange}> {text_end}")
+        input("\n\nPress Enter to Continue:\n{text_bold}{text_color_orange}> ")
+        print(f"{text_end}")
     '''
     # Attack Code using the standard D20 system. Roll 1d20 + attack bonus + attack stat bonus >= Defenders Defence/AC rating.
     def attack(self, attack_type):
@@ -332,21 +369,21 @@ class Player:
                 print("You are not currently holding a melee weapon")
                 to_hit_monster = 0
             else:
-                print(f"You attack a {current_enemy.name} with your {dict_player_equipment["weapon_melee"]}")
+                # ************************** This still shows the giant rat instead of the current enemy ******************************
+                #print(f"You attack a {text_bold}{text_color_orange}{current_enemy.name}{text_end} with your {text_bold}{dict_player_equipment["weapon_melee"]}{text_end}\n")
                 die_roll = Roll_Dice(1, 20)
                 attack_bonus = player_character.player_attack_bonus + player_character.strength_bonus
                 to_hit_monster = die_roll + attack_bonus
-                print(f"Total Attack Roll: {to_hit_monster}")
+                #print(f"You attempt to strike a {current_enemy.name} with your melee weapon.\n")
         else:
             if dict_player_equipment["weapon_ranged"] == "none":
                 print("You are not currently holding a ranged weapon.")
                 to_hit_monster = 0
             else:
-                print(f"You attack a {current_enemy.name} with your {dict_player_equipment["weapon_ranged"]}")
+                #print(f"You attack a {text_bold}{text_color_orange}{current_enemy.name}{text_end} with your {text_bold}{dict_player_equipment["weapon_ranged"]}{text_end}")
                 die_roll = Roll_Dice(1, 20)
                 attack_bonus = player_character.player_attack_bonus + player_character.dexterity_bonus
                 to_hit_monster = die_roll + attack_bonus
-                print(f"Total Attack Roll: {to_hit_monster}")
         return to_hit_monster
     
     # This is for adding in some healing potions
@@ -358,11 +395,11 @@ class Player:
         if possible_healed_amount > player_character.hit_points_max:
             player_character.hit_points = player_character.hit_points_max
             over_heal_amount = possible_healed_amount - player_character.hit_points_max           
-            print(f"You attempted to healed for {total_healed} hit points. This exceeds your maximum hit point total.\nYou attempted to overheal by {over_heal_amount} hit points.")
-            print(f"\nYou now have {player_character.hit_points} hit points.\n")
+            print(f"You attempted to healed for {text_color_green}{text_bold}{total_healed}{text_end} hit points. This exceeds your maximum hit point total.\nYou attempted to overheal by {text_color_green}{text_bold}{over_heal_amount}{text_end} hit points.")
+            print(f"\nYou now have {text_color_green}{text_bold}{player_character.hit_points}{text_end} hit points.\n")
         else:
             player_character.hit_points += healed_amount
-            print(f"You were healed by {healed_amount} hit points.\nYou now have {player_character.hit_points} hit points.")
+            print(f"You were healed by {text_color_green}{text_bold}{healed_amount}{text_end} hit points.\nYou now have {text_color_green}{text_bold}{player_character.hit_points}{text_end} hit points.")
 
 
 player_character = Player(dict_player_stats)
@@ -374,10 +411,10 @@ class Monster:
         for key, value in current_enemy.items():
             setattr(self, key, value)
     def attack(self):
-        print(f"A {current_enemy.name} viciously attacks you.")
+        # print(f"A {current_enemy.name} viciously attacks you.")
         die_roll = Roll_Dice(1, 20)
         to_hit_player = die_roll + current_enemy.to_hit
-        print(f"Enemy's To Hit = {current_enemy.to_hit}")
+        #print(f"Enemy's To Hit = {current_enemy.to_hit}")
         return to_hit_player
     
 
@@ -387,30 +424,36 @@ def check_level():
     # dict_level_experience
     if player_character.experience >= dict_level_experience[player_character.level]:
         player_character.level += 1
-        print("Congratulations!\nYou have ascended to the next level.")
-        print(f"You are now level {player_character.level}.")
+        print(f"{text_bold}Congratulations!{text_end}\nYou have ascended to the next level.\n")
+        time.sleep(1.5)
+        print(f"You are now level{text_bold}{text_color_orange} {player_character.level}{text_end}.\n")
+        time.sleep(1.5)
         print(f"You have gained{text_color_orange}{text_bold} 3 {text_end}points to use to increase your stats.")
         increase_stats(3)
-        hit_points_gained = Roll_Dice(2, 8) + player_character.constitution_bonus
+        hit_points_gained = Roll_Dice(2, 4) + player_character.constitution_bonus
         player_character.hit_points_max += hit_points_gained
         player_character.hit_points += hit_points_gained
-        print(f"You have gained{text_color_orange}{text_bold} {hit_points_gained} {text_end} additional maximum hitpoints.")
-        print(f"{text_color_orange}{text_bold}{player_character.name}{text_end}, you now have a total of{text_color_cyan}{text_bold} {player_character.experience}{text_end} points of experience.\n")
-        experience_total_needed = dict_level_experience[player_character.level][0]
+        print(f"You have gained {text_color_orange}{text_bold}{hit_points_gained}{text_end} additional maximum hitpoints.")
+        print(f"{text_color_orange}{text_bold}{player_character.name}{text_end}, you now have a total of {text_color_cyan}{text_bold}{player_character.experience}{text_end} points of experience.\n")
+        experience_total_needed = dict_level_experience[player_character.level]
         experience_to_next_level = experience_total_needed - player_character.experience
-        print(f"As a level {text_color_orange}{text_bold}{player_character.level}{text_end} person, you need {text_color_orange}{text_bold}{experience_to_next_level}{text_end} points until your next level up.")
+        print(f"As a level {text_color_orange}{text_bold}{player_character.level}{text_end} person, you will need {text_color_cyan}{text_bold}{experience_to_next_level}{text_end} points until your next level up.")
         
 
 def combat(player_character, current_enemy):
     while current_enemy.hit_points> 0 and player_character.hit_points > 0:
-        print(f"You are fighting a {current_enemy.name}.\n")
+        print(f"You are fighting a {text_bold}{text_color_orange}{current_enemy.name}{text_end}.\n")
         print("What would you like to do?\n")
         print(f"1. {text_color_red}Attack - Melee{text_end}")
         print(f"2. {text_color_blue}Attack - Ranged{text_end}")
         print(f"3. {text_color_green}Quaff a Potion{text_end}")
         print(f"4. {text_color_red}Flee{text_end}")
 
-        choice = input(f"{text_bold}{text_color_orange}> {text_end}")
+        choice = input(f"{text_bold}{text_color_orange}> ")
+        print(f"{text_end}")
+
+
+
         if choice == '1':
             to_hit_monster = player_character.attack("melee")
             if to_hit_monster >= current_enemy.defense_rating:
@@ -422,11 +465,13 @@ def combat(player_character, current_enemy):
                 print(f"\nYou strike the {text_color_orange}{text_bold}{current_enemy.name}{text_end} for {text_color_red}{text_bold}{damage_to_monster}{text_end} damage.\n\n")
                 current_enemy.hit_points -= damage_to_monster
                 if current_enemy.hit_points <= 0:
-                    print(f"You defeated the {current_enemy.name}!")
+                    print(f"You defeated the {text_bold}{text_color_orange}{current_enemy.name}{text_end}!")
                     print(f"You have gained {text_color_cyan}{text_bold}{current_enemy.experience_value}{text_end} points of experience.")
                     player_character.experience += current_enemy.experience_value
+                    print(f"You currently have a total of {text_color_cyan}{text_bold} {player_character.experience}{text_end} experience points in total\n")
                     print(f"You currently have{text_color_green}{text_bold} {player_character.hit_points}{text_end} hit points remaining.\n")
                     check_level()
+                    current_enemy = None
                     return True # Player wins 
         elif choice == '2':
             to_hit_monster = player_character.attack("ranged")
@@ -439,15 +484,14 @@ def combat(player_character, current_enemy):
                 print(f"\nYou hit the {text_color_orange}{text_bold}{current_enemy.name}{text_end} for {text_color_red}{text_bold}{damage_to_monster}{text_end} damage.\n\n")
                 current_enemy.hit_points -= damage_to_monster
                 if current_enemy.hit_points <= 0:
-                    print(f"You defeated the {current_enemy.name}!")
+                    print(f"You defeated the {text_bold}{text_color_orange}{current_enemy.name}{text_end}!")
                     print(f"You have gained {text_color_cyan}{text_bold}{current_enemy.experience_value}{text_end} points of experience.")
                     player_character.experience += current_enemy.experience_value
-                    print(f"{text_color_orange}{text_bold}{player_character.name}{text_end}, you now have a total of{text_color_cyan}{text_bold} {player_character.experience}{text_end} points of experience.\n")
-                    experience_to_next_level = dict_level_experience[player_character.level][0] - {player_character.experience}
-                    print(f"As a level {text_color_orange}{text_bold}{player_character.level}{text_end} person, you need {text_color_orange}{text_bold}{experience_to_next_level}{text_end} points until your next level up.")
+                    print(f"You currently have a total of {text_color_cyan}{text_bold} {player_character.experience}{text_end} experience points in total\n")
                     print(f"You currently have{text_color_green}{text_bold} {player_character.hit_points}{text_end} hit points remaining.\n")
                     check_level()
-                    return True # Player wins
+                    current_enemy = None
+                    return True # Player wins 
         elif choice == '3':
             player_character.quaff()
         elif choice == '4':
@@ -463,15 +507,20 @@ def combat(player_character, current_enemy):
                 number_of_dice = current_enemy.damage[0]
                 type_of_dice =  current_enemy.damage[1]
                 damage_to_player = Roll_Dice(number_of_dice, type_of_dice)
-                print(f"A {current_enemy.name} has hit you for {text_color_red}{text_bold}{damage_to_player}{text_end} points of damage.")
+                print(f"A {text_color_orange}{text_bold}{current_enemy.name}{text_end} has hit you for {text_color_red}{text_bold}{damage_to_player}{text_end} points of damage.")
                 player_character.hit_points -= damage_to_player
                 print(f"You currently have{text_color_green}{text_bold} {player_character.hit_points}{text_end} hit points remaining.\n")
                 if player_character.hit_points <= 0:
                     player_character.is_alive = False
-                    print(f"You have succumbed to your wounds inflicted by a {current_enemy.name}")
+                    print(f"You have succumbed to your wounds inflicted by a {text_bold}{text_color_orange}{current_enemy.name}{text_end}")
                     time.sleep(2)
-                    print("You have died.")
-                    input(f"Press 'Enter' to exit.\n{text_bold}{text_color_orange}> {text_end}")
+                    print(f"You have {text_bold}{text_color_red}died{text_end}.")
+                    time.sleep(2)
+                    input(f"Press {text_color_green}{text_bold}'Enter' to exit.\n{text_end}{text_bold}{text_color_orange}> ")
+                    print(f"{text_end}")
+                    time.sleep(2)
+                    print(f"{text_color_purple}Fare thee well my latest test subje. . . I mean {text_color_orange}{text_bold}'{player_character.name}'{text_end}.")
+                    time.sleep(2.5)
                     exit()
             else:
                 print(f"A {current_enemy.name} has missed you.\n")
@@ -512,45 +561,10 @@ to recall the events leading up to this point. You were at an office party when
 you started to feel ill. You remember someone claiming to be a doctor had offered
 to help you. Your world faded to black after accepting his help.""" + text_end)
 
-input(f"Press {text_color_blue}{text_bold}'Enter'{text_end} when you are ready to move on.\n{text_bold}{text_color_orange}> {text_end}")
+input(f"Press {text_color_blue}{text_bold}'Enter'{text_end} when you are ready to move on.\n{text_bold}{text_color_orange}> ")
+print(f"{text_end}")
 
 
-'''input(f"\n{text_color_blue}Before you can gather your wits about you, time slows to a stop and you are transported to an empty white void . . .\n\nYou blink your eyes a couple of times as they adjust to the void white space.\nThis space is devoid of any features to the point to where you can't tell the difference between the walls, floor, and ceiling\n(If there are walls and a ceiling). You are suddenly started by the sudden appearance of the{text_end} {text_color_purple}'Guiding Force'{text_end}.{text_color_blue} It has an androngenous appearance although the form is slightly feminie with a dual tone voice in unison, one feminine, the other masculine, as the{text_end} {text_color_purple}'Guiding Force'{text_end} {text_color_blue}seems to whisper directly into your mind{text_end}\n{text_color_purple}'Remember to just breathe. This is your inner soul space where . . .{text_end}{text_color_blue} \nthe form fades away from your left side\n\n . . . \n\n only to reapear on your right side\n\n . . . {text_end}{text_color_purple} \n\n'This is the space where you will increase your physical attributes.'\n{text_end}'{text_color_blue}And with that the {text_end}{text_color_purple}'Guiding Force'{text_end}{text_color_blue} disappears as quickly as it appeared.\nWhen you have collected your thoughs,\nPress {text_color_green}{text_bold}'Enter'{text_end}{text_color_blue} to continue:\n{text_bold}{text_color_orange}> {text_end}")
-
-print(text_color_purple + "The 'Guiding Force' speaks directly into your mind.\n\"One more thing ...\"\n")
-# time.sleep(1)
-print("The only way out is ahead of you.\n")
-# time.sleep(2)
-print("You can go forward.\n")
-# time.sleep(2)
-print("You can go left.\n")
-# time.sleep(2)
-print("You can go right.\n")
-# time.sleep(2)
-print("Heck, you can even go turn around and go back the way you came.\n\n" + text_end)
-# time.sleep(3)
-print(f"{text_color_purple}But you should never and I mean {text_color_red}{text_bold}'NEVER' {text_end}{text_color_purple}go back the way you came!{text_end}\n\n")
-# time.sleep(3)
-print(text_color_purple + "Let that sink into your pretty little noggin for a moment.\n\nYou can nod your pretty little head in agreement once your new reality has sunken in...")
-# time.sleep(1)
-print(center_text("\nPress the " + text_end + text_color_green + text_bold + "'Enter'" + text_end + text_color_purple + " to continue:" + text_end))
-input("{text_bold}{text_color_orange}> {text_end}")
-# time.sleep(1)
-print(text_color_purple + "\n\nTake a breath, don't stress, and remember ...\n")
-# time.sleep(1)
-print("...\n\n")
-# time.sleep(1)
-print("Don't say that ...\n")
-# time.sleep(1)
-print("Yooouuuuu ...\n")
-# time.sleep(1)
-print("Were ...\n")
-# time.sleep(1)
-print("NOT ...\n" + text_end)
-# time.sleep(1)
-print(text_color_red + text_bold + "WARNED!!!\n" + text_end)
-# time.sleep(1)
-print("\n")'''
 
 character_creation()
 
@@ -558,7 +572,11 @@ increase_stats(player_remaining_stat_points)
 
 print(center_text(f"\n\n{text_color_cyan}This is where the adventure begins.\n\nYou poor, poor, lost test subje ... err ... uhhhmmmm ... soul, yeeeaaah.\nI meant soul, you poor, poor, lost soul.{text_end}\n\n"))
 current_stats_and_inventory()
-input(f"{text_color_cyan}Press{text_end} {text_color_green}{text_bold}'Enter'{text_end}{text_color_cyan} to continue with your adventure.{text_end}\n{text_bold}{text_color_orange}> {text_end}")
+input(f"{text_color_cyan}Press{text_end} {text_color_green}{text_bold}'Enter'{text_end}{text_color_cyan} to continue with your adventure.{text_end}\n{text_bold}{text_color_orange}> ")
+print(f"{text_end}")
+
+
+
 
 current_enemy = Monster(dict_giant_rat)
 
@@ -576,7 +594,7 @@ not so small yelping from you. You hear the juxting of the rather large, and sha
 You grab the rusty chef's knife and ...
       
 As you prepare to fight for your live, you realize . . . that one of you two is on the menu for supper tonight.
-And I don't think that you want it to be you that's on the menu tonight \ today, 
+And you are pretty sure that you would rather it be this rodent instead of you that's on the menu tonight \ today, 
 you know you can't tell what time of day it is here while trapped in this area as there are 
 no windows or any indicators as to whether it is day or night outside of this place.\n""" + text_end)
 
@@ -609,10 +627,9 @@ def main():
                 mob = globals()[mob]
                 current_enemy = Monster(mob)
                 current_enemy.isAlive = True
-                print(f"\nA {text_bold}{text_color_orange}{current_enemy.name} {text_end}is poised, ready to strike!\n\n")
+                print(f"\nA {text_bold}{text_color_orange}{current_enemy.name} {text_end}is poised, ready to strike!\n")
                 combat(player_character, current_enemy)
-                return room_description_choice
-                #return current_enemy
+                return current_enemy, room_description_choice
             else:
                 print("\n\nThere was no monster to greet you.\n\n")
             return room_details
@@ -625,7 +642,11 @@ def main():
         print("3. Door to the Left?")
         print("4. View the room description again.")
         print("5. Turn around and go back the way you came?")
-        choice = input(f"{text_bold}{text_color_orange}> {text_end}")
+        choice = input(f"{text_bold}{text_color_orange}> ")
+        print(f"{text_end}")
+
+
+
         if choice == "1":
             print("You move to the far end of the room.\nYou are unable to see past the black veil made of moving shadows that are obstructing view into the room.\nWith a deep breath, you step through the doorway.")
             room_description()
@@ -638,17 +659,15 @@ def main():
         elif choice == "4":
             print("You look around the room again.")
             print(room_description_choice)
-            continue
+            #continue
         elif choice == "5":
-            print(center_text("\nAs you turn around to go back through the door that you just came through everything turns black.\nNo matter where you look, all you see is blackness.\nThe moment you take a step in the blinding darkness . . ."))
+            print(f"\n{text_color_blue}{text_bold}As you turn around to go back through the door that you just came through everything turns black.\nNo matter where you look, all you see is blackness.\nThe moment you take a step in the blinding darkness . . .")
             time.sleep(1.5)
-            print(center_text("A grue eats you!\nYou have died and your adventure has come to an end."))
+            print(center_text(f"A grue eats you!\nYou have died and your adventure has come to an end.{text_end}"))
             time.sleep(2)
-            input(f"Press{text_color_green}{text_bold} 'Enter'{text_end} to exit.\n{text_bold}{text_color_orange}> {text_end}")
+            input(f"Press{text_color_green}{text_bold} 'Enter'{text_end} to exit.\n{text_bold}{text_color_orange}> ")
+            print(f"{text_end}")
             exit()
-            #grue = True
-            #setattr(player_character, "hit_points", 0)
-            #return grue
         else:
             room_description()
 
