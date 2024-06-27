@@ -116,6 +116,7 @@ dict_damage_modifier = {"Crippling": -5, "Debilitating": -4, "Weakening": -3, "H
 dict_armors = {"rags": [1, 0], "cloth armor": [2, 10], "leather armor": [3, 25], "chainmail": [6, 70], "platemail": [ 8, 200]}
 
 # Change the potions to heal a random dice amount instead of a static amount
+# Currently the potions just restore 2d4 + con bonus
 # "Healing potion name": [Healing value, cost].
 dict_potions = {"healing draught": [30, 15], "healing elixir": [60, 40], "healing infustion": [120, 100], "healing tincture": [300, 250]}
 
@@ -389,7 +390,7 @@ class Player:
     # This is for adding in some healing potions
     def quaff(self):
         print("You quaff a potion.")
-        healed_amount = Roll_Dice(4, 4, True)
+        healed_amount = Roll_Dice(2, 4, True)
         total_healed = healed_amount + player_character.constitution_bonus
         possible_healed_amount = player_character.hit_points + total_healed
         if possible_healed_amount > player_character.hit_points_max:
@@ -465,10 +466,14 @@ def combat(player_character, current_enemy):
                 print(f"\nYou strike the {text_color_orange}{text_bold}{current_enemy.name}{text_end} for {text_color_red}{text_bold}{damage_to_monster}{text_end} damage.\n\n")
                 current_enemy.hit_points -= damage_to_monster
                 if current_enemy.hit_points <= 0:
-                    print(f"You defeated the {text_bold}{text_color_orange}{current_enemy.name}{text_end}!")
-                    print(f"You have gained {text_color_cyan}{text_bold}{current_enemy.experience_value}{text_end} points of experience.")
+                    print(f"You defeated the {text_bold}{text_color_orange}{current_enemy.name}{text_end}!\n")
+                    print(f"You have gained {text_color_cyan}{text_bold}{current_enemy.experience_value}{text_end} points of experience.\n")
                     player_character.experience += current_enemy.experience_value
                     print(f"You currently have a total of {text_color_cyan}{text_bold} {player_character.experience}{text_end} experience points in total\n")
+                    print(f"You have found {text_color_orange}{text_bold}{current_enemy.gold}{text_end} coins left by the filthy creature.\n")
+                    new_gold_total = current_enemy.gold + dict_player_equipment["gold"]
+                    dict_player_equipment.update({"gold": new_gold_total})
+                    print(f"You currently hold {text_color_orange}{text_bold}{dict_player_equipment['gold']}{text_end} pieces of gold.\n")
                     print(f"You currently have{text_color_green}{text_bold} {player_character.hit_points}{text_end} hit points remaining.\n")
                     check_level()
                     current_enemy = None
@@ -488,6 +493,10 @@ def combat(player_character, current_enemy):
                     print(f"You have gained {text_color_cyan}{text_bold}{current_enemy.experience_value}{text_end} points of experience.")
                     player_character.experience += current_enemy.experience_value
                     print(f"You currently have a total of {text_color_cyan}{text_bold} {player_character.experience}{text_end} experience points in total\n")
+                    print(f"You have found {text_color_orange}{text_bold}{current_enemy.gold}{text_end} coins left by the filthy creature.\n")
+                    new_gold_total = current_enemy.gold + dict_player_equipment["gold"]
+                    dict_player_equipment.update({"gold": new_gold_total})
+                    print(f"You currently hold {text_color_orange}{text_bold}{dict_player_equipment['gold']}{text_end} pieces of gold.\n")
                     print(f"You currently have{text_color_green}{text_bold} {player_character.hit_points}{text_end} hit points remaining.\n")
                     check_level()
                     current_enemy = None
@@ -501,13 +510,13 @@ def combat(player_character, current_enemy):
             print("Invalid choice.")
         # Enemy's turn
         if current_enemy.hit_points > 0:
-            print(f"A {current_enemy.name} attacks you:")
+            print(f"A {text_color_orange}{text_bold}{current_enemy.name}{text_end} attacks you:\n")
             to_hit_player = current_enemy.attack()
             if to_hit_player >= player_character.player_defense_rating:
                 number_of_dice = current_enemy.damage[0]
                 type_of_dice =  current_enemy.damage[1]
                 damage_to_player = Roll_Dice(number_of_dice, type_of_dice)
-                print(f"A {text_color_orange}{text_bold}{current_enemy.name}{text_end} has hit you for {text_color_red}{text_bold}{damage_to_player}{text_end} points of damage.")
+                print(f"A {text_color_orange}{text_bold}{current_enemy.name}{text_end} has hit you for {text_color_red}{text_bold}{damage_to_player}{text_end} points of damage.\n")
                 player_character.hit_points -= damage_to_player
                 print(f"You currently have{text_color_green}{text_bold} {player_character.hit_points}{text_end} hit points remaining.\n")
                 if player_character.hit_points <= 0:
