@@ -11,15 +11,26 @@ __author__      = "John W. Davis"
 __copyright__   = "2024 - The Codecademy Project"
 __credits__     = ["John W. Davis"]
 __license__     = ""
-__version__     = "0.2.0"
+__version__     = "0.5.0"
 __maintainer__  = "John W. Davis"
 __website__     = "www.VipersByteSolutions.com"
 __email__       = "ElectricViper@VipersByteSolutions.com"
 __status__      = "Prototype" #"Development" | "Production"
 
+
+# To Do List:
+# Fill out room descriptions and increase the number of rooms from 10 to 20 or more.
+# Add a shop function to purchase upgraded weapons, armors, and potions
+# Add additional loot
+# Setup mobs with a gold range variable. Perhaps just take advantage of the dice roller already build. Giant_Rat (1d4 - 1), Goblin (1d6), Kobold (2d4 + 1) for example
+# Add variations to the mobs
+# Add scaling difficulty of mobs. For example levels 1 to 3 they would only get Rats, Goblins, Kobolds at levels 4 to 6 they would get very few if any Rats, Goblins, Kobolds, and start adding in Orcs, and other more difficult mobs, etc
+# Add a way to add and subtract potions as they are used. Keep track of potion types or just have the option for the player to purchase a potion upgrade that would increase the healing amount of all potions and only have one "generic" potion that can have it's potency increased at the shop
+# More thoughts and features to be added at a later date if I decide to pick this one back up
+
+
 import os
 import random
-#from re import A
 import time
 from turtle import clear
 
@@ -27,7 +38,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 clear
 
 os.system('color')
-
+# These are the variables to change the text color, bold, invert, and end the previous scenarios
 text_bold = '\033[1m'
 text_underline = '\033[4m'
 text_invert = '\33[7m'
@@ -38,6 +49,7 @@ text_color_green = '\033[92m'
 text_color_orange = '\033[93m'
 text_color_red = '\033[91m'
 text_end = '\033[0m'
+
 
 
 # These are the initializing variables.
@@ -66,8 +78,7 @@ room_description_choice = ""
 
 
 
-
-# These are the dictionaries, lists, and variables of weapons, armor, potions, monsters, etc...
+# These are the dictionaries containing initial information of player characteristics along with the stats for weapons, armor, potions, monsters, etc...
 
 # Starting basic player stats.
 dict_player_stats = {"name": "Soandso", "gender": "Genderless", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "player_defense_rating": player_defense, "player_attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "hit_points": hit_points, "hit_points_max": hit_points_max, "is_alive": True}
@@ -75,10 +86,10 @@ dict_player_stats = {"name": "Soandso", "gender": "Genderless", "race": "Human",
 # Stats and their bonuses
 dict_stat_bonues = {2: -4, 3: -4, 4: -3, 5: -3, 6: -2, 7: -2, 8: -1, 9: -1, 10: 0, 11: 0, 12: 1, 13: 1, 14: 2, 15: 2, 16: 3, 17: 3, 18: 4, 19: 4, 20: 5, 21: 5, 22: 6, 23: 6, 24: 7, 25: 7, 26: 8, 27: 8, 28: 9, 29: 9, 30: 10}
 
-# Player Attack Bonus "Level": "player_attack_bonus"
+# Player Attack Bonus "Level": "player_attack_bonus" 
 dict_player_attack_bonus = {1: 1, 2: 1, 3: 2, 4: 2, 5: 3, 6: 3, 7: 4, 8: 4, 9: 5, 10: 5, 11: 6, 12: 6, 13: 7, 14: 7, 15: 8, 16: 8, 17: 9, 18: 9, 19: 10, 20: 10, 21: 11, 22: 11, 23: 12, 24: 12, 25: 13, 26: 13, 27: 14, 28: 14, 29: 15, 30: 15}
 
-# Player Level 
+# Player Level: Experience "For example once they reach 200 EXP they will ascend to level 2. At 443 EXP they will ascend to level 3."
 dict_level_experience = {1: 200, 2: 443, 3: 706, 4: 983, 5: 1270, 6: 1566, 7: 1870, 8: 2180, 9: 2497, 10: 2818, 11: 3145, 12: 3476, 13: 3811, 14: 4150, 15: 4493, 16: 4839, 17: 5188, 18: 5541, 19: 5896, 20: 6254, 21: 6615, 22: 6979, 23: 7345, 24: 7713, 25: 8084, 26: 8457, 27: 8832, 28: 9209, 29: 9589, 30: 9970}
 
 # I am currently using a sliding scale of 1.15. I useed the script below to calculate how much EXP would be needed to progress from one level to the next level.
@@ -96,9 +107,11 @@ for key, value in dict_level_experience.items():
 # Player's Equipment List
 dict_player_equipment = {"weapon_melee": "rusty kitchen knife","weapon_ranged": "rusty throwing knife", "armor": "rags", "gold": 0, "items": ["a small pebble", "rope belt", "a flagon of ale", {"Healing Draught": 3}]}
 
+# The menus are not in play yet.
 # Players Menu
 dict_menu_main = {"W": "Move forward", "A": "Go left", "S": "Turn back", "D": "Go right", "C": "Character sheet", "I": "Inventory", "Q": "Quaff a Potion", "L": "Look Around"}
 
+# The menus are not in play yet.
 # Player Monster Encounter 
 dict_menu_fight = {"A": "Melee - Attack", "B": "Ranged - Attack", "Q": "Quaff Potion", "F": "Flee"}
 
@@ -117,9 +130,11 @@ dict_armors = {"rags": [1, 0], "cloth armor": [2, 10], "leather armor": [3, 25],
 
 # Change the potions to heal a random dice amount instead of a static amount
 # Currently the potions just restore 2d4 + con bonus
+# Possibly set it up to have it so there is only one type of "potion" but you can purchase upgrades to increase the healing amount by adding additional dice to the roll. 2d4, 4d4, 3d8, etc...
 # "Healing potion name": [Healing value, cost].
 dict_potions = {"healing draught": [30, 15], "healing elixir": [60, 40], "healing infustion": [120, 100], "healing tincture": [300, 250]}
 
+# I intend on adding a multitude of other mobs and set it up so after the player reaches certain level thresholds to have more difficult mobs to start to appear while lesser difficult mobs slowly make fewer and fewer appearances
 # {0 - name: xyz, 1 - hit_points = 5, 2 - to_hit = 1, 3 - damage = 3, 4 - defence_rating = 4, 5 - experience_value = 7, 6 - gold = 3, 7 - is_alive = True}
 dict_monsters = {1: 'dict_giant_rat', 2: 'dict_goblin', 3: 'dict_kobold'}
 
@@ -127,6 +142,7 @@ dict_giant_rat = {"name": "giant rat", "hit_points": 7, "to_hit": 4, "damage": [
 dict_goblin = {"name": "goblin", "hit_points": 7, "to_hit": 4, "damage": [1, 5], "defense_rating": 13, "experience_value": 20, "gold": 5, "is_alive": True} 
 dict_kobold = {"name": "kobold", "hit_points": 5, "to_hit": 4, "damage": [1, 3], "defense_rating": 12, "experience_value": 10, "gold": 7, "is_alive": True}
 
+# I need to change the "Room 1" to an actual text description of the room. I would also like a to add a few dozen more room descriptions.
 # Room descriptions currently 1 - 10
 dict_room_selection = {1: "Room 1", 2: "Room 2", 3: "Room 3", 4: "Room 4", 5: "Room 5", 6: "Room 6", 7: "Room 7", 8: "Room 8", 9: "Room 9", 10: "Room 10"}
 
@@ -137,9 +153,9 @@ dict_room_exits = {1: "Foward", 2: "Right", 3: "Left", 4: "Back"}
 def character_creation():
     player_gender = ""
 
-    input(f"\n{text_color_blue}Before you can gather your wits about you, time slows to a stop and you are transported to an empty white void . . .\n\nYou blink your eyes a couple of times as they adjust to the void white space.\nThis space is devoid of any features to the point to where you can't tell the difference between the walls, floor, and ceiling\n(If there are walls and a ceiling). You are suddenly started by the sudden appearance of the{text_end} {text_color_purple}'Guiding Force'{text_end}.{text_color_blue} It has an androngenous appearance although the form is slightly feminie with a dual tone voice in unison, one feminine, the other masculine, as the{text_end} {text_color_purple}'Guiding Force'{text_end} {text_color_blue}seems to whisper directly into your mind{text_end}\n{text_color_purple}'Remember to just breathe. This is your inner soul space where . . .{text_end}{text_color_blue} \nthe form fades away from your left side\n\n . . . \n\n only to reapear on your right side\n\n . . . {text_end}{text_color_purple} \n'This is the space where you will increase your physical attributes.'\n'Once you have collected your thoughs . . .'\nPress {text_color_green}{text_bold}'Enter'{text_end}{text_color_purple} to continue:\n{text_bold}{text_color_orange}> ")
+    print(f"\n{text_color_blue}Before you can gather your wits about you, time slows to a stop and you are transported to an empty white void . . .\n\nYou blink your eyes a couple of times as they adjust to the void white space.\nThis space is devoid of any features to the point to where you can't tell the difference between the walls, floor, and ceiling\n(If there are walls and a ceiling). You are suddenly started by the sudden appearance of the{text_end} {text_color_purple}'Guiding Force'{text_end}.{text_color_blue} It has an androngenous appearance although the form is slightly feminie with a dual tone voice in unison, one feminine, the other masculine, as the{text_end} {text_color_purple}'Guiding Force'{text_end} {text_color_blue}seems to whisper directly into your mind{text_end}\n{text_color_purple}'Remember to just breathe. This is your inner soul space where . . .{text_end}{text_color_blue} \n\nthe form fades away from your left side\n\n . . . \n\n only to reapear on your right side\n\n . . . {text_end}{text_color_purple} \n\n'This is the space where you will increase your physical attributes.'\n'Once you have collected your thoughs . . .'\nPress {text_color_green}{text_bold}'Enter'{text_end}{text_color_purple} to continue:")
+    input(f"{text_bold}{text_color_orange}> ")
     print(f"{text_end}")
-
 
 
 
@@ -181,17 +197,11 @@ def character_creation():
         print(text_color_green + f"\nConstitution:{text_end}{text_color_purple} This determines how healthy you are and how well you can shrug off the effects of diseases, illnesses, and poisons.")
         input(f"Press{text_color_green}{text_bold} 'Enter' {text_end}{text_color_purple}to continue:\n\n{text_end}{text_bold}{text_color_orange}> ")
         print(f"{text_end}")
+        time.sleep(2)
 
 
 
-
-
-
-        # time.sleep(2)
-
-
-
-# Turned this into a method. Build in way to add stat points with levelups.
+# Turned this into a method. Build in way to add stat points with levelups in the form of player_character.update_stats function in the Player() Class
 def increase_stats(player_remaining_stat_points):
     print(f"You enter your soul space and are greeted by the {text_color_purple}'Guiding Force'{text_end}. She softly whispers into your mind with a distinctly feminine albeit a slightly electrically distorted voice.")
     while player_remaining_stat_points > 0:
@@ -223,7 +233,7 @@ def increase_stats(player_remaining_stat_points):
                 print(f"\n{text_color_purple}You have opted to add {text_end}{text_color_orange}{text_bold}{player_stat_points_added} {text_end}{text_color_purple}to your current strength score of {text_end}{text_color_red}{text_bold}{getattr(player_character, 'strength')}. {text_end}{text_color_purple}This will make your new Strength score {text_end}{text_color_red}{text_bold}{update_strength}. {text_end}\n")
                 player_character.update_stats("strength", update_strength)
                 player_remaining_stat_points -= player_stat_points_added
-                # time.sleep(3)
+                time.sleep(1.5)
 
         elif player_stat_choice == 2:
             player_stat_points_added = input(f"{text_color_purple}How many points of your remaining {text_end}{text_color_orange}{text_bold}{player_remaining_stat_points} {text_end}{text_color_purple}would you like to add to your {text_end}{text_color_blue}{text_bold}Dexterity?{text_end}\n{text_bold}{text_color_orange}> ")
@@ -241,7 +251,7 @@ def increase_stats(player_remaining_stat_points):
                 print(f"\n{text_color_purple}{text_bold}{player_character.name}, {text_end}{text_color_purple}you have opted to add {text_end}{text_color_orange}{text_bold}{player_stat_points_added} {text_end}{text_color_purple}to your current Dexterity score of {text_end}{text_color_green}{text_bold}{player_character.dexterity}. {text_end}{text_color_purple}This will make your new Dexterity score {text_end}{text_color_green}{text_bold}{update_dexterity}.{text_end}\n")
                 player_character.update_stats("dexterity", update_dexterity)
                 player_remaining_stat_points -= player_stat_points_added
-                # time.sleep(3)
+                time.sleep(1.5)
 
         elif player_stat_choice == 3:
             player_stat_points_added = input(f"{text_color_purple}How many points of your remaining {text_end}{text_color_orange}{text_bold}{player_remaining_stat_points} {text_end}{text_color_purple}would you like to add to your {text_end}{text_color_green}{text_bold}Constitution?{text_end}\n{text_bold}{text_color_orange}> ")
@@ -261,6 +271,7 @@ def increase_stats(player_remaining_stat_points):
                 player_character.update_stats("constitution", update_constitution)
                 player_character.hit_points += constitution_bonus
                 player_character.hit_points_max += constitution_bonus
+                time.sleep(1.5)
 
         else:
             print(f"\n{text_color_purple}{text_bold}{dict_player_stats['name']}{text_end}{text_color_purple}, you did not select {text_end}{text_color_red}{text_bold}Strength, {text_end}{text_color_blue}{text_bold}Dexterity, {text_end}{text_color_purple}or {text_end}{text_color_green}{text_bold}Constitution.{text_end}")
@@ -271,6 +282,7 @@ def increase_stats(player_remaining_stat_points):
 
 
 # Dice Roller Function
+# Simply Roll_Dice(number of dice, die value. There is a feature to set silent to False and it will tell you the die roll result along with the total of all of the dice rolled. )
 def Roll_Dice(dice_number, dice_type, silent = True):
     dice_roll_total = 0
     die_number = 1
@@ -318,12 +330,11 @@ class Player:
         self.dict_player_equipment = dict_player_equipment
         print("You have the following items in your inventory:\n")
         for key, value in zip(dict_player_equipment.keys(), dict_player_equipment.values()):
-            #print(f"{text_bold}{key:14}{text_end}: {text_bold}{text_color_orange}{value}{text_end}")
             print(f"{text_bold}{key:14}: {text_color_orange}{value}{text_end}")
-    
+            
+    # Example stat update logic
+    # for stat in dict_player_stats:
     def update_stats(self, stat, value):
-        # Example stat update logic
-        #for stat in dict_player_stats:
         self.dict_player_equipment = dict_player_equipment
         self.dict_stat_bonues = dict_stat_bonues
         self.dict_armors = dict_armors
@@ -339,7 +350,7 @@ class Player:
         setattr(player_character, "player_defense_rating", player_defense)
 
     # Display the list of options a player can do.
-    # Temporarily on hold until I can figure out a better way to implement this function.
+    # Temporarily on hold until I can figure out a better way to implement this function for displaying a main menu for a player to select.
     '''def player_menu_main(self):
         self.dict_menu_main = dict_menu_main
         print("Select from the options below:\n")
@@ -412,17 +423,13 @@ class Monster:
         for key, value in current_enemy.items():
             setattr(self, key, value)
     def attack(self):
-        # print(f"A {current_enemy.name} viciously attacks you.")
         die_roll = Roll_Dice(1, 20)
         to_hit_player = die_roll + current_enemy.to_hit
-        #print(f"Enemy's To Hit = {current_enemy.to_hit}")
         return to_hit_player
     
 
 
 def check_level():
-    # dict_player_stats
-    # dict_level_experience
     if player_character.experience >= dict_level_experience[player_character.level]:
         player_character.level += 1
         print(f"{text_bold}Congratulations!{text_end}\nYou have ascended to the next level.\n")
