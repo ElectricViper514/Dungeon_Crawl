@@ -145,11 +145,15 @@ dict_kobold = {"name": "kobold", "hit_points": 5, "to_hit": 4, "damage": [1, 3],
 # I want to resolve the issue where the room descriptions are not displaying correctly. 
 
 # Room descriptions currently 1 - 25
-dict_room_selection = {1: f"{text_bold}{text_color_green}Abandoned Guard Post{text_end}:\n{text_color_blue}A cramped chamber with a soot-stained hearth. Rusted weapons hang askew on the wall, and a splintered wooden table lies overturned in the corner.{text_end}", 2: f"{text_bold}{text_color_green}Hidden Alcove{text_end}:\n{text_color_blue}A narrow recess barely large enough to turn around in. A single shaft of light filters through a crack in the ceiling, illuminating a small, tarnished silver coin lying on the dusty floor.{text_end}", 3: f"{text_bold}{text_color_green}Forgotten Shrine:\n{text_end}{text_color_blue}A moss-covered altar dominates this small space. A chipped statue of an unknown deity stands upon it, and a half-burned candle flickers in a shallow pool of wax.{text_end}", 4: f"{text_bold}{text_color_green}Mushroom Forest{text_end}:\n{text_color_blue}A humid cavern filled with a bizarre assortment of fungi. Bioluminescent mushrooms glow softly, casting eerie shadows on the spongy floor. Towering toadstools reach the high ceiling, their caps dripping with condensation.{text_end}", 5: f"{text_bold}{text_color_green}Cavern Stream{text_end}:\n{text_color_blue}A subterranean river cuts through this rocky chamber. The rushing water echoes off the walls, and the air is thick with mist. Smooth stones line the banks, and the faint glow of cave crystals reflects in the dark water.{text_end}", 6: f"{text_bold}{text_color_green}Magma Chamber{text_end}:\n{text_color_blue}The heat is stifling in this volcanic chamber. Rivers of molten rock flow down the walls, feeding a central pool of bubbling magma. Jagged obsidian arcs bridge the gaps, allowing cautious passage across the fiery expanse.{text_end}", 7: f"{text_bold}{text_color_green}Underground Glade{text_end}:\n{text_color_blue}A hidden oasis beneath the earth. Sunlight streams through a fissure in the ceiling, illuminating a lush patch of moss and ferns. A crystal-clear pool shimmers in the center, its surface rippling with the movement of unseen fish.{text_end}", 8: f"{text_bold}{text_color_green}Ravaged Library{text_end}:\n{text_color_blue}This once-grand chamber now lies in ruins. Bookshelves lie scattered on the floor, their contents spilled and decaying. A few tattered tomes still cling to the walls, their pages whispering of forgotten knowledge.{text_end}", 9: f"{text_bold}{text_color_green}Ancient Laboratory{text_end}:\n{text_color_blue}Strange contraptions of glass and metal line the walls. A large, cracked table dominates the center of the room, stained with unknown substances. The air crackles with residual energy, and a faint buzzing sound emanates from the equipment.{text_end}", 10: f"{text_bold}{text_color_orange}Crystal Caverns{text_end}:\n{text_color_cyan}Shimmering crystal formations line the walls of this vast chamber, refracting light into a dazzling display of colors. The air is cool and crisp, and the sound of dripping water echoes through the crystalline labyrinth.{text_end}", 11: f"{text_bold}{text_color_green}Sunken Treasury{text_end}:\n{text_color_blue}A waterlogged chamber filled with scattered coins and jewels glinting in the murky depths. A moss-covered chest lies half-buried in the silt, its lock rusted shut.{text_end}", 12: f"{text_bold}{text_color_green}Dusty Attic{text_end}:\n{text_color_blue}A cramped space filled with cobwebs and forgotten relics. A broken doll stares blankly from a pile of discarded toys, and a tattered tapestry hangs on the wall, depicting faded scenes of heroism.{text_end}", 13: f"{text_bold}{text_color_green}Abandoned Kitchen{text_end}:\n{text_color_blue}The remnants of a long-forgotten meal lie rotting on a cracked stone table. A chipped iron cauldron hangs above a cold hearth, and a swarm of flies buzzes around a pile of gnawed bones.{text_end}", 14: f"{text_bold}{text_color_green}Torture Chamber{text_end}:\n{text_color_blue}The air is thick with the stench of blood and fear in this grim room. Rusty chains dangle from the walls, and a bloodstained rack stands in the corner, its surface marred with deep gouges.{text_end}", 15: f"{text_bold}{text_color_green}Prison Cell{text_end}:\n{text_color_blue}A single barred window lets in a sliver of moonlight, illuminating the bare stone walls and cold iron cot. A rusty bucket rests in the corner, overflowing with foul-smelling water.{text_end}", 16: f"{text_bold}{text_color_green}Collapsed Temple{text_end}:\n{text_color_blue}Massive stone pillars lie shattered on the floor, their intricate carvings obscured by dust and debris. A gaping hole in the ceiling reveals a glimpse of the starry sky above.{text_end}", 17: f"{text_bold}{text_color_green}Poisonous Swamp{text_end}:\n{text_color_blue}A fetid pool of stagnant water fills this dimly lit cavern. Strange, glowing plants grow along the banks, their tendrils dripping with venomous sap. The air is thick with the buzzing of insects and the croaking of unseen creatures.{text_end}", 18: f"{text_bold}{text_color_green}Haunted Ballroom{text_end}:\n{text_color_blue}The music has long since faded, but the ghosts of past revelers still linger in this grand hall. Tattered banners hang from the ceiling, and cobwebs drape over the gilded mirrors. The floorboards creak with every step, and whispers echo through the empty space.{text_end}", 19: f"{text_bold}{text_color_green}Abandoned Armory{text_end}:\n{text_color_blue}Racks of rusted weapons line the walls of this once-proud chamber. Swords, spears, and axes lie scattered on the floor, their edges dulled by time and neglect. A thick layer of dust covers everything, giving the room an air of forgotten glory.{text_end}", 20: f"{text_bold}{text_color_green}Ancient Observatory{text_end}:\n{text_color_blue}A massive telescope points towards the heavens, its lens cracked and clouded. Charts and star maps litter the floor, their ink faded and illegible. The air is still and quiet, save for the occasional creak of the wooden floorboards.{text_end}", 21: f"{text_bold}{text_color_orange}Bioluminescent Grotto{text_end}:\n{text_color_cyan}Glowing algae and phosphorescent crystals illuminate this subterranean cave, creating a magical underwater world. Strange, bioluminescent creatures dart through the crystal-clear water, their bodies glowing with an ethereal light.{text_end}", 22: f"{text_bold}{text_color_orange}Floating Islands{text_end}:\n{text_color_cyan}A vast cavern filled with floating islands of rock and vegetation. Each island is a unique ecosystem, teeming with exotic plants and animals. Rope bridges connect the islands, allowing for cautious exploration of this aerial paradise.{text_end}", 23: f"{text_bold}{text_color_orange}Ice Palace{text_end}:\n{text_color_cyan}A breathtaking palace carved entirely from ice. Icicles hang from the ceiling like chandeliers, and the walls are adorned with intricate frost patterns. The air is cold and crisp, and the sound of dripping water echoes through the icy halls.{text_end}", 24: f"{text_bold}{text_color_orange}Lava Falls{text_end}:\n{text_color_cyan}A cascading waterfall of molten rock flows into a fiery pool below. Steam rises from the water, creating a dense fog that obscures the surrounding landscape. The roar of the falls is deafening, and the heat is intense.{text_end}", 25: f"{text_bold}{text_color_orange}Living Forest{text_end}:\n{text_color_cyan}The trees in this ancient forest are alive, their branches reaching out to caress passersby. The ground is soft and spongy, and the air is filled with the sweet scent of blossoms. Strange, humanoid creatures made of bark and leaves wander through the undergrowth, their eyes glowing with an eerie light.{text_end}"}
+dict_room_selection = {1: f"{text_bold}{text_color_green}Abandoned Guard Post{text_end}:\n{text_color_blue}A cramped chamber with a soot-stained hearth. Rusted weapons hang askew on the wall, and a splintered wooden table lies overturned in the corner.{text_end}", 2: f"{text_bold}{text_color_green}Hidden Alcove{text_end}:\n{text_color_blue}A narrow recess barely large enough to turn around in. A single shaft of light filters through a crack in the ceiling, illuminating a small, tarnished silver coin lying on the dusty floor.{text_end}", 3: f"{text_bold}{text_color_green}Forgotten Shrine:\n{text_end}{text_color_blue}A moss-covered altar dominates this small space. A chipped statue of an unknown deity stands upon it, and a half-burned candle flickers in a shallow pool of wax.{text_end}", 4: f"{text_bold}{text_color_green}Mushroom Forest{text_end}:\n{text_color_blue}A humid cavern filled with a bizarre assortment of fungi. Bioluminescent mushrooms glow softly, casting eerie shadows on the spongy floor. Towering toadstools reach the high ceiling, their caps dripping with condensation.{text_end}", 5: f"{text_bold}{text_color_green}Cavern Stream{text_end}:\n{text_color_blue}A subterranean river cuts through this rocky chamber. The rushing water echoes off the walls, and the air is thick with mist. Smooth stones line the banks, and the faint glow of cave crystals reflects in the dark water.{text_end}", 6: f"{text_bold}{text_color_green}Magma Chamber{text_end}:\n{text_color_blue}The heat is stifling in this volcanic chamber. Rivers of molten rock flow down the walls, feeding a central pool of bubbling magma. Jagged obsidian arcs bridge the gaps, allowing cautious passage across the fiery expanse.{text_end}", 7: f"{text_bold}{text_color_green}Underground Glade{text_end}:\n{text_color_blue}A hidden oasis beneath the earth. Sunlight streams through a fissure in the ceiling, illuminating a lush patch of moss and ferns. A crystal-clear pool shimmers in the center, its surface rippling with the movement of unseen fish.{text_end}", 8: f"{text_bold}{text_color_green}Ravaged Library{text_end}:\n{text_color_blue}This once-grand chamber now lies in ruins. Bookshelves lie scattered on the floor, their contents spilled and decaying. A few tattered tomes still cling to the walls, their pages whispering of forgotten knowledge.{text_end}", 9: f"{text_bold}{text_color_green}Ancient Laboratory{text_end}:\n{text_color_blue}Strange contraptions of glass and metal line the walls. A large, cracked table dominates the center of the room, stained with unknown substances. The air crackles with residual energy, and a faint buzzing sound emanates from the equipment.{text_end}", 10: f"{text_bold}{text_color_green}Crystal Caverns{text_end}:\n{text_color_cyan}Shimmering crystal formations line the walls of this vast chamber, refracting light into a dazzling display of colors. The air is cool and crisp, and the sound of dripping water echoes through the crystalline labyrinth.{text_end}", 11: f"{text_bold}{text_color_green}Sunken Treasury{text_end}:\n{text_color_blue}A waterlogged chamber filled with scattered coins and jewels glinting in the murky depths. A moss-covered chest lies half-buried in the silt, its lock rusted shut.{text_end}", 12: f"{text_bold}{text_color_green}Dusty Attic{text_end}:\n{text_color_blue}A cramped space filled with cobwebs and forgotten relics. A broken doll stares blankly from a pile of discarded toys, and a tattered tapestry hangs on the wall, depicting faded scenes of heroism.{text_end}", 13: f"{text_bold}{text_color_green}Abandoned Kitchen{text_end}:\n{text_color_blue}The remnants of a long-forgotten meal lie rotting on a cracked stone table. A chipped iron cauldron hangs above a cold hearth, and a swarm of flies buzzes around a pile of gnawed bones.{text_end}", 14: f"{text_bold}{text_color_green}Torture Chamber{text_end}:\n{text_color_blue}The air is thick with the stench of blood and fear in this grim room. Rusty chains dangle from the walls, and a bloodstained rack stands in the corner, its surface marred with deep gouges.{text_end}", 15: f"{text_bold}{text_color_green}Prison Cell{text_end}:\n{text_color_blue}A single barred window lets in a sliver of moonlight, illuminating the bare stone walls and cold iron cot. A rusty bucket rests in the corner, overflowing with foul-smelling water.{text_end}", 16: f"{text_bold}{text_color_green}Collapsed Temple{text_end}:\n{text_color_blue}Massive stone pillars lie shattered on the floor, their intricate carvings obscured by dust and debris. A gaping hole in the ceiling reveals a glimpse of the starry sky above.{text_end}", 17: f"{text_bold}{text_color_green}Poisonous Swamp{text_end}:\n{text_color_blue}A fetid pool of stagnant water fills this dimly lit cavern. Strange, glowing plants grow along the banks, their tendrils dripping with venomous sap. The air is thick with the buzzing of insects and the croaking of unseen creatures.{text_end}", 18: f"{text_bold}{text_color_green}Haunted Ballroom{text_end}:\n{text_color_blue}The music has long since faded, but the ghosts of past revelers still linger in this grand hall. Tattered banners hang from the ceiling, and cobwebs drape over the gilded mirrors. The floorboards creak with every step, and whispers echo through the empty space.{text_end}", 19: f"{text_bold}{text_color_green}Abandoned Armory{text_end}:\n{text_color_blue}Racks of rusted weapons line the walls of this once-proud chamber. Swords, spears, and axes lie scattered on the floor, their edges dulled by time and neglect. A thick layer of dust covers everything, giving the room an air of forgotten glory.{text_end}", 20: f"{text_bold}{text_color_green}Ancient Observatory{text_end}:\n{text_color_blue}A massive telescope points towards the heavens, its lens cracked and clouded. Charts and star maps litter the floor, their ink faded and illegible. The air is still and quiet, save for the occasional creak of the wooden floorboards.{text_end}", 21: f"{text_bold}{text_color_green}Bioluminescent Grotto{text_end}:\n{text_color_cyan}Glowing algae and phosphorescent crystals illuminate this subterranean cave, creating a magical underwater world. Strange, bioluminescent creatures dart through the crystal-clear water, their bodies glowing with an ethereal light.{text_end}", 22: f"{text_bold}{text_color_green}Floating Islands{text_end}:\n{text_color_cyan}A vast cavern filled with floating islands of rock and vegetation. Each island is a unique ecosystem, teeming with exotic plants and animals. Rope bridges connect the islands, allowing for cautious exploration of this aerial paradise.{text_end}", 23: f"{text_bold}{text_color_green}Ice Palace{text_end}:\n{text_color_cyan}A breathtaking palace carved entirely from ice. Icicles hang from the ceiling like chandeliers, and the walls are adorned with intricate frost patterns. The air is cold and crisp, and the sound of dripping water echoes through the icy halls.{text_end}", 24: f"{text_bold}{text_color_green}Lava Falls{text_end}:\n{text_color_cyan}A cascading waterfall of molten rock flows into a fiery pool below. Steam rises from the water, creating a dense fog that obscures the surrounding landscape. The roar of the falls is deafening, and the heat is intense.{text_end}", 25: f"{text_bold}{text_color_green}Living Forest{text_end}:\n{text_color_cyan}The trees in this ancient forest are alive, their branches reaching out to caress passersby. The ground is soft and spongy, and the air is filled with the sweet scent of blossoms. Strange, humanoid creatures made of bark and leaves wander through the undergrowth, their eyes glowing with an eerie light.{text_end}"}
 
 # Room Exits {1: "Foward", 2: "Right", 3: "Left", 4: "Back"}
 dict_room_exits = {1: "Foward", 2: "Right", 3: "Left", 4: "Back"}
 
+def typed(string):
+    for char in string:
+        print(char, end='')
+        time.sleep(.07)
 #This is assigning the starting name, gender, and attribute points. 
 def character_creation():
     player_gender = ""
@@ -158,44 +162,39 @@ def character_creation():
     input(f"{text_bold}{text_color_orange}> ")
     print(f"{text_end}")
 
-
-
-    player_name = input(f"\n{text_color_purple}What {text_end}{text_color_orange}name {text_end}{text_color_purple}do you wish to go by, brave soul?\nIf you don't decide on a name now I shall decide on one for you:{text_end}\n{text_bold}{text_color_orange}> ")
+    typed(f"\n{text_color_purple}What{text_end}{text_color_orange} 'Name' {text_end}{text_color_purple}do you wish to go by, brave soul?")
+    time.sleep(1.5)
+    typed(f"\nIf you don't decide on a name now I shall decide on one for you:{text_end}\n")
+    player_name = input(f"{text_bold}{text_color_orange}> ")
     print(f"{text_end}")
-
-
 
     if len(player_name) == 0:
-        print(f"\n{text_color_purple}Your {text_end}{text_color_orange}name {text_end}{text_color_purple}shall be set as {text_end}{text_color_orange}'Soandso'{text_end}{text_color_purple}\nLet's move on the next question.")        
+        typed(f"\n{text_color_purple}Your{text_end}{text_color_orange} 'Name' {text_end}{text_color_purple}shall be set as {text_end}{text_color_orange}'Soandso'{text_end}{text_color_purple}\nLet's move on the next question.")        
     else:
         player_character.name = player_name
-        print(f"\n\n{text_color_purple}Hello {text_end}{text_bold}{text_color_orange}{player_character.name}{text_end}.")
-    player_gender = input(f"\n\n{text_color_purple}What {text_end}{text_color_orange}gender {text_end}{text_color_purple}do you identify as?\n\nIf you don't pick one I shall decide your gender for you:{text_end}{text_bold}{text_color_orange}\n> ")
+        typed(f"{text_color_purple}Hello {text_end}{text_bold}{text_color_orange}{player_character.name}{text_end}.")
+    typed(f"\n\n{text_color_purple}What {text_end}{text_color_orange}gender {text_end}{text_color_purple}do you identify as?\nIf you don't pick one I shall decide your gender for you:{text_end}\n")
+    player_gender = input(f"{text_bold}{text_color_orange}> ")
     print(f"{text_end}")
 
-
-
     if len(player_gender) == 0:
-        print(f"\n{text_color_purple}Your {text_end}{text_color_orange}gender {text_end}{text_color_purple}shall be set as {text_end}{text_color_orange}'Genderless'{text_end}{text_color_purple}\nMoving on from the questions.{text_end}\n")
+        typed(f"\n{text_color_purple}Your {text_end}{text_color_orange}gender {text_end}{text_color_purple}shall be set as {text_end}{text_color_orange}'Genderless'{text_end}{text_color_purple}\nMoving on from the questions.{text_end}\n")
     else:
         player_character.gender = player_gender
 
-        print(f"\n{text_color_purple}Well, you do seem to resemble a{text_end}{text_bold}{text_color_orange} {player_character.gender}. {text_end}{text_color_purple}\n\nAnywho, moving on.\n")
+        typed(f"{text_color_purple}Well, you do seem to resemble a{text_end}{text_bold}{text_color_orange} {player_character.gender}{text_end}.\n{text_color_purple}Anywho, moving on.\n")
 
-        print("Now, " + text_end + text_bold + text_color_orange + f"{player_character.name}" + text_end + f"{text_color_purple}, all of your base stats start off as{text_end}{text_color_orange}{text_bold} 10 {text_end}{text_color_purple}each. You have {text_end}{text_color_orange}{text_bold}10 {text_end}{text_color_purple}points to add to your stats. The stats that you are concerned with are as follows:{text_end}")
-        print(text_color_red + f"\nStrength:{text_end}{text_color_purple} This determines how hard you can hit and how easily you hit with melee weapons.")
-        input(f"Press{text_end} " + text_color_red + text_bold + "'Enter'" + text_end + text_color_purple+ " to continue:\n" + text_end + f"{text_bold}{text_color_orange}> ")
+        typed(f"\nNow, {text_end}{text_bold}{text_color_orange}{player_character.name}{text_end}{text_color_purple}, all of your base stats start off as{text_end}{text_color_orange}{text_bold} 10 {text_end}{text_color_purple}each. You have {text_end}{text_color_orange}{text_bold}10 {text_end}{text_color_purple}points to add to your stats.\nThe stats that you are concerned with are as follows:{text_end}\n")
+        typed(f"{text_color_red}\nStrength:{text_end}{text_color_purple} This determines how hard you can hit and how easily you hit with melee weapons.\n")
+        typed(f"Press{text_end}{text_color_red}{text_bold} 'Enter' {text_end}{text_color_purple}to continue:\n{text_end}")
+        input(f"{text_bold}{text_color_orange}> ")
         print(f"{text_end}")
 
-
-
-        print(text_color_blue + f"\nDexterity: {text_end}{text_color_purple}This determines how well you can avoid attacks while also determining how well you can hit with ranged weapons.")
+        typed(f"{text_color_blue}Dexterity: {text_end}{text_color_purple}This determines how well you can avoid attacks while also determining how well you can hit with ranged weapons.\n")
         input(f"Press{text_color_blue}{text_bold} 'Enter' {text_end}{text_color_purple}to continue:\n{text_end}{text_bold}{text_color_orange}> ")
         print(f"{text_end}")
 
-
-
-        print(text_color_green + f"\nConstitution:{text_end}{text_color_purple} This determines how healthy you are and how well you can shrug off the effects of diseases, illnesses, and poisons.")
+        typed(f"{text_color_green}Constitution:{text_end}{text_color_purple} This determines how healthy you are and how well you can shrug off the effects of diseases, illnesses, and poisons.\n")
         input(f"Press{text_color_green}{text_bold} 'Enter' {text_end}{text_color_purple}to continue:\n{text_end}{text_bold}{text_color_orange}> ")
         print(f"{text_end}")
         time.sleep(2)
@@ -221,9 +220,6 @@ def increase_stats(player_remaining_stat_points):
         if player_stat_choice == 1:
             player_stat_points_added = input(f"{text_color_purple}How many points of your remaining {text_end}{text_color_orange}{text_bold}{player_remaining_stat_points}{text_end}{text_color_purple} would you like to add to your {text_end}{text_color_red}{text_bold}Strength?{text_end}\n{text_bold}{text_color_orange}> ")
             print(f"{text_end}")
-
-
-
             player_stat_points_added = int(player_stat_points_added)
             if player_stat_points_added <= 0:
                 print(f"\n{text_color_purple}You have opted to add 0 points to your {text_end}{text_color_red}{text_bold}Strength.{text_end}\n{text_color_purple}Change your mind did we?\n\nPlease make another selection.{text_end}")
@@ -239,9 +235,6 @@ def increase_stats(player_remaining_stat_points):
         elif player_stat_choice == 2:
             player_stat_points_added = input(f"{text_color_purple}How many points of your remaining {text_end}{text_color_orange}{text_bold}{player_remaining_stat_points} {text_end}{text_color_purple}would you like to add to your {text_end}{text_color_blue}{text_bold}Dexterity?{text_end}\n{text_bold}{text_color_orange}> ")
             print(f"{text_end}")
-
-
-
             player_stat_points_added = int(player_stat_points_added)
             if player_stat_points_added <= 0:
                 print(f"\n{text_color_purple}{text_bold}{player_character.name}, {text_end}{text_color_purple}you have opted to add 0 points to Dexterity.\nChange your mind did we?\n\nPlease make another selection.")
@@ -257,9 +250,6 @@ def increase_stats(player_remaining_stat_points):
         elif player_stat_choice == 3:
             player_stat_points_added = input(f"{text_color_purple}How many points of your remaining {text_end}{text_color_orange}{text_bold}{player_remaining_stat_points} {text_end}{text_color_purple}would you like to add to your {text_end}{text_color_green}{text_bold}Constitution?{text_end}\n{text_bold}{text_color_orange}> ")
             print(f"{text_end}")
-
-
-
             player_stat_points_added = int(player_stat_points_added)
             if player_stat_points_added <= 0:
                 print(f"\n{text_color_purple}{text_bold}{player_character.name}{text_end}{text_color_purple}, you have opted to add 0 point to your {text_end}{text_color_green}{text_bold}Constitution.\n{text_end}{text_color_purple}Change your mind did we?\n\nMake another selection.")
@@ -329,7 +319,7 @@ class Player:
     # Display the players currently held inventory
     def check_inventory(self):
         self.dict_player_equipment = dict_player_equipment
-        print("You have the following items in your inventory:\n")
+        print("\n\nYou have the following items in your inventory:\n")
         for key, value in zip(dict_player_equipment.keys(), dict_player_equipment.values()):
             print(f"{text_bold}{key:14}: {text_color_orange}{value}{text_end}")
             
@@ -415,6 +405,7 @@ class Player:
             print(f"You were healed by {text_color_green}{text_bold}{healed_amount}{text_end} hit points.\nYou now have {text_color_green}{text_bold}{player_character.hit_points}{text_end} hit points.")
 
 
+
 player_character = Player(dict_player_stats)
 
 
@@ -440,14 +431,23 @@ def check_level():
         print(f"You have gained{text_color_orange}{text_bold} 3 {text_end}points to use to increase your stats.")
         increase_stats(3)
         hit_points_gained = Roll_Dice(2, 4) + player_character.constitution_bonus
-        player_character.hit_points_max += hit_points_gained
-        player_character.hit_points += hit_points_gained
-        print(f"You have gained {text_color_orange}{text_bold}{hit_points_gained}{text_end} additional maximum hitpoints.")
+        hit_points_minimum = 3 + player_character.constitution_bonus
+        if hit_points_gained < hit_points_minimum:
+            player_character.hit_points_max += hit_points_minimum
+            player_character.hit_points += hit_points_minimum
+            print(f"You have gained {text_color_orange}{text_bold}{hit_points_minimum}{text_end} additional hitpoints for the minimum amount to gain.")
+            print("What can I say? You rolled horribly bad that I had to intervene")
+            print("I took pity on you.\n\n\nYou're welcome. Happy hunting.")
+        else:
+            player_character.hit_points_max += hit_points_gained
+            player_character.hit_points += hit_points_gained
+            print(f"You have gained {text_color_orange}{text_bold}{hit_points_gained}{text_end} additional maximum hitpoints.")
         print(f"{text_color_orange}{text_bold}{player_character.name}{text_end}, you now have a total of {text_color_cyan}{text_bold}{player_character.experience}{text_end} points of experience.\n")
         experience_total_needed = dict_level_experience[player_character.level]
         experience_to_next_level = experience_total_needed - player_character.experience
         print(f"As a level {text_color_orange}{text_bold}{player_character.level}{text_end} person, you will need {text_color_cyan}{text_bold}{experience_to_next_level}{text_end} points until your next level up.")
         
+
 
 def combat(player_character, current_enemy):
     while current_enemy.hit_points> 0 and player_character.hit_points > 0:
@@ -461,7 +461,7 @@ def combat(player_character, current_enemy):
         choice = input(f"{text_bold}{text_color_orange}> ")
         print(f"{text_end}")
 
-
+        time.sleep(1.5)
 
         if choice == '1':
             to_hit_monster = player_character.attack("melee")
@@ -485,7 +485,8 @@ def combat(player_character, current_enemy):
                     print(f"You currently have{text_color_green}{text_bold} {player_character.hit_points}{text_end} hit points remaining.\n")
                     check_level()
                     current_enemy = None
-                    return True # Player wins 
+                    return True # Player wins
+                
         elif choice == '2':
             to_hit_monster = player_character.attack("ranged")
             if to_hit_monster >= current_enemy.defense_rating:
@@ -508,14 +509,19 @@ def combat(player_character, current_enemy):
                     print(f"You currently have{text_color_green}{text_bold} {player_character.hit_points}{text_end} hit points remaining.\n")
                     check_level()
                     current_enemy = None
-                    return True # Player wins 
+                    return True # Player wins
+                
         elif choice == '3':
             player_character.quaff()
+
         elif choice == '4':
             print(f"You flee from the battle against a {current_enemy.name}")
             return False # Player flees
+        
         else:
-            print("Invalid choice.")
+            print("You have made an invalid choice.")
+            print("While you are standing around looking dumbfounded for a moment while you plan your next move.")
+            print(f"You find that a {text_color_orange}{text_bold}{current_enemy.name}{text_end} . . . is not so patient.\n")
         # Enemy's turn
         if current_enemy.hit_points > 0:
             print(f"A {text_color_orange}{text_bold}{current_enemy.name}{text_end} attacks you:\n")
@@ -547,8 +553,10 @@ def combat(player_character, current_enemy):
 # List current stats and inventory.
 #dict_player_stats = {"name", "gender": "Gender Nil", "race": "Human", "strength": 10, "strength_bonus": strength_bonus, "dexterity": 10, "dexterity_bonus": dexterity_bonus, "constitution": 10, "constitution_bonus": constitution_bonus, "player_defense_rating": player_defense, "player_attack_bonus": player_attack_bonus, "level": 1, "experience": 0, "hit_points": hit_points, "is_alive": True}
 def current_stats_and_inventory():
-    print("Your current stats are as follows:\n" + text_color_red + f"Strength:\t{player_character.strength}"  + text_end + text_color_blue + f"\nDexterity:\t{player_character.dexterity}"  + text_end + text_color_green + f"\nConstitution:\t{player_character.constitution}"  + text_end + "\n")
-    print("Your current stat bonuses are as follows:\n" + text_color_red + f"Strength:\t{player_character.strength_bonus}" + text_end + text_color_blue + f"\nDexterity:\t{player_character.dexterity_bonus}" + text_end + text_color_green + f"\nConstitution:\t{player_character.constitution_bonus}" + text_end + "\n")
+    typed(f"Your current stats are as follows:\n{text_color_red}Strength:\t{player_character.strength}{text_end}{text_color_blue}\nDexterity:\t{player_character.dexterity}{text_end}{text_color_green}\nConstitution:\t{player_character.constitution}{text_end}\n")
+    time.sleep(1.5)
+    typed(f"Your current stat bonuses are as follows:\n{text_color_red}Strength:\t{player_character.strength_bonus}{text_end}{text_color_blue}\nDexterity:\t{player_character.dexterity_bonus}{text_end}{text_color_green}\nConstitution:\t{player_character.constitution_bonus}{text_end}\n")
+    time.sleep(1.5)
     player_character.check_inventory()
 
 # Method to center the text in the screen based on the longest line.
@@ -594,8 +602,9 @@ print(f"{text_end}")
 
 
 
-
 current_enemy = Monster(dict_giant_rat)
+
+
 
 print(text_color_blue + """\n
 As you look around the room you see that you are in a small rectangular room
@@ -649,17 +658,18 @@ def main():
                 combat(player_character, current_enemy)
                 return current_enemy, room_description_choice
             else:
-                print("\nThere was no monster to greet you.\n\n")
+                print(f"\n{text_color_green}You are alone in the room with only your thoughts and fears to keep you company.{text_end}\n\n")
             return room_details
         
         room_description()
 
+        print(f"{text_color_cyan}")
         print("After looking around the room you decide to move on.\nWhich way shall you go?\n")
         print("1. Door going forward?")
         print("2. Door to the Right?")
         print("3. Door to the Left?")
         print("4. View the room description again.")
-        print("5. Turn around and go back the way you came?")
+        print(f"5. Turn around and go back the way you came?{text_end}")
         choice = input(f"{text_bold}{text_color_orange}> ")
         print(f"{text_end}")
 
@@ -677,7 +687,7 @@ def main():
         elif choice == "4":
             print("You look around the room again.")
             print(room_description_choice)
-            #continue
+            continue
         elif choice == "5":
             print(f"\n{text_color_blue}{text_bold}As you turn around to go back through the door that you just came through everything turns black.\nNo matter where you look, all you see is blackness.\nThe moment you take a step in the blinding darkness . . .")
             time.sleep(1.5)
